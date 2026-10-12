@@ -8,6 +8,7 @@
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 
 % The curves of banana-layout restricted to N_delta = {H < 1 + delta}, delta = 0.3, drawn through
 % two charts that are continuous and injective but neither symplectic nor round. Each is
@@ -16,7 +17,7 @@
 % injective on the cylinder; areas are distorted freely.
 %   (a) r decreasing in p: the p < 0 edge of N_delta outside;
 %   (b) r increasing in p and phi reversed: the p > 0 edge outside, and orientation reversed.
-% The shaded region is E(N_delta); the grey disk is the hole K inside its inner edge.
+% The shaded region is E(N_delta); the lobe K, everything inside the inner separatrix loop, is in the lobe colour.
 
 % the p of each family as a function of the angle t (degrees)
 \pgfmathdeclarefunction{pl}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
@@ -32,10 +33,10 @@
 \pgfmathdeclarefunction{bx}{2}{\pgfmathparse{-rB(#1,#2)*cos(phB(#1))}}
 \pgfmathdeclarefunction{by}{2}{\pgfmathparse{-rB(#1,#2)*sin(phB(#1))}}
 
-% \region{x-chart}{y-chart}{sign of p on the outer edge}: E(N_delta) shaded, the hole K grey
+% \region{x-chart}{y-chart}{sign of p on the outer edge}: E(N_delta) shaded, the lobe K (inside the inner separatrix loop) in the lobe colour
 \newcommand{\region}[3]{%
   \addplot[draw=none,fill=sep!7!bg,domain=0:360] ({#1(x,(#3)*pl(x,1.3))},{#2(x,(#3)*pl(x,1.3))}) -- cycle;
-  \addplot[draw=none,fill=fg!10!bg,domain=0:360] ({#1(x,-(#3)*pl(x,1.3))},{#2(x,-(#3)*pl(x,1.3))}) -- cycle;}
+  \addplot[draw=none,fill=lobe!50!bg,domain=0:360] ({#1(x,-(#3)*ps(x))},{#2(x,-(#3)*ps(x))}) -- cycle;}
 % \orbits{x-chart}{y-chart}: every curve of the figure through one chart
 \newcommand{\orbits}[2]{%
   \foreach \H/\ta/\tb in {0.5/60/300, 0.95/18.19/341.81}{
@@ -51,9 +52,9 @@
   \addplot[rot,thick,domain=0:360] ({#1(x,-pl(x,1.3))},{#2(x,-pl(x,1.3))});
   \addplot[rot,thick,dashed,domain=0:360] ({#1(x,pl(x,1.3))},{#2(x,pl(x,1.3))});
   \foreach \t in {60,300,18.19,341.81}{
-    \addplot[only marks,mark=*,mark size=1.4pt,lib] coordinates {({#1(\t,0)},{#2(\t,0)})};
+    \addplot[only marks,mark=*,mark size=1.1pt,fg] coordinates {({#1(\t,0)},{#2(\t,0)})};
   }
-  \addplot[only marks,mark=*,mark size=1.5pt,fg] coordinates {({#1(180,0)},{#2(180,0)})};
+  \addplot[only marks,mark=*,mark size=1.9pt,lib] coordinates {({#1(180,0)},{#2(180,0)})};
   \addplot[only marks,mark=*,mark size=1.9pt,sep] coordinates {({#1(0,0)},{#2(0,0)})};
 }
 
@@ -69,7 +70,7 @@
   \node[sep,font=\footnotesize,anchor=south east,fill=bg,inner sep=0.8pt] at (axis cs:{ax(0,0)-0.15},{ay(0,0)+0.2}) {$P$};
   \node[font=\footnotesize,fg!60!bg] at (axis cs:0,0) {$K$};
   \node[font=\footnotesize,anchor=north] at (axis cs:0,-4.3)
-    {(a) $p_\theta<0$ edge outside};
+    {(a)};
 \end{axis}
 
 % ---------------------------------------------------------------- (b)
@@ -80,7 +81,7 @@
   \node[sep,font=\footnotesize,anchor=south east,fill=bg,inner sep=0.8pt] at (axis cs:{bx(0,0)-0.15},{by(0,0)+0.2}) {$P$};
   \node[font=\footnotesize,fg!60!bg] at (axis cs:0,0) {$K$};
   \node[font=\footnotesize,anchor=north] at (axis cs:0,-4.3)
-    {(b) $p_\theta>0$ edge outside, mirrored};
+    {(b)};
 \end{axis}
 \end{tikzpicture}
 \end{document}

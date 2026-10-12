@@ -8,6 +8,7 @@
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 \definecolor{net}{HTML}{4E9A4E}
 
 % ---------------------------------------------------------------------------
@@ -332,7 +333,7 @@
   \draw[fg!45!bg,dash pattern=on 1.6pt off 1.6pt]
     (0,{\cylC*\cylR-\cylS*\cylP}) -- (0,{\cylC*\cylR+\cylS*\cylP});
   \node[fg!55!bg,font=\small,anchor=south,inner sep=2pt]
-    at (0,{\cylC*\cylR+\cylS*\cylP}) {the seam $\theta=0$, where (i) cuts};
+    at (0,{\cylC*\cylR+\cylS*\cylP}) {seam $\theta=0$};
 
   % --- far side --------------------------------------------------------------
   \draw[rot,thick,hidden]
@@ -378,9 +379,7 @@
   % right or left of the cylinder at this height is crossed by one of the arrows.
   \node[rot,font=\small,anchor=north,inner sep=2pt] (rotlab) at (0.55,-2.42) {rotating};
   \draw[rot,thin] (rotlab.north) -- ({cylx(18)},{cyly(18,-cylorb(18,\Hrot))});
-  % The panel title sits below the panel, like those of (i) and (ii), in the gap between the arrows.
-  \node[font=\small,anchor=north,inner sep=2pt] at (0,-2.98)
-    {\textbf{the solution manifold $\mathcal{M}\hookrightarrow\mathbb{R}^4$}};
+  % No title under M: the panels carry only the letters (i) and (ii); the caption names M.
 \end{scope}
 
 % ===========================================================================
@@ -450,12 +449,12 @@
 \end{scope}
 
 % ===========================================================================
-% (ii)  the learned chart, bottom right: a plane, with nothing identified
+% (ii)  the trained encoder's latent plane, bottom right: a plane, with nothing identified
 % ===========================================================================
 \begin{scope}[shift={(4.45,-0.10)}]
   % what the drawn librating loop bounds, and gamma_+ -- which lies outside it
   \fill[lib!16!bg] \libpath;
-  \fill[rot!22!bg] \gppath;
+  \fill[lobe!50!bg] \gppath;
 
   \draw[rot,thick] \rotpath;
   \draw[lib,thick] \libpath;
@@ -464,9 +463,9 @@
   \fill[sep] (\pinchX,\pinchY) circle (1.6pt);
 
   \draw[sep!60!bg,line width=0.4pt] (-1.52,1.72) -- (\gmleadX,\gmleadY);
-  \node[sep,font=\small,anchor=east,inner sep=2.5pt] at (-1.52,1.72) {$\gamma_-$};
-  \node[sep,font=\small,inner sep=2pt] at (\gplabX,\gplabY) {$\gamma_+$};
-  \node[font=\small,anchor=west,inner sep=3pt,fg!65!bg] at (2.12,-0.66) {$P$};
+  \node[sep,font=\small,anchor=east,inner sep=2.5pt] at (-1.52,1.72) {$\bar\gamma_-$};
+  \node[sep,font=\small,inner sep=2pt] at (\gplabX,\gplabY) {$\bar\gamma_+$};
+  \node[font=\small,anchor=west,inner sep=3pt,fg!65!bg] at (2.12,-0.66) {$\bar P$};
 
   \draw[fg!35!bg,->] (-2.50,-2.92) -- (-1.90,-2.92);
   \draw[fg!35!bg,->] (-2.50,-2.92) -- (-2.50,-2.38);
@@ -498,15 +497,9 @@
 
 % ===========================================================================
 \node[panelcap] at (-4.45,-3.55)
-  {\textbf{(i) the angle chart:} cut along $\theta=0$, then identify the two edges.
-   The rotating orbit is an \emph{arc}. It closes only
-   because the two edges are the same line of $\mathcal{M}$, so no single angle chart
-   holds it: chart 2 covers the seam. $\oint p_\theta\,d\theta=10.13$ is the area
-   under it, not an enclosed area.};
+  {\textbf{(i)}};
 \node[panelcap] at (4.45,-3.55)
-  {\textbf{(ii) the trained encoder $\Psi^{\mathrm{enc}}$:} one chart, nothing identified, so \emph{every} loop bounds. The
-   librating loop bounds the blue region, which leaves $\gamma_+$ out; the rotating
-   loop runs outside $\gamma_-$ and takes $\gamma_+$ in. That patch is the step.};
+  {\textbf{(ii)}};
 
 \end{tikzpicture}
 \end{document}

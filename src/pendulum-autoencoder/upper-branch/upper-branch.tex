@@ -8,6 +8,7 @@
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 \definecolor{net}{HTML}{4E9A4E}
 \definecolor{up}{HTML}{7A5AA8}
 
@@ -722,7 +723,7 @@
 % (a)  the whole chart: where the gamma_+ lobe sits in it
 % ===========================================================================
 \begin{scope}
-  \fill[rot!20!bg] \agppath;
+  \fill[lobe!50!bg] \agppath;
   \draw[rot,thick,arrowon=0.30] \alowpath;
   \draw[sep,very thick,arrowon=0.42] \agmpath;
   \draw[sep,very thick] \agppath;
@@ -735,9 +736,9 @@
     at (\aboxhiX,\aboxloY) {see (b)};
 
   \draw[sep!60!bg,line width=0.4pt] (-1.28,1.98) -- (-0.60,1.72);
-  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.28,1.98) {$\gamma_-$};
+  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.28,1.98) {$\bar\gamma_-$};
   \draw[sep!60!bg,line width=0.4pt] (-1.02,-0.70) -- (-0.34,-1.04);
-  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.02,-0.70) {$\gamma_+$};
+  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.02,-0.70) {$\bar\gamma_+$};
   \node[rot,font=\footnotesize,anchor=south,align=center,inner sep=3pt]
     at (\alowtopX,\alowtopY) {$p_\theta<0$, $H=1.40$\\$\oint z_p\,dz_q=\lowJ$};
 \end{scope}
@@ -746,7 +747,7 @@
 % (b)  the gamma_+ lobe, on its own scale: the p_theta > 0 family inside it
 % ===========================================================================
 \begin{scope}[shift={(5.95,0)}]
-  \fill[rot!20!bg] \bgppath;
+  \fill[lobe!50!bg] \bgppath;
   \draw[sep,very thick,arrowon=0.55] \bgppath;
 
   \draw[up!40!bg,thick] \bupapath;
@@ -760,7 +761,7 @@
   % the key: H against the signed area the loop encloses
   \node[key,fg!60!bg,anchor=west,font=\footnotesize] at (-2.12,2.34) {$H$\quad area $A$};
   \draw[sep,very thick] (-2.05,1.98) -- (-1.71,1.98);
-  \node[key,sep]  at (-1.63,1.98) {$1$ \ \ $\gpJ$ \ ($\gamma_+$)};
+  \node[key,sep]  at (-1.63,1.98) {$1$ \ \ $\gpJ$ \ ($\bar\gamma_+$)};
   \draw[up!40!bg,thick] (-2.05,1.64) -- (-1.71,1.64);
   \node[key,up]   at (-1.63,1.64) {$1.001$ \ \ $\bupaJ$};
   \draw[up!55!bg,thick] (-2.05,1.30) -- (-1.71,1.30);
@@ -775,12 +776,8 @@
 
 % ===========================================================================
 \node[panelcap] at (0,-2.95)
-  {\textbf{(a)} the learned chart. The level set at $H=1.40$ on the branch the
-   data cover runs outside $\gamma_-$, and so takes the shaded $\gamma_+$ in.
-   The arrows are the induced orientations.};
+  {\textbf{(a)}};
 \node[panelcap] at (5.95,-2.95)
-  {\textbf{(b)} the boxed lobe, magnified. The $p_\theta>0$ levels start
-   \emph{inside} $\gamma_+$ and shrink, then cross out of it; by $H=1.60$ the curves
-   self-intersect, and at $H=2.00$ the signed area is negative.};
+  {\textbf{(b)}};
 \end{tikzpicture}
 \end{document}

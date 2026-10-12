@@ -338,7 +338,7 @@ caption = "The logo of GeometricMachineLearning.jl with the package name, withou
 [[figure]]
 name = "pendulum-phase-portrait"
 topic = "pendulum-autoencoder"
-caption = "The phase portrait of the pendulum: librating orbits (blue) around θ = π, rotating orbits (orange), and the separatrix (red, dashed) through the unstable equilibria."
+caption = "The phase portrait of the pendulum: librating orbits (blue) around θ = π, rotating orbits (orange), and the separatrix (red, dashed) through the unstable equilibria (red dots); the stable equilibrium is the blue dot."
 engine = "pdflatex"
 
 [[figure]]

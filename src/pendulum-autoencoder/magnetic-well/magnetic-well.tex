@@ -24,14 +24,14 @@
   \addplot[fg,thick,smooth,domain=0:6.2832]{cos(deg(x))};
   % trapped: H = -0.5 between the bounce points arccos(-0.5) and 2pi - arccos(-0.5)
   \addplot[lib,very thick,domain=2.0944:4.1888]{-0.5};
-  \fill[lib] (axis cs:2.0944,-0.5) circle (1.6pt) (axis cs:4.1888,-0.5) circle (1.6pt);
-  \node[lib,above] at (axis cs:3.1416,-0.5) {\small trapped: bounces};
+  \fill[fg] (axis cs:2.0944,-0.5) circle (1.4pt) (axis cs:4.1888,-0.5) circle (1.4pt);   % bounce points: black dots, as in cylinder-to-poloidal
+  \node[lib,above] at (axis cs:3.1416,-0.5) {\small trapped};
   % the separatrix touches the maxima, where the particle takes infinitely long to arrive
   \addplot[sep,very thick,dashed,domain=0:6.2832]{1};
   \node[sep,above] at (axis cs:3.1416,1) {\small trapped--passing boundary, $H=1$};
   % passing
   \addplot[rot,very thick,domain=0:6.2832]{1.6};
-  \node[rot,above] at (axis cs:3.1416,1.6) {\small passing: circulates};
+  \node[rot,above] at (axis cs:3.1416,1.6) {\small passing};
   \fill[sep] (axis cs:0,1) circle (1.8pt) (axis cs:6.2832,1) circle (1.8pt);
   \node[sep,below right] at (axis cs:0,0.75) {\small $\theta=0$};
   \node[sep,below left] at (axis cs:6.2832,0.75) {\small $\theta=2\pi$};

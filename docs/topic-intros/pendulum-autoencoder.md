@@ -15,7 +15,7 @@ separatrix.
     - From the weights, values set by hand: `atlas-vs-chart` (panel (b)), `obstruction-cases`
       (the circle ratio).
     - From the training set only: `covered-half`, `rotating-cap`, `atlas-vs-chart` (panel (a)),
-      `threshold-actions-paper`, `threshold-actions-sep` and `threshold-map`; the excluded
+      `threshold-actions-paper` and `threshold-actions-sep`; the excluded
       triangle of `threshold-split-paper` and `threshold-split-sep`.
 
     The other figures of this page are analytic or schematic, and a re-training does not touch

@@ -72,8 +72,8 @@
     \draw[notin,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,\sg*sepp(\x))});
   }
   % the orbits C, R and its mirror image
-  \draw[up,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
-  \draw[up,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
+  \draw[rot,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
+  \draw[rot,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
   \draw[rot,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,-rotp(\x))});
   \draw[rot,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,-rotp(\x))});
   \draw[lib,thick]
@@ -81,12 +81,12 @@
     -- plot[domain=90:-90,samples=90,smooth] ({cylx(\tlib*sin(\x))},{cyly(\tlib*sin(\x),-libp(\tlib*sin(\x)))})
     -- cycle;
   % labels
-  \node[up,anchor=south] at ({cylx(-20)},{cyly(-20,rotp(-20))}) {$R$};
+  \node[rot,anchor=south] at ({cylx(-20)},{cyly(-20,rotp(-20))}) {$R$};
   \node[lib] at ({cylx(-75)},{cyly(-75,0)}) {$L$};
   \node[up] at ({cylx(-75)},{cyly(-75,2.75)}) {$R_+$};
   \node[rot] at ({cylx(-75)},{cyly(-75,-2.75)}) {$R_-$};
   \node[lib,anchor=west] at ({cylx(40)},{cyly(40,0.25)}) {$C$};
-  \node[sep,anchor=west,align=left] at ({\cylR+0.05},{cyly(60,1.0)}) {$\ell$, in no\\ chart};
+  \node[sep,anchor=west,align=left] at ({\cylR+0.05},{cyly(60,1.0)}) {$\ell$};
   \node[anchor=east] at ({-\cylR-0.15},{cyly(-120,1.6)}) {$\mathcal{M}$};
   % points of the domains the arrows start from
   \coordinate (mU) at ({cylx(10)},{cyly(10,2.95)});
@@ -128,12 +128,12 @@
   \fill[up!16!bg] (0,0) circle ({arad(24)});
   \fill[bg] (0,0) circle ({arad(8)});
   \fill[hole] (0,0) circle ({arad(8)});
-  \draw[up,thick] (0,0) circle ({arad(12.357)});
+  \draw[rot,thick] (0,0) circle ({arad(12.357)});
   \draw[notin] (0,0) circle ({arad(8)});
   \draw[cut] (0,0) circle ({arad(24)});
   \node[fill=bg,inner sep=1pt] at (0,0) {$a_0=8$};
   \node[sep,fill=bg,inner sep=1pt] at (0,0.42) {$\ell_+$};
-  \node[up,anchor=south west] at (40:{arad(12.357)}) {$R$};
+  \node[rot,anchor=south west] at (40:{arad(12.357)}) {$R$};
   \coordinate (iU) at (115:{arad(24)});
   \node[chname] at (0,{-arad(24)-0.1}) {$\chi_+(R_+)$};
 \end{scope}
