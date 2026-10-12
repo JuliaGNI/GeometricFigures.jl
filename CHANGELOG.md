@@ -241,6 +241,19 @@ package's site.
   chart. It is analytic. Its light theme is pixel-identical to the paper's source at 150 dpi, and
   `scripts/check-dark.jl` counts 0 dark pixels.
 
+* **Three new figures compare the angle chart, the round chart and a trained reduced model.**
+  `angle-vs-round-chart` draws the separatrix branches ℓ±, the librating region L, the rotating
+  families R± and librating and rotating orbits on the solution manifold, in the angle chart and in
+  the round chart, where ℓ± become the loops γ±, L the crescent U, R₋ the outside of γ₋ and R₊ a
+  ring in the lobe K. `round-chart-reduced` sets the round chart beside the reduced model of a
+  symplectic autoencoder trained by vector-field learning, and `three-charts` combines the two:
+  the angle chart, the round chart and the reduced model in one row below the solution manifold.
+  The reduced-model panels are generated from that trained network, so the topic introduction
+  lists them among the figures to regenerate after a re-training. `separatrix-limit-below` shades
+  L blue (`lib!12`), as these figures and `cylinder-to-poloidal` do, instead of red. The light
+  themes of the four figures are pixel-identical to the paper's sources at 150 dpi, and
+  `scripts/check-dark.jl` counts 0 dark pixels in each.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The

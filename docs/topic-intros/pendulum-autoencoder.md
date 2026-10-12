@@ -12,6 +12,8 @@ separatrix.
     - From the weights, in a generated block: `two-charts` (panel (ii)), `branch-invariants`
       (which also has hand-written values), `upper-branch`, `threshold-split-paper` and
       `threshold-split-sep` (the measured point), `fold-current` and `fold-separatrix`.
+    - From a second network, trained by vector-field learning, in a generated block:
+      `round-chart-reduced` (panel (ii)) and `three-charts` (panel (iii)).
     - From the weights, values set by hand: `atlas-vs-chart` (panel (b)), `obstruction-cases`
       (the circle ratio).
     - From the training set only: `covered-half`, `rotating-cap`, `atlas-vs-chart` (panel (a)),

@@ -1,0 +1,967 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,decorations.markings,patterns,intersections,calc}
+
+\definecolor{lib}{HTML}{3B75AF}
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
+\definecolor{net}{HTML}{4E9A4E}
+
+% three-charts draws these panels as (ii) and (iii), beside chart 1.
+
+% ---------------------------------------------------------------------------
+% The cylinder, in the projection and with the conventions of
+% pendulum-solution-manifold -- u = theta - pi, so u=0 (the stable equilibrium) is
+% at the front and u=+-180 (the unstable one) at the back. Drawn smaller here,
+% because it is one panel of three.
+\newcommand{\cylR}{1.55}
+\newcommand{\cylC}{0.38}
+\newcommand{\cylS}{0.78}
+\newcommand{\cylP}{2.50}
+\pgfmathdeclarefunction{cylx}{1}{\pgfmathparse{\cylR*sin(#1)}}
+\pgfmathdeclarefunction{cyly}{2}{\pgfmathparse{-\cylC*\cylR*cos(#1)+\cylS*(#2)}}
+\pgfmathdeclarefunction{cylorb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)+cos(#1))))}}
+
+% The level sets theta -> p_theta(theta) of the pendulum, used by the round chart below.
+\pgfmathdeclarefunction{orb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
+
+% The round chart, as in panel (c) of cylinder-to-poloidal (a = 3.2), turned so
+% that the saddle P points the way it does in panel (ii). Angles in degrees.
+\newcommand{\rcA}{3.2}     % a
+\newcommand{\rcB}{165}     % turn
+\newcommand{\rcS}{0.60}    % cm per unit of r
+\pgfmathdeclarefunction{rcr}{1}{\pgfmathparse{\rcS*sqrt(max(0,2*(\rcA-(#1))))}}
+\pgfmathdeclarefunction{rcx}{2}{\pgfmathparse{-rcr(#2)*cos((#1)+\rcB)}}
+\pgfmathdeclarefunction{rcy}{2}{\pgfmathparse{-rcr(#2)*sin((#1)+\rcB)}}
+
+% The three trajectories the picture follows, one of each kind.
+% H = 0 turns at theta = pi/2 and 3pi/2, which on the cylinder is exactly the
+% silhouette u = +-90: the librating loop is the whole near side and nothing of
+% it is hidden. H = 1.4 is the outermost level the generated plots cover.
+\def\Hlib{0.0}
+\def\Hrot{1.4}
+\def\tlibA{90}
+\def\tlibB{270}
+
+% ---------------------------------------------------------------------------
+% Panel (ii) is the reduced model of a trained network, not a sketch: the separatrix of H o Psi^dec,
+% traced as the two homoclinic orbits of its saddle (gm: the outer loop, gp: the loop around the lobe),
+% and the reduced orbits from the encoded states at H = 0 (lib) and H = 1.4 (rot), for
+%   a network trained by vector-field learning (reconstruction, energy, vector field).
+% Everything between the markers is generated from the trained network; the two axes are scaled
+% differently, so areas in this panel must not be compared by eye with panel (i).
+% >>> BEGIN GENERATED BLOCK -- generated from the trained network, do not edit by hand
+% Weights: a network trained by vector-field learning (reconstruction, energy, vector field)
+% Latent extent z_q in [-1.658, 1.135], z_p in [-4.204, 8.367].
+% Page scale 1.5397 cm per unit of z_q against 0.4057 of z_p (ratio 3.80): areas in this
+% panel must not be compared by eye with panel (i).
+% Saddle level 1.1203. Shoelace areas (counterclockwise positive, the opposite of area(.) in the text): outer loop -14.4504, lobe loop +0.0449.
+% lib and rot are the reduced orbits from the encoded states at H = 0.00 and 1.40.
+\def\gmpath{%
+  (0.946,-0.934) --
+  (1.315,-1.037) --
+  (1.395,-1.070) --
+  (1.415,-1.094) --
+  (1.333,-1.114) --
+  (0.897,-1.113) --
+  (0.661,-1.130) --
+  (0.357,-1.190) --
+  (0.075,-1.273) --
+  (-0.113,-1.355) --
+  (-0.292,-1.465) --
+  (-1.129,-2.137) --
+  (-1.370,-2.308) --
+  (-1.562,-2.421) --
+  (-1.740,-2.492) --
+  (-1.887,-2.506) --
+  (-1.948,-2.492) --
+  (-2.002,-2.464) --
+  (-2.046,-2.422) --
+  (-2.081,-2.365) --
+  (-2.113,-2.263) --
+  (-2.128,-2.132) --
+  (-2.124,-1.975) --
+  (-2.103,-1.810) --
+  (-1.954,-1.216) --
+  (-1.872,-0.745) --
+  (-1.825,-0.617) --
+  (-1.757,-0.509) --
+  (-1.682,-0.431) --
+  (-1.597,-0.367) --
+  (-1.377,-0.255) --
+  (-1.033,-0.152) --
+  (-0.434,-0.047) --
+  (-0.247,-0.002) --
+  (-0.088,0.078) --
+  (-0.036,0.131) --
+  (-0.001,0.191) --
+  (0.027,0.279) --
+  (0.042,0.395) --
+  (0.039,0.749) --
+  (0.001,1.141) --
+  (-0.100,1.817) --
+  (-0.115,2.101) --
+  (-0.099,2.250) --
+  (-0.062,2.368) --
+  (-0.005,2.449) --
+  (0.072,2.492) --
+  (0.171,2.492) --
+  (0.289,2.443) --
+  (0.425,2.349) --
+  (0.585,2.204) --
+  (1.394,1.310) --
+  (1.896,0.829) --
+  (2.001,0.681) --
+  (2.063,0.520) --
+  (2.092,0.268) --
+  (2.069,-0.445) --
+  (2.053,-0.554) --
+  (2.010,-0.631) --
+  (1.922,-0.711) --
+  (1.875,-0.718) --
+  (1.840,-0.701) --
+  (1.762,-0.452) --
+  (1.702,-0.313) --
+  (1.616,-0.180) --
+  (1.577,-0.143) --
+  (1.549,-0.134) --
+  (1.535,-0.180) --
+  (1.567,-0.421) --
+  (1.523,-0.573) --
+  (1.457,-0.656) --
+  (1.221,-0.813) --
+  (1.158,-0.827) --
+  (1.033,-0.825) --
+  (0.589,-0.756) --
+  (0.464,-0.756) --
+  (0.524,-0.786) --
+  (1.047,-0.948) --
+  (0.948,-0.934) -- cycle}
+\def\gppath{%
+  (0.946,-0.934) --
+  (0.572,-0.850) --
+  (0.233,-0.792) --
+  (-0.048,-0.764) --
+  (-0.189,-0.774) --
+  (-0.110,-0.794) --
+  (0.490,-0.858) --
+  (0.943,-0.933) -- cycle}
+\def\libpath{%
+  (0.933,-0.548) --
+  (0.615,-0.572) --
+  (-0.036,-0.522) --
+  (-0.371,-0.517) --
+  (-0.653,-0.548) --
+  (-0.861,-0.616) --
+  (-0.946,-0.674) --
+  (-1.000,-0.743) --
+  (-1.027,-0.826) --
+  (-1.022,-0.917) --
+  (-0.971,-1.046) --
+  (-0.884,-1.159) --
+  (-0.815,-1.204) --
+  (-0.668,-1.245) --
+  (-0.631,-1.271) --
+  (-0.631,-1.337) --
+  (-0.691,-1.442) --
+  (-0.836,-1.606) --
+  (-1.043,-1.792) --
+  (-1.272,-1.963) --
+  (-1.476,-2.085) --
+  (-1.626,-2.145) --
+  (-1.749,-2.159) --
+  (-1.844,-2.128) --
+  (-1.911,-2.052) --
+  (-1.941,-1.972) --
+  (-1.955,-1.874) --
+  (-1.937,-1.620) --
+  (-1.857,-1.217) --
+  (-1.787,-0.746) --
+  (-1.737,-0.611) --
+  (-1.651,-0.492) --
+  (-1.485,-0.365) --
+  (-1.257,-0.265) --
+  (-0.919,-0.179) --
+  (-0.310,-0.093) --
+  (-0.124,-0.055) --
+  (0.029,0.009) --
+  (0.081,0.052) --
+  (0.120,0.108) --
+  (0.160,0.263) --
+  (0.163,0.537) --
+  (0.136,1.013) --
+  (0.073,1.571) --
+  (0.069,1.757) --
+  (0.083,1.874) --
+  (0.112,1.966) --
+  (0.155,2.029) --
+  (0.212,2.062) --
+  (0.293,2.063) --
+  (0.388,2.021) --
+  (0.498,1.937) --
+  (0.619,1.813) --
+  (0.757,1.638) --
+  (0.887,1.443) --
+  (0.984,1.263) --
+  (1.043,1.112) --
+  (1.062,0.997) --
+  (1.047,0.802) --
+  (1.058,0.653) --
+  (1.135,0.171) --
+  (1.219,-0.157) --
+  (1.227,-0.291) --
+  (1.210,-0.398) --
+  (1.168,-0.463) --
+  (1.088,-0.509) --
+  (0.955,-0.544) -- cycle}
+\def\rotpath{%
+  (2.150,0.334) --
+  (2.123,-0.194) --
+  (2.135,-0.721) --
+  (2.092,-0.856) --
+  (1.993,-0.958) --
+  (1.946,-0.980) --
+  (1.905,-0.980) --
+  (1.775,-0.899) --
+  (1.617,-0.854) --
+  (1.621,-0.830) --
+  (1.697,-0.734) --
+  (1.720,-0.667) --
+  (1.713,-0.557) --
+  (1.672,-0.476) --
+  (1.609,-0.606) --
+  (1.363,-0.821) --
+  (1.371,-0.833) --
+  (1.479,-0.836) --
+  (1.488,-0.860) --
+  (1.458,-0.879) --
+  (1.363,-0.890) --
+  (1.191,-0.886) --
+  (1.083,-0.853) --
+  (0.965,-0.850) --
+  (0.636,-0.793) --
+  (0.719,-0.827) --
+  (1.293,-0.988) --
+  (1.511,-1.068) --
+  (1.537,-1.102) --
+  (1.505,-1.124) --
+  (1.439,-1.134) --
+  (0.986,-1.135) --
+  (0.752,-1.156) --
+  (0.292,-1.251) --
+  (0.042,-1.325) --
+  (-0.133,-1.403) --
+  (-0.305,-1.511) --
+  (-1.142,-2.178) --
+  (-1.371,-2.342) --
+  (-1.556,-2.453) --
+  (-1.726,-2.526) --
+  (-1.874,-2.550) --
+  (-1.996,-2.521) --
+  (-2.081,-2.442) --
+  (-2.124,-2.344) --
+  (-2.146,-2.216) --
+  (-2.148,-2.043) --
+  (-2.128,-1.858) --
+  (-1.965,-1.208) --
+  (-1.881,-0.737) --
+  (-1.834,-0.611) --
+  (-1.768,-0.507) --
+  (-1.670,-0.410) --
+  (-1.567,-0.339) --
+  (-1.289,-0.215) --
+  (-1.013,-0.140) --
+  (-0.427,-0.036) --
+  (-0.219,0.023) --
+  (-0.088,0.102) --
+  (-0.015,0.207) --
+  (0.012,0.300) --
+  (0.027,0.417) --
+  (0.022,0.773) --
+  (-0.016,1.155) --
+  (-0.123,1.844) --
+  (-0.140,2.109) --
+  (-0.131,2.250) --
+  (-0.104,2.369) --
+  (-0.059,2.461) --
+  (-0.001,2.520) --
+  (0.082,2.549) --
+  (0.183,2.536) --
+  (0.302,2.479) --
+  (0.439,2.378) --
+  (0.689,2.137) --
+  (1.411,1.350) --
+  (1.927,0.902) --
+  (2.027,0.781) --
+  (2.096,0.651) --
+  (2.135,0.509) --
+  (2.150,0.341) -- cycle}
+\def\pinchX{0.946}\def\pinchY{-0.934}
+\def\lobemaxX{0.185}\def\lobemaxY{-0.803}
+\def\libtopX{0.252}\def\libtopY{2.068}
+\def\gmtopX{0.118}\def\gmtopY{2.498}
+\def\gptopX{-0.100}\def\gptopY{-0.762}
+\def\rottopX{0.102}\def\rottopY{2.550}
+\def\gmleadX{-0.116}\def\gmleadY{2.057}
+% Magnified window: 1.433 cm along the lobe by 0.124 cm across, drawn 2.8 x 1.3 cm.
+\def\zgmpath{%
+  (1.120,-0.000) --
+  (1.360,-0.142) --
+  (1.581,-0.292) --
+  (1.769,-0.442) --
+  (1.906,-0.577) --
+  (1.997,-0.700) --
+  (2.050,-0.817) --
+  (2.072,-0.942) --
+  (2.060,-1.060) --
+  (1.995,-1.205) --
+  (1.867,-1.348) --
+  (1.728,-1.456) --
+  (1.257,-1.776) --
+  (0.985,-2.008) --
+  (0.780,-2.234) --
+  (0.590,-2.499) --
+  (0.283,-3.041) --
+  (-0.090,-3.822) --
+  (-0.375,-4.513) --
+  (-0.614,-5.208) --
+  (-0.763,-5.718) --
+  (-0.910,-6.293) --
+  (-1.195,-7.641) --
+  (-1.429,-8.927) --
+  (-2.037,-12.525) --
+  (-2.396,-14.564) --
+  (-2.754,-16.476) --
+  (-3.062,-17.966) --
+  (-3.332,-19.089) --
+  (-3.453,-19.511) --
+  (-3.572,-19.861) --
+  (-3.682,-20.123) --
+  (-3.785,-20.300) --
+  (-3.885,-20.401) --
+  (-3.933,-20.420) --
+  (-3.977,-20.419) --
+  (-4.036,-20.387) --
+  (-4.093,-20.316) --
+  (-4.148,-20.204) --
+  (-4.197,-20.062) --
+  (-4.285,-19.675) --
+  (-4.361,-19.125) --
+  (-4.424,-18.431) --
+  (-4.474,-17.567) --
+  (-4.511,-16.576) --
+  (-4.535,-15.430) --
+  (-4.537,-12.951) --
+  (-4.416,-7.238) --
+  (-4.388,-2.340) --
+  (-4.339,-0.947) --
+  (-4.255,0.179) --
+  (-4.143,1.103) --
+  (-3.991,1.991) --
+  (-3.801,2.819) --
+  (-3.583,3.572) --
+  (-3.443,3.985) --
+  (-3.273,4.430) --
+  (-3.099,4.839) --
+  (-2.923,5.213) --
+  (-2.568,5.874) --
+  (-1.792,7.171) --
+  (-1.595,7.560) --
+  (-1.442,7.920) --
+  (-1.282,8.410) --
+  (-1.156,8.978) --
+  (-1.070,9.598) --
+  (-1.013,10.376) --
+  (-0.987,11.339) --
+  (-0.992,12.567) --
+  (-1.027,14.139) --
+  (-1.093,16.111) --
+  (-1.273,20.120) --
+  (-1.661,27.133) --
+  (-1.730,28.831) --
+  (-1.766,30.299) --
+  (-1.772,31.205) --
+  (-1.761,31.994) --
+  (-1.733,32.691) --
+  (-1.688,33.284) --
+  (-1.629,33.747) --
+  (-1.553,34.091) --
+  (-1.510,34.212) --
+  (-1.463,34.299) --
+  (-1.413,34.353) --
+  (-1.361,34.373) --
+  (-1.313,34.364) --
+  (-1.263,34.332) --
+  (-1.158,34.201) --
+  (-1.042,33.975) --
+  (-0.919,33.667) --
+  (-0.782,33.255) --
+  (-0.636,32.755) --
+  (-0.295,31.416) --
+  (0.039,29.961) --
+  (0.943,25.808) --
+  (1.368,23.934) --
+  (1.691,22.623) --
+  (2.276,20.490) --
+  (2.487,19.615) --
+  (2.621,18.920) --
+  (2.733,18.189) --
+  (2.824,17.403) --
+  (2.898,16.537) --
+  (2.965,15.387) --
+  (3.013,14.041) --
+  (3.090,9.703) --
+  (3.162,6.635) --
+  (3.159,5.516) --
+  (3.137,5.111) --
+  (3.093,4.649) --
+  (3.033,4.155) --
+  (2.979,3.843) --
+  (2.917,3.649) --
+  (2.885,3.601) --
+  (2.853,3.590) --
+  (2.823,3.617) --
+  (2.796,3.683) --
+  (2.753,3.936) --
+  (2.575,6.104) --
+  (2.485,6.957) --
+  (2.389,7.722) --
+  (2.299,8.316) --
+  (2.213,8.777) --
+  (2.137,9.082) --
+  (2.106,9.158) --
+  (2.081,9.179) --
+  (2.063,9.145) --
+  (2.052,9.057) --
+  (2.053,8.710) --
+  (2.157,6.929) --
+  (2.182,6.178) --
+  (2.175,5.489) --
+  (2.137,4.549) --
+  (2.094,4.048) --
+  (2.031,3.614) --
+  (1.951,3.225) --
+  (1.744,2.351) --
+  (1.619,1.643) --
+  (1.573,1.515) --
+  (1.497,1.407) --
+  (1.387,1.317) --
+  (1.253,1.252) --
+  (1.152,1.234) --
+  (0.778,1.250) --
+  (0.499,1.320) --
+  (0.380,1.324) --
+  (0.289,1.304) --
+  (0.215,1.264) --
+  (0.161,1.208) --
+  (0.140,1.144) --
+  (0.164,1.043) --
+  (0.255,0.927) --
+  (0.396,0.809) --
+  (0.886,0.454) --
+  (1.271,0.075) --
+  (1.320,0.001) --
+  (1.309,-0.015) --
+  (1.275,-0.021) --
+  (1.125,-0.001) -- cycle}
+\def\zgppath{%
+  (1.120,0.000) --
+  (0.743,0.185) --
+  (0.373,0.322) --
+  (0.023,0.406) --
+  (-0.298,0.433) --
+  (-0.596,0.403) --
+  (-0.732,0.365) --
+  (-0.850,0.314) --
+  (-0.958,0.245) --
+  (-1.042,0.166) --
+  (-1.100,0.080) --
+  (-1.120,-0.000) --
+  (-1.110,-0.043) --
+  (-1.080,-0.074) --
+  (-1.030,-0.089) --
+  (-0.961,-0.089) --
+  (-0.248,0.076) --
+  (-0.017,0.107) --
+  (0.217,0.117) --
+  (0.618,0.090) --
+  (1.115,0.001) -- cycle}
+\def\zlibpath{%
+  (0.990,3.974) --
+  (0.838,3.734) --
+  (0.691,3.543) --
+  (0.540,3.389) --
+  (0.380,3.270) --
+  (0.255,3.202) --
+  (0.112,3.145) --
+  (-0.560,2.961) --
+  (-0.908,2.829) --
+  (-1.094,2.734) --
+  (-1.269,2.623) --
+  (-1.430,2.499) --
+  (-1.574,2.367) --
+  (-1.731,2.196) --
+  (-1.883,1.996) --
+  (-2.012,1.792) --
+  (-2.132,1.567) --
+  (-2.243,1.322) --
+  (-2.342,1.058) --
+  (-2.503,0.491) --
+  (-2.578,0.128) --
+  (-2.640,-0.272) --
+  (-2.685,-0.703) --
+  (-2.713,-1.123) --
+  (-2.726,-1.585) --
+  (-2.722,-2.048) --
+  (-2.670,-3.000) --
+  (-2.608,-3.592) --
+  (-2.526,-4.178) --
+  (-2.433,-4.696) --
+  (-2.343,-5.066) --
+  (-2.276,-5.254) --
+  (-2.204,-5.386) --
+  (-2.119,-5.471) --
+  (-1.972,-5.536) --
+  (-1.925,-5.571) --
+  (-1.878,-5.643) --
+  (-1.847,-5.751) --
+  (-1.823,-5.951) --
+  (-1.816,-6.237) --
+  (-1.857,-7.062) --
+  (-2.000,-8.472) --
+  (-2.233,-10.167) --
+  (-2.543,-12.065) --
+  (-2.878,-13.836) --
+  (-3.156,-15.090) --
+  (-3.286,-15.584) --
+  (-3.407,-15.979) --
+  (-3.517,-16.276) --
+  (-3.622,-16.485) --
+  (-3.720,-16.603) --
+  (-3.766,-16.628) --
+  (-3.811,-16.629) --
+  (-3.860,-16.602) --
+  (-3.903,-16.549) --
+  (-3.986,-16.353) --
+  (-4.059,-16.045) --
+  (-4.124,-15.602) --
+  (-4.175,-15.079) --
+  (-4.218,-14.425) --
+  (-4.267,-12.808) --
+  (-4.271,-11.021) --
+  (-4.227,-6.821) --
+  (-4.224,-2.279) --
+  (-4.202,-1.433) --
+  (-4.167,-0.696) --
+  (-4.121,-0.076) --
+  (-4.057,0.546) --
+  (-3.933,1.407) --
+  (-3.793,2.121) --
+  (-3.592,2.905) --
+  (-3.361,3.620) --
+  (-3.219,3.994) --
+  (-3.035,4.424) --
+  (-2.693,5.103) --
+  (-2.314,5.731) --
+  (-1.539,6.882) --
+  (-1.351,7.208) --
+  (-1.190,7.542) --
+  (-1.024,7.995) --
+  (-0.900,8.483) --
+  (-0.815,9.015) --
+  (-0.758,9.659) --
+  (-0.731,10.427) --
+  (-0.728,11.327) --
+  (-0.795,14.100) --
+  (-0.977,18.991) --
+  (-1.253,24.741) --
+  (-1.314,26.885) --
+  (-1.307,28.248) --
+  (-1.285,28.811) --
+  (-1.251,29.262) --
+  (-1.204,29.626) --
+  (-1.148,29.883) --
+  (-1.080,30.047) --
+  (-1.040,30.090) --
+  (-0.998,30.106) --
+  (-0.959,30.097) --
+  (-0.914,30.063) --
+  (-0.823,29.931) --
+  (-0.723,29.706) --
+  (-0.619,29.405) --
+  (-0.384,28.528) --
+  (-0.120,27.302) --
+  (0.167,25.733) --
+  (0.430,24.063) --
+  (0.630,22.535) --
+  (0.762,21.203) --
+  (0.821,20.138) --
+  (0.844,18.133) --
+  (0.903,16.633) --
+  (1.185,11.727) --
+  (1.437,8.445) --
+  (1.469,7.804) --
+  (1.488,7.069) --
+  (1.485,5.933) --
+  (1.461,5.527) --
+  (1.422,5.197) --
+  (1.362,4.890) --
+  (1.280,4.607) --
+  (1.171,4.331) --
+  (1.032,4.050) -- cycle}
+\def\zrotpath{%
+  (3.105,14.894) --
+  (3.197,9.383) --
+  (3.340,5.166) --
+  (3.364,3.979) --
+  (3.355,3.212) --
+  (3.322,2.544) --
+  (3.259,1.923) --
+  (3.167,1.352) --
+  (3.077,1.004) --
+  (3.035,0.928) --
+  (2.994,0.912) --
+  (2.944,0.983) --
+  (2.811,1.373) --
+  (2.713,1.571) --
+  (2.668,1.627) --
+  (2.618,1.664) --
+  (2.441,1.711) --
+  (2.413,1.747) --
+  (2.396,1.803) --
+  (2.399,2.059) --
+  (2.520,3.160) --
+  (2.546,3.890) --
+  (2.536,4.434) --
+  (2.502,5.027) --
+  (2.447,5.581) --
+  (2.421,5.743) --
+  (2.400,5.800) --
+  (2.381,5.666) --
+  (2.352,4.776) --
+  (2.315,4.364) --
+  (2.163,3.366) --
+  (1.965,2.315) --
+  (1.896,1.772) --
+  (1.896,1.690) --
+  (1.915,1.665) --
+  (1.950,1.687) --
+  (2.070,1.814) --
+  (2.101,1.819) --
+  (2.126,1.788) --
+  (2.147,1.690) --
+  (2.149,1.550) --
+  (2.131,1.423) --
+  (2.095,1.310) --
+  (2.018,1.171) --
+  (1.915,1.060) --
+  (1.748,0.940) --
+  (1.581,0.855) --
+  (1.529,0.857) --
+  (1.490,0.880) --
+  (1.400,1.015) --
+  (1.363,1.035) --
+  (1.266,1.004) --
+  (1.163,0.906) --
+  (1.134,0.893) --
+  (0.948,0.952) --
+  (0.792,0.970) --
+  (0.566,1.028) --
+  (0.499,1.020) --
+  (0.479,0.984) --
+  (0.494,0.936) --
+  (0.526,0.890) --
+  (0.653,0.773) --
+  (1.540,0.161) --
+  (1.721,0.024) --
+  (1.818,-0.067) --
+  (1.915,-0.203) --
+  (2.170,-0.465) --
+  (2.265,-0.593) --
+  (2.292,-0.677) --
+  (2.310,-0.822) --
+  (2.306,-0.938) --
+  (2.286,-1.053) --
+  (2.224,-1.216) --
+  (2.112,-1.370) --
+  (1.956,-1.506) --
+  (1.517,-1.811) --
+  (1.269,-2.014) --
+  (1.023,-2.276) --
+  (0.805,-2.582) --
+  (0.483,-3.162) --
+  (-0.123,-4.382) --
+  (-0.393,-5.013) --
+  (-0.614,-5.644) --
+  (-0.758,-6.129) --
+  (-0.900,-6.686) --
+  (-1.194,-8.064) --
+  (-1.427,-9.342) --
+  (-2.059,-13.029) --
+  (-2.438,-15.159) --
+  (-2.794,-17.049) --
+  (-3.095,-18.496) --
+  (-3.362,-19.594) --
+  (-3.480,-20.002) --
+  (-3.596,-20.340) --
+  (-3.708,-20.602) --
+  (-3.808,-20.770) --
+  (-3.905,-20.866) --
+  (-3.953,-20.885) --
+  (-3.999,-20.884) --
+  (-4.063,-20.848) --
+  (-4.115,-20.783) --
+  (-4.174,-20.664) --
+  (-4.223,-20.525) --
+  (-4.313,-20.130) --
+  (-4.391,-19.567) --
+  (-4.458,-18.821) --
+  (-4.507,-17.967) --
+  (-4.544,-16.951) --
+  (-4.569,-15.776) --
+  (-4.578,-14.448) --
+  (-4.570,-13.116) --
+  (-4.441,-7.261) --
+  (-4.412,-2.469) --
+  (-4.369,-1.106) --
+  (-4.287,0.074) --
+  (-4.174,1.044) --
+  (-4.052,1.792) --
+  (-3.864,2.672) --
+  (-3.643,3.472) --
+  (-3.351,4.317) --
+  (-3.198,4.694) --
+  (-2.991,5.154) --
+  (-2.624,5.858) --
+  (-1.820,7.227) --
+  (-1.634,7.598) --
+  (-1.476,7.977) --
+  (-1.323,8.452) --
+  (-1.191,9.048) --
+  (-1.103,9.701) --
+  (-1.046,10.524) --
+  (-1.022,11.546) --
+  (-1.029,12.787) --
+  (-1.066,14.386) --
+  (-1.133,16.334) --
+  (-1.311,20.240) --
+  (-1.715,27.447) --
+  (-1.787,29.199) --
+  (-1.824,30.633) --
+  (-1.830,31.570) --
+  (-1.820,32.387) --
+  (-1.793,33.085) --
+  (-1.749,33.710) --
+  (-1.690,34.201) --
+  (-1.616,34.560) --
+  (-1.529,34.788) --
+  (-1.477,34.856) --
+  (-1.421,34.888) --
+  (-1.345,34.874) --
+  (-1.263,34.803) --
+  (-1.177,34.676) --
+  (-1.076,34.474) --
+  (-0.863,33.903) --
+  (-0.616,33.065) --
+  (-0.398,32.217) --
+  (-0.143,31.148) --
+  (0.912,26.406) --
+  (1.373,24.444) --
+  (1.717,23.143) --
+  (2.335,21.134) --
+  (2.571,20.227) --
+  (2.679,19.713) --
+  (2.772,19.177) --
+  (2.856,18.592) --
+  (2.926,17.981) --
+  (3.033,16.620) --
+  (3.103,14.969) -- cycle}
+\def\zpinchX{1.120}\def\zpinchY{0.000}
+\def\zmaxX{-0.388}\def\zmaxY{0.248}
+\def\zboxAX{-0.340}\def\zboxAY{-0.816}
+\def\zboxBX{1.079}\def\zboxBY{-1.015}
+\def\zboxCX{1.096}\def\zboxCY{-0.892}
+\def\zboxDX{-0.322}\def\zboxDY{-0.693}
+% <<< END GENERATED BLOCK
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,
+  hidden/.style={dash pattern=on 2.2pt off 2.2pt,opacity=0.38},
+  map/.style={->,thin,shorten >=2.5pt,shorten <=2.5pt,opacity=0.9},
+  panelcap/.style={font=\small,align=center,anchor=north,text width=6.4cm}]
+
+% ===========================================================================
+% (0)  M, the solution manifold, on top
+% ===========================================================================
+\begin{scope}[shift={(0,6.9)}]
+  \fill[fg!4!bg]
+    plot[domain=-90:90,samples=50,smooth] ({cylx(\x)},{cyly(\x,-\cylP)})
+    -- plot[domain=90:270,samples=50,smooth] ({cylx(\x)},{cyly(\x,\cylP)})
+    -- cycle;
+  \draw[fg!25!bg,densely dotted]
+    plot[domain=-180:180,samples=120,smooth] ({cylx(\x)},{cyly(\x,\cylP)});
+  \draw[fg!25!bg,densely dotted]
+    plot[domain=-180:180,samples=120,smooth] ({cylx(\x)},{cyly(\x,-\cylP)});
+  \draw[fg!25!bg] ({-\cylR},{-\cylS*\cylP}) -- ({-\cylR},{\cylS*\cylP});
+  \draw[fg!25!bg] ({\cylR},{-\cylS*\cylP}) -- ({\cylR},{\cylS*\cylP});
+
+  % --- far side --------------------------------------------------------------
+  \draw[rot,thick,hidden]
+    plot[domain=90:270,samples=90,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\Hrot))});
+  \draw[sep,very thick,hidden]
+    plot[domain=90:270,samples=110,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,1.0))});
+  \draw[sep,very thick,hidden]
+    plot[domain=90:270,samples=110,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,1.0))});
+
+  % --- near side -------------------------------------------------------------
+  \fill[lib!16!bg]
+    plot[domain=-90:90,samples=60,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,\Hlib))})
+    -- plot[domain=90:-90,samples=60,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\Hlib))})
+    -- cycle;
+  \draw[lib,thick]
+    plot[domain=-90:90,samples=60,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,\Hlib))});
+  \draw[lib,thick]
+    plot[domain=-90:90,samples=60,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\Hlib))});
+  \draw[sep,very thick]
+    plot[domain=-90:90,samples=90,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,1.0))});
+  \draw[sep,very thick]
+    plot[domain=-90:90,samples=90,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,1.0))});
+  \draw[rot,thick]
+    plot[domain=-90:90,samples=70,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\Hrot))});
+
+  \fill[sep] (0,{\cylC*\cylR}) circle (1.5pt);
+
+  % where the arrows start: the same three curves, sampled left and right
+  \coordinate (Mlib) at ({cylx(-64)},{cyly(-64,-cylorb(-64,\Hlib))});
+  \coordinate (Mlm)  at ({cylx(-74)},{cyly(-74,-cylorb(-74,1.0))});
+  \coordinate (Mlp)  at ({cylx(-50)},{cyly(-50,cylorb(-50,1.0))});
+  \coordinate (Mrot) at ({cylx(-50)},{cyly(-50,-cylorb(-50,\Hrot))});
+  \coordinate (Nlib) at ({cylx(64)},{cyly(64,-cylorb(64,\Hlib))});
+  \coordinate (Nlm)  at ({cylx(74)},{cyly(74,-cylorb(74,1.0))});
+  \coordinate (Nlp)  at ({cylx(50)},{cyly(50,cylorb(50,1.0))});
+  \coordinate (Nrot) at ({cylx(50)},{cyly(50,-cylorb(50,\Hrot))});
+
+  \node[lib,font=\small,anchor=east,inner sep=2pt] at (-1.62,-0.42) {librating};
+  \node[sep,font=\small,anchor=west,inner sep=2pt] at (1.62,1.00) {$\ell_+$};
+  \node[sep,font=\small,anchor=west,inner sep=2pt] at (1.62,-1.34) {$\ell_-$};
+  \node[sep,font=\small,anchor=east,inner sep=2pt] at (-1.62,1.00) {separatrix};
+  % Below the rotating orbit, on the cylinder's front, rather than beside it: every point to the
+  % right or left of the cylinder at this height is crossed by one of the arrows.
+  \node[rot,font=\small,anchor=north,inner sep=2pt] (rotlab) at (0.55,-2.42) {rotating};
+  \draw[rot,thin] (rotlab.north) -- ({cylx(18)},{cyly(18,-cylorb(18,\Hrot))});
+  % No title under M: the panels carry only the letters (i) and (ii); the caption names M.
+\end{scope}
+
+% ===========================================================================
+% (i)  the round chart of cylinder-to-poloidal (c), bottom left: the same curves, exact on M
+% ===========================================================================
+\begin{scope}[shift={(-4.45,-0.10)}]
+  % the crescent U inside the outer loop, and the lobe K inside the inner one
+  \fill[lib!12!bg] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))}) -- cycle;
+  \fill[lobe!50!bg] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))}) -- cycle;
+
+  \draw[rot,thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,\Hrot))},{rcy(\x,-orb(\x,\Hrot))}) -- cycle;
+  \draw[lib,thick]
+    plot[domain=\tlibA:\tlibB,samples=70,smooth] ({rcx(\x,orb(\x,\Hlib))},{rcy(\x,orb(\x,\Hlib))})
+    -- plot[domain=\tlibB:\tlibA,samples=70,smooth] ({rcx(\x,-orb(\x,\Hlib))},{rcy(\x,-orb(\x,\Hlib))}) -- cycle;
+  \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))});
+  \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))});
+  % the pendulum's unstable equilibrium P: a sep dot, as in every exact figure of the topic; the
+  % crosses of panel (ii) are the reduced model's saddle, as in the generated latent plots
+  \fill[sep] ({rcx(0,0)},{rcy(0,0)}) circle (1.7pt);
+
+  \node[font=\small,anchor=west,inner sep=1.5pt,sep,fill=bg,fill opacity=0.8,text opacity=1] at ({rcx(0,0)+0.08},{rcy(0,0)}) {$P$};
+  \draw[sep!60!bg,line width=0.4pt] ({rcx(300,-orb(300,1))},{rcy(300,-orb(300,1))}) -- ++(0.55,-0.45)
+    node[sep,font=\small,anchor=north west,inner sep=1.5pt] {$\gamma_-$};
+  \draw[sep!60!bg,line width=0.4pt] ({rcx(250,orb(250,1))},{rcy(250,orb(250,1))}) -- (0.25,-0.35)
+    node[sep,font=\small,anchor=north west,inner sep=1pt] {$\gamma_+$};
+  \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.3pt);
+  \node[font=\small,fg!70!bg,anchor=south,inner sep=1.5pt] at (0,0.06) {$K$};
+  \node[font=\small,lib!70!fg] at ({rcx(205,0)},{rcy(205,0)}) {$U$};
+
+  \coordinate (Clib) at ({rcx(152,orb(152,\Hlib))},{rcy(152,orb(152,\Hlib))});
+  \coordinate (Cgp)  at ({rcx(68,orb(68,1))},{rcy(68,orb(68,1))});
+  \coordinate (Cgm)  at ({rcx(74,-orb(74,1))},{rcy(74,-orb(74,1))});
+  \coordinate (Crot) at ({rcx(112,-orb(112,\Hrot))},{rcy(112,-orb(112,\Hrot))});
+\end{scope}
+
+% ===========================================================================
+% (ii)  the reduced model, bottom right: level sets of H o Psi^dec in a plane
+% ===========================================================================
+\begin{scope}[shift={(4.45,-0.10)}]
+  % the crescent U inside the outer loop, and the lobe K inside the inner one, as in panel (i)
+  \fill[lib!12!bg] \gmpath;
+  \fill[lobe!50!bg] \gppath;
+
+  \draw[rot,thick] \rotpath;
+  \draw[lib,thick] \libpath;
+  \draw[sep,very thick] \gmpath;
+  \draw[sep,very thick] \gppath;
+  \draw[fg,thick] (\pinchX,\pinchY) +(-2.2pt,-2.2pt) -- +(2.2pt,2.2pt) +(-2.2pt,2.2pt) -- +(2.2pt,-2.2pt);
+
+  \draw[sep!60!bg,line width=0.4pt] (-1.52,1.72) -- (\gmleadX,\gmleadY);
+  \node[sep,font=\small,anchor=east,inner sep=2.5pt] at (-1.52,1.72) {$\gamma_-$};
+  \draw[sep!60!bg,line width=0.4pt] (\lobemaxX,\lobemaxY) -- (\lobemaxX-0.35,\lobemaxY-0.75);
+  \node[sep,font=\small,anchor=north,inner sep=2pt] at (\lobemaxX-0.35,\lobemaxY-0.75) {$\gamma_+$};
+  \node[font=\small,anchor=south,inner sep=1.5pt,fg!65!bg,fill=bg,fill opacity=0.8,text opacity=1] at (\pinchX+0.02,\pinchY+0.06) {$P$};
+  \node[font=\small,lib!70!fg] at (0.55,1.0) {$U$};
+
+  % the magnified window around the lobe (generated \z... paths), as an inset below right: a rectangle
+  % along the lobe, from its tip to P, stretched across far more than along
+  \draw[fg!55!bg,densely dotted] (\zboxAX,\zboxAY) -- (\zboxBX,\zboxBY) -- (\zboxCX,\zboxCY) -- (\zboxDX,\zboxDY) -- cycle;
+  \begin{scope}[shift={(1.45,-2.15)}]
+    \fill[bg] (-1.4,-0.65) rectangle (1.4,0.65);
+    \begin{scope}
+      \clip (-1.4,-0.65) rectangle (1.4,0.65);
+      \fill[lib!12!bg] \zgmpath;
+      \fill[lobe!50!bg] \zgppath;
+      \draw[rot,thick] \zrotpath;
+      \draw[lib,thick] \zlibpath;
+      \draw[sep,very thick] \zgmpath;
+      \draw[sep,very thick] \zgppath;
+    \end{scope}
+    \draw[fg,thick] (\zpinchX,\zpinchY) +(-2.2pt,-2.2pt) -- +(2.2pt,2.2pt) +(-2.2pt,2.2pt) -- +(2.2pt,-2.2pt);
+    \filldraw[fill=bg,draw=fg,line width=0.45pt] (\zmaxX,\zmaxY) circle (1.3pt);
+    \node[font=\small,fg!75!bg,anchor=south,inner sep=1.5pt] at (\zmaxX+0.35,\zmaxY+0.02) {$K$};
+    \node[font=\small,anchor=north,inner sep=1.5pt,fg!65!bg] at (\zpinchX,\zpinchY-0.06) {$P$};
+    \draw[fg!55!bg] (-1.4,-0.65) rectangle (1.4,0.65);
+  \end{scope}
+  \draw[fg!45!bg,line width=0.4pt] (\zboxAX,\zboxAY) -- (0.05,-1.50);
+  \draw[fg!45!bg,line width=0.4pt] (\zboxBX,\zboxBY) -- (2.85,-1.50);
+
+  \draw[fg!35!bg,->] (-2.50,-2.92) -- (-1.90,-2.92);
+  \draw[fg!35!bg,->] (-2.50,-2.92) -- (-2.50,-2.38);
+  \node[font=\small,anchor=west,inner sep=1.5pt,fg!55!bg] at (-1.86,-2.92) {$z_q$};
+  \node[font=\small,anchor=south,inner sep=1.5pt,fg!55!bg] at (-2.50,-2.36) {$z_p$};
+
+  \coordinate (Llib) at (\libtopX,\libtopY);
+  \coordinate (Lrot) at (\rottopX,\rottopY);
+\end{scope}
+
+% ===========================================================================
+% the arrows: each trajectory on M to its image in each chart
+% ===========================================================================
+\draw[map,lib] (Mlib) to[out=205,in=58,looseness=0.8]  (Clib);
+\draw[map,sep] (Mlp)  to[out=234,in=52,looseness=0.7]  (Cgp);
+\draw[map,sep] (Mlm)  to[out=212,in=96,looseness=0.8]  (Cgm);
+\draw[map,rot] (Mrot) to[out=198,in=118,looseness=0.8] (Crot);
+
+\draw[map,lib] (Nlib) to[out=-25,in=122,looseness=0.8] (Llib);
+\draw[map,rot] (Nrot) to[out=-2,in=100,looseness=0.8]  (Lrot);
+
+
+% The panel titles live in the captions below each panel: anywhere above the panels is crossed by
+% the arrows coming down from M.
+
+% ===========================================================================
+\node[panelcap] at (-4.45,-3.55)
+  {\textbf{(i)}};
+\node[panelcap] at (4.45,-3.55)
+  {\textbf{(ii)}};
+
+\end{tikzpicture}
+\end{document}

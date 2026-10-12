@@ -21,7 +21,7 @@
   every axis plot/.append style={smooth,samples=200}]
   \addplot[sep,very thick,name path=U,domain=0:6.2832]{ 2*abs(sin(deg(x/2)))};
   \addplot[sep,very thick,name path=L,domain=0:6.2832]{-2*abs(sin(deg(x/2)))};
-  \addplot[sep!22!bg]fill between[of=U and L];
+  \addplot[lib!12!bg]fill between[of=U and L];   % L, blue as in cylinder-to-poloidal and three-charts
   % the objects of M that a reduced model reproduces: the branches, L between them,
   % R_+ above and R_- below, and the unstable equilibrium P (sep dots, as in phase_portrait)
   \node[sep,font=\small,anchor=south west,inner sep=1pt] at (axis cs:5.2,1.05) {$\ell_+$};

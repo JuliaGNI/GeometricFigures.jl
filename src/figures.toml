@@ -420,6 +420,24 @@ caption = "A librating orbit, the separatrix and a rotating orbit of the pendulu
 engine = "pdflatex"
 
 [[figure]]
+name = "angle-vs-round-chart"
+topic = "pendulum-autoencoder"
+caption = "The separatrix branches ℓ±, the librating region L, the rotating families R± and librating and rotating orbits of the pendulum on the solution manifold, in the angle chart and in the round chart, where ℓ± become the loops γ±, L the crescent U, R₋ the outside of γ₋ and R₊ a ring in the lobe K."
+engine = "pdflatex"
+
+[[figure]]
+name = "round-chart-reduced"
+topic = "pendulum-autoencoder"
+caption = "A librating orbit, the separatrix and a rotating orbit of the pendulum in the round chart and in the reduced model of a symplectic autoencoder trained by vector-field learning, both with an outer loop γ₋ and an inner loop γ₊ around the lobe K."
+engine = "pdflatex"
+
+[[figure]]
+name = "three-charts"
+topic = "pendulum-autoencoder"
+caption = "The same objects of the pendulum in the angle chart, in the round chart and in the reduced model of a symplectic autoencoder trained by vector-field learning: the separatrix, the librating region, the rotating families and their orbits."
+engine = "pdflatex"
+
+[[figure]]
 name = "obstruction-cases"
 topic = "pendulum-autoencoder"
 caption = "The two cases of the separatrix obstruction: the rotating family outside or inside the pair of separatrix images."
