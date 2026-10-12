@@ -15,8 +15,9 @@
 %   (a) the band |p| < 2.6 of M, the round cylinder of pendulum-solution-manifold, of radius sqrt(2a).
 %   (b) the same band with the circle at height p given the radius r(p), r^2/2 = a - p
 %       (a = 3.2, as in banana-layout). Height is kept, so the band becomes a
-%       ring of the paraboloid p = a - r^2/2, a dome with apex r = 0, p = a. The top p > 2.6
-%       above the band is not in M; seen from above it is the hole K (in a tokamak, the core).
+%       ring of the paraboloid p = a - r^2/2, a dome with apex r = 0, p = a. The top 2.6 < p < a
+%       is the part of M the band leaves out; only the apex is not on M. Seen from above the
+%       top is part of the lobe K (in a tokamak, the core).
 %   (c) (b) seen from straight above, which forgets p: the round chart.
 % A point (theta, p) of a panel sits at (x', y', p) with x' = -r cos(theta+beta),
 % y' = -r sin(theta+beta), r = sqrt(2a) in (a) and r(p) in (b, c); beta turns the stable
@@ -138,7 +139,7 @@
   \draw[fg!50!bg] (0,{\hc*\a}) -- (1.7,{\hc*\a+1.3})
     node[lab,fg,anchor=south west,align=left] {apex,\\$p_\theta=a$};
   \draw[fg!50!bg] (-0.7,{\hc*\pc+0.1}) -- (-2.2,{\hc*\a+1.3})
-    node[lab,fg,anchor=south east,align=right] {top, not in $\mathcal{M}$,\\$p_\theta>2.6$};
+    node[lab,fg,anchor=south east,align=right] {top,\\$p_\theta>2.6$};
   \node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=0.75] at ({xp(0,0)-0.35},{pY(0,0)+0.35}) {$P$};
   \node[lab,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(45,0)-0.3},{pY(40,0)-0.1}) {$\nu$};
   \node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rb-0.1}) {cut at $p_\theta=-2.6$};

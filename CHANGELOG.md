@@ -231,6 +231,15 @@ package's site.
   `fill between` puts the axes on a layer that does not inherit the theme colour, so they were
   black on the dark background. The light themes of all 24 resynced figures are pixel-identical
   to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels in each.
+  `cylinder-to-poloidal` labels the top of the dome "top, p_θ > 2.6" instead of "top, not in M":
+  the top 2.6 < p_θ < a belongs to M. The caption of `branch-invariants` speaks of the signed
+  area enclosed by each encoded level set instead of a "latent invariant".
+
+* **The new figure `dome-to-bowl` draws a symplectic decoder of the whole plane that is exact on
+  the circles p_θ = s above a level s₁.** Below s₁ it leaves the solution manifold and closes the
+  cylinder from below onto a cap that ends at q = 0 (grey, `fg!12!bg`); panel (b) is its latent
+  chart. It is analytic. Its light theme is pixel-identical to the paper's source at 150 dpi, and
+  `scripts/check-dark.jl` counts 0 dark pixels.
 
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the

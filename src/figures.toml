@@ -408,6 +408,12 @@ caption = "The pendulum's cut-off cylinder mapped to a planar chart, with librat
 engine = "pdflatex"
 
 [[figure]]
+name = "dome-to-bowl"
+topic = "pendulum-autoencoder"
+caption = "A symplectic decoder of the whole plane that is exact on the circles p_θ = s above a level s₁: (a) below s₁ it leaves the solution manifold and closes the cylinder from below onto a grey cap that ends at q = 0, as the dome closes it at the top; (b) its latent chart, in which every rotating orbit encloses its action."
+engine = "pdflatex"
+
+[[figure]]
 name = "two-charts"
 topic = "pendulum-autoencoder"
 caption = "A librating orbit, the separatrix and a rotating orbit of the pendulum in the angular representation and in the latent plane of a trained symplectic autoencoder."
@@ -434,7 +440,7 @@ engine = "pdflatex"
 [[figure]]
 name = "branch-invariants"
 topic = "pendulum-autoencoder"
-caption = "The latent invariant of a trained symplectic autoencoder against the angular action, on both rotating branches of the pendulum."
+caption = "The signed area enclosed by each encoded level set of a trained symplectic autoencoder against the angular action, on both rotating branches of the pendulum."
 engine = "pdflatex"
 
 [[figure]]
