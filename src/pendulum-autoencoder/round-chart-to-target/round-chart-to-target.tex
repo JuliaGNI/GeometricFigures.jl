@@ -14,7 +14,7 @@
 \pgfmathsetmacro{\ztop}{2.6}   % where the drawn band is cut
 \pgfmathsetmacro{\hz}{1.15}    % height scale
 \pgfmathsetmacro{\ob}{0.32}    % obliqueness of the circles
-% radius of the bowl at height s (s < s1), R^2 = s/s1 for the picture
+% radius of the cap at height s (s < s1), R^2 = s/s1 for the picture
 \pgfmathdeclarefunction{Rb}{1}{\pgfmathparse{sqrt(max(0,(#1)/\sone))}}
 % projection of the point at angle t (degrees), radius r, height z
 \pgfmathdeclarefunction{PX}{2}{\pgfmathparse{(#2)*cos(#1)}}
@@ -26,7 +26,7 @@
 \begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,
   back/.style={dash pattern=on 2pt off 2pt,opacity=0.45}]
 
-% ---------------------------------------------------------------- (a) the bowl in (q, p_theta)
+% ---------------------------------------------------------------- (a) the image of the decoder in (q, p_theta)
 \begin{scope}
   % the cap off M: silhouette and fill of the surface of revolution R = Rb(z), 0 <= z <= s1
   \fill[fg!12!bg] plot[domain=0:\sone,samples=40,smooth,variable=\z] ({-Rb(\z)},{\hz*\z})
@@ -46,7 +46,7 @@
   % a rotating orbit with p_theta > 0 on the exact part, H = 2.4 (front solid, back faded)
   \draw[rot,thick,densely dashed] plot[domain=180:360,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,pr(\t,2.4))});
   \draw[rot,thick,densely dashed,back] plot[domain=0:180,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,pr(\t,2.4))});
-  % the bottom of the bowl: q = 0, the image of the latent origin
+  % the bottom of the cap: q = 0, the image of the latent origin
   \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.6pt);
   \node[font=\small,anchor=north] at (0,-0.06) {$q=0$};
   \node[font=\small,anchor=west] at (1.05,{\hz*0.5*(\sone+\ztop)}) {on $\mathcal{M}$};

@@ -235,7 +235,7 @@ package's site.
   "top, not in M": that part belongs to M. The caption of `branch-invariants` speaks of the signed
   area enclosed by each encoded level set instead of a "latent invariant".
 
-* **The new figure `dome-to-bowl` draws a symplectic decoder of the whole plane that is exact on
+* **The new figure `round-chart-to-target` draws a symplectic decoder of the whole plane that is exact on
   the circles p_θ = s above a level s₁.** Below s₁ it leaves the solution manifold and closes the
   cylinder from below onto a cap that ends at q = 0 (grey, `fg!12!bg`); panel (b) is its latent
   chart. It is analytic. Its light theme is pixel-identical to the paper's source at 150 dpi, and
@@ -245,7 +245,7 @@ package's site.
   `cylinder-to-poloidal` names the cut c instead of its value 2.6 and draws the axis and the radii
   of the circles p_θ = ±c: √(2a) on the cylinder (a), √(2(a − c)) and √(2(a + c)) on the
   paraboloid (b), with dotted lines that carry the heights ±c from (a) to (b). `rotating-cap`
-  names the two charts χ⁰₋ and χ⁰₊ instead of φ₋ and φ₊. The caption of `dome-to-bowl` compares
+  names the two charts χ⁰₋ and χ⁰₊ instead of φ₋ and φ₊. The caption of `round-chart-to-target` compares
   its cap with the apex of the paraboloid of `cylinder-to-poloidal` instead of with "the dome".
   The light themes are pixel-identical to the paper's sources at 150 dpi, and
   `scripts/check-dark.jl` counts 0 dark pixels in each.
