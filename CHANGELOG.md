@@ -241,12 +241,15 @@ package's site.
   chart. It is analytic. Its light theme is pixel-identical to the paper's source at 150 dpi, and
   `scripts/check-dark.jl` counts 0 dark pixels.
 
-* **`cylinder-to-poloidal` and `rotating-cap` are resynced with the paper as of 2026-10-13.**
+* **`cylinder-to-poloidal`, `rotating-cap`, `angle-atlas` and `action-angle-chart` are resynced with the paper as of 2026-10-13.**
   `cylinder-to-poloidal` names the cut c instead of its value 2.6 and draws the axis and the radii
   of the circles p_θ = ±c: √(2a) on the cylinder (a), √(2(a − c)) and √(2(a + c)) on the
   paraboloid (b), with dotted lines that carry the heights ±c from (a) to (b). `rotating-cap`
-  names the two charts χ⁰₋ and χ⁰₊ instead of φ₋ and φ₊. The caption of `round-chart-to-target` compares
-  its cap with the apex of the paraboloid of `cylinder-to-poloidal` instead of with "the dome".
+  names the two charts χ⁰₋ and χ⁰₊ instead of φ₋ and φ₊, and writes its two sets as
+  {x ∈ M : p_θ(x) < 0} and {x ∈ M : p_θ(x) > 0}. In `angle-atlas`, `action-angle-chart` and
+  `rotating-cap` the librating and rotating orbits are labelled ι∘c_L and ι∘c_R instead of C and R;
+  the ι∘c_R labels have a `bg` backing where they cross curves or hatching. The caption of
+  `round-chart-to-target` compares its cap with the apex of the paraboloid of `cylinder-to-poloidal` instead of with "the dome".
   The light themes are pixel-identical to the paper's sources at 150 dpi, and
   `scripts/check-dark.jl` counts 0 dark pixels in each.
 
