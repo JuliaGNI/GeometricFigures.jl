@@ -410,7 +410,7 @@ engine = "pdflatex"
 [[figure]]
 name = "dome-to-bowl"
 topic = "pendulum-autoencoder"
-caption = "A symplectic decoder of the whole plane that is exact on the circles p_θ = s above a level s₁: (a) below s₁ it leaves the solution manifold and closes the cylinder from below onto a grey cap that ends at q = 0, as the dome closes it at the top; (b) its latent chart, in which every rotating orbit encloses its action."
+caption = "A symplectic decoder of the whole plane that is exact on the circles p_θ = s above a level s₁: (a) below s₁ it leaves the solution manifold and closes the cylinder from below onto a grey cap that ends at q = 0, as the paraboloid of cylinder-to-poloidal closes it at its apex; (b) its latent chart, in which every rotating orbit encloses its action."
 engine = "pdflatex"
 
 [[figure]]

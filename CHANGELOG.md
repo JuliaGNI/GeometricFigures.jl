@@ -231,8 +231,8 @@ package's site.
   `fill between` puts the axes on a layer that does not inherit the theme colour, so they were
   black on the dark background. The light themes of all 24 resynced figures are pixel-identical
   to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels in each.
-  `cylinder-to-poloidal` labels the top of the dome "top, p_θ > 2.6" instead of "top, not in M":
-  the top 2.6 < p_θ < a belongs to M. The caption of `branch-invariants` speaks of the signed
+  `cylinder-to-poloidal` labels the part of the paraboloid above the cut "p_θ > c" instead of
+  "top, not in M": that part belongs to M. The caption of `branch-invariants` speaks of the signed
   area enclosed by each encoded level set instead of a "latent invariant".
 
 * **The new figure `dome-to-bowl` draws a symplectic decoder of the whole plane that is exact on
@@ -240,6 +240,15 @@ package's site.
   cylinder from below onto a cap that ends at q = 0 (grey, `fg!12!bg`); panel (b) is its latent
   chart. It is analytic. Its light theme is pixel-identical to the paper's source at 150 dpi, and
   `scripts/check-dark.jl` counts 0 dark pixels.
+
+* **`cylinder-to-poloidal` and `rotating-cap` are resynced with the paper as of 2026-10-13.**
+  `cylinder-to-poloidal` names the cut c instead of its value 2.6 and draws the axis and the radii
+  of the circles p_θ = ±c: √(2a) on the cylinder (a), √(2(a − c)) and √(2(a + c)) on the
+  paraboloid (b), with dotted lines that carry the heights ±c from (a) to (b). `rotating-cap`
+  names the two charts χ⁰₋ and χ⁰₊ instead of φ₋ and φ₊. The caption of `dome-to-bowl` compares
+  its cap with the apex of the paraboloid of `cylinder-to-poloidal` instead of with "the dome".
+  The light themes are pixel-identical to the paper's sources at 150 dpi, and
+  `scripts/check-dark.jl` counts 0 dark pixels in each.
 
 * **Three new figures compare the angle chart, the round chart and a trained reduced model.**
   `angle-vs-round-chart` draws the separatrix branches ℓ±, the librating region L, the rotating

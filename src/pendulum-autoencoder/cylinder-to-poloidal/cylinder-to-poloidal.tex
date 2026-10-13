@@ -56,6 +56,13 @@
 % \top{style}{domain}{p}: the same curve on the top view
 \newcommand{\topv}[3]{\addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)});}
 
+% \radius{p}{r}{label}: the radius of the circle at height p, drawn along +x', which the view
+% does not foreshorten, from the axis to the circle, labelled above
+\newcommand{\radius}[3]{%
+  \draw[fg!75!bg,line width=0.6pt] (0,{\hc*(#1)}) -- ({#2},{\hc*(#1)})
+    node[midway,above,lab,fg,fill=bg,fill opacity=0.8,text opacity=1] {#3};
+  \fill[fg!75!bg] (0,{\hc*(#1)}) circle (0.9pt) ({#2},{\hc*(#1)}) circle (0.9pt);}
+
 % every orbit drawn, on whichever panel
 \newcommand{\orbits}[1]{%
   #1{rot,thick}{0:360}{-pl(x,1.6)}
@@ -105,8 +112,12 @@
   \orbits{\orb}
   \eqmarks{pY}{0.4}
 \end{axis}
-\node[lab,anchor=south] at (0,{\hc*\pc+\se*\Rc+0.1}) {cut at $p_\theta=+2.6$};
-\node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rc-0.1}) {cut at $p_\theta=-2.6$};
+% the axis and the radius sqrt(2a) of the circles at heights -c and c
+\draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\pc});
+\radius{\pc}{\Rc}{$\sqrt{2a}$}
+\radius{-\pc}{\Rc}{$\sqrt{2a}$}
+\node[lab,anchor=south] at (0,{\hc*\pc+\se*\Rc+0.1}) {cut at $p_\theta=c$};
+\node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rc-0.1}) {cut at $p_\theta=-c$};
 \node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=0.75] at ({xp(0,0)-0.35},{pY(0,0)+0.35}) {$P$};
 \node[lab,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(45,0)-0.3},{pY(40,0)-0.1}) {$\nu$};
 
@@ -136,13 +147,20 @@
     \eqmarks{pY}{0.4}
     \addplot[only marks,mark=*,mark size=1.3pt,mark options={fill=bg,draw=fg,line width=0.5pt}] coordinates {(0,{\hc*\a})};
   \end{axis}
+  % the axis and the radii r of the circles at heights -c and c, 1/2 r^2 = a -+ c; their labels
+  % sit to their right, the top one because it is too short, the bottom one off the drawing
+  \draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\a});
+  \radius{\pc}{\Rt}{}
+  \node[lab,anchor=west,fill=bg,fill opacity=0.8,text opacity=1] at ({\Rt+0.1},{\hc*\pc}) {$\sqrt{2(a-c)}$};
+  \radius{-\pc}{\Rb}{}
+  \node[lab,anchor=west,fill=bg,fill opacity=0.8,text opacity=1] at ({\Rb+0.1},{-\hc*\pc}) {$\sqrt{2(a+c)}$};
   \draw[fg!50!bg] (0,{\hc*\a}) -- (1.7,{\hc*\a+1.3})
     node[lab,fg,anchor=south west,align=left] {apex,\\$p_\theta=a$};
   \draw[fg!50!bg] (-0.7,{\hc*\pc+0.1}) -- (-2.2,{\hc*\a+1.3})
-    node[lab,fg,anchor=south east,align=right] {top,\\$p_\theta>2.6$};
+    node[lab,fg,anchor=south east,align=right] {$p_\theta>c$};
   \node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=0.75] at ({xp(0,0)-0.35},{pY(0,0)+0.35}) {$P$};
   \node[lab,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(45,0)-0.3},{pY(40,0)-0.1}) {$\nu$};
-  \node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rb-0.1}) {cut at $p_\theta=-2.6$};
+  \node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rb-0.1}) {cut at $p_\theta=-c$};
 \end{scope}
 
 % ================================================================ (c) seen from above
@@ -169,6 +187,9 @@
 \end{scope}
 
 % ================================================================ the two steps
+% the heights -c and c are kept from (a) to (b)
+\foreach \h in {-\pc,\pc}
+  \draw[fg!35!bg,densely dotted] ({\Rc+0.15},{\hc*\h}) -- ({12.6-sqrt(2*(\a-\h))-0.15},{\hc*\h});
 \draw[->,thick,fg!60!bg] (4.0,0) -- (7.4,0)
   node[midway,above,lab,fg,align=center] {radius $r$ at\\height $p_\theta$,\\$\tfrac12 r^2=a-p_\theta$};
 \draw[->,thick,fg!60!bg] (17.3,0) -- (20.5,0)
