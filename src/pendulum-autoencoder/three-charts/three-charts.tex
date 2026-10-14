@@ -8,8 +8,8 @@
 \definecolor{sep}{HTML}{B03030}
 \definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 
-% One figure for three pictures of the same objects: the cylinder M on top, and below it (i) chart 1,
-% the angle chart of separatrix-limit-below, (ii) the round chart of cylinder-to-poloidal (c), and (iii)
+% One figure for three pictures of the same objects: the cylinder M on top, and below it (i) the angular chart,
+% the angular chart of separatrix-limit-below, (ii) the round chart of cylinder-to-poloidal (c), and (iii)
 % the reduced model of a trained network. It combines angle-vs-round-chart ((i), (ii)) and
 % round-chart-reduced ((ii), (iii)).
 
@@ -27,7 +27,7 @@
 % The level sets theta -> p_theta(theta) of the pendulum, in theta (degrees).
 \pgfmathdeclarefunction{orb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
 
-% Panel (i): chart 1, theta in (0,2pi), as in separatrix-limit-below. Smaller than in angle-vs-round-chart,
+% Panel (i): the angular chart, theta in (0,2pi), as in separatrix-limit-below. Smaller than in angle-vs-round-chart,
 % so that three panels fit in a row.
 \newcommand{\canX}{0.66}   % cm per radian of theta
 \newcommand{\canY}{0.62}   % cm per unit of p_theta
@@ -873,7 +873,7 @@
 \end{scope}
 
 % ===========================================================================
-% (i)  chart 1, the angle chart of separatrix-limit-below, bottom left
+% (i)  the angular chart of separatrix-limit-below, bottom left
 % ===========================================================================
 \begin{scope}[shift={(-5.25,0)}]
   \fill[lobe!50!bg]

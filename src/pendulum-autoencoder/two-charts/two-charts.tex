@@ -430,17 +430,17 @@
   \node[sep,font=\small,inner sep=1.5pt,fill=bg,fill opacity=0.85,text opacity=1]
     at ({canx(215)},-1.20) {$\ell_-$};
 
-  % The two angle charts the orbit needs. Chart 1 is the strip itself, theta in (0,2pi); chart 2,
-  % theta in (-pi,pi), covers the seam and misses theta = pi instead, so it is drawn as the
-  % two halves that the identification glues together. Neither bar covers the whole circle.
+  % The two angular charts the orbit needs. The angular chart is the strip itself, theta in (0,2pi); the shifted
+  % angular chart, theta in (-pi,pi), covers the seam and misses theta = pi instead, so it is drawn
+  % as the two halves that the identification glues together. Neither bar covers the whole circle.
   \draw[fg!60!bg,line width=1.1pt] ({canx(0)},-2.80) -- ({canx(360)},-2.80);
   \draw[fg!60!bg,fill=bg] ({canx(0)},-2.80) circle (1.5pt);
   \draw[fg!60!bg,fill=bg] ({canx(360)},-2.80) circle (1.5pt);
-  \node[fg!70!bg,font=\small,anchor=west,inner sep=3pt] at ({canx(360)+0.05},-2.80) {chart 1};
+  \node[fg!70!bg,font=\small,anchor=west,inner sep=3pt] at ({canx(360)+0.05},-2.80) {angular chart};
   \draw[fg!60!bg,line width=1.1pt,-{Stealth[length=4pt]}] ({canx(180)},-3.24) -- ({canx(360)+0.10},-3.24);
   \draw[fg!60!bg,line width=1.1pt,{Stealth[length=4pt]}-] ({canx(0)-0.10},-3.24) -- ({canx(180)},-3.24);
   \draw[fg!60!bg,fill=bg] ({canx(180)},-3.24) circle (1.5pt);
-  \node[fg!70!bg,font=\small,anchor=west,inner sep=3pt] at ({canx(360)+0.15},-3.24) {chart 2};
+  \node[fg!70!bg,font=\small,anchor=west,inner sep=3pt] at ({canx(360)+0.15},-3.24) {shifted angular chart};
 
   \coordinate (Clib) at ({canx(152)},{cany(orb(152,\Hlib))});
   \coordinate (Cgp)  at ({canx(68)},{cany(orb(68,1))});

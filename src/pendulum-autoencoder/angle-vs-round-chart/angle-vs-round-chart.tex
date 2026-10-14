@@ -23,7 +23,7 @@
 % The level sets theta -> p_theta(theta) of the pendulum, in theta (degrees).
 \pgfmathdeclarefunction{orb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
 
-% Panel (i): chart 1, theta in (0,2pi), as in separatrix-limit-below; the same scales as the angle
+% Panel (i): the angular chart, theta in (0,2pi), as in separatrix-limit-below; the same scales as the angle
 % chart of two-charts.
 \newcommand{\canX}{0.86}   % cm per radian of theta
 \newcommand{\canY}{0.72}   % cm per unit of p_theta
@@ -127,7 +127,7 @@
 \end{scope}
 
 % ===========================================================================
-% (i)  chart 1, the angle chart of separatrix-limit-below, bottom left
+% (i)  the angular chart of separatrix-limit-below, bottom left
 % ===========================================================================
 \begin{scope}[shift={(-4.45,-0.10)}]
   % R_+ between l_+ and the cut, L between the branches
