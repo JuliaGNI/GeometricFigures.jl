@@ -45,7 +45,8 @@
 
 % The orbits: two librating ones and the rotating level H = 1.4 on both sides. H = 0 turns at
 % theta = pi/2, 3pi/2 (on the cylinder the silhouette u = +-90), H = -0.5 at theta = 2pi/3, 4pi/3.
-% Panel (iii) follows H = 0 and H = 1.4, p_theta < 0, only: the levels the generated block was made for.
+% Panel (iii) follows H = 0 and H = 1.4, p_theta < 0, only: the levels the generated block was made for. Its
+% dashed curve in the lobe is not an encoded orbit but a level of H o Psi^dec standing in for R_+.
 \def\Hlib{0.0}
 \def\tlibA{90}
 \def\tlibB{270}
@@ -67,6 +68,7 @@
 % panel must not be compared by eye with panel (i).
 % Saddle level 1.1203. Shoelace areas (counterclockwise positive, the opposite of area(.) in the text): outer loop -14.4504, lobe loop +0.0449.
 % lib and rot are the reduced orbits from the encoded states at H = 0.00 and 1.40.
+% up is the level 1.1465 of H o Psi^dec in the lobe, halfway between the saddle and the maximum: a stand-in for R_+.
 \def\gmpath{%
   (0.946,-0.934) --
   (1.315,-1.037) --
@@ -306,6 +308,13 @@
   (2.096,0.651) --
   (2.135,0.509) --
   (2.150,0.341) -- cycle}
+\def\uppath{%
+  (0.411,-0.842) --
+  (0.570,-0.860) --
+  (0.176,-0.789) --
+  (-0.004,-0.774) --
+  (-0.091,-0.779) --
+  (0.407,-0.841) -- cycle}
 \def\pinchX{0.946}\def\pinchY{-0.934}
 \def\lobemaxX{0.185}\def\lobemaxY{-0.803}
 \def\libtopX{0.252}\def\libtopY{2.068}
@@ -786,6 +795,26 @@
   (2.926,17.981) --
   (3.033,16.620) --
   (3.103,14.969) -- cycle}
+\def\zuppath{%
+  (0.061,0.174) --
+  (0.319,0.195) --
+  (0.361,0.205) --
+  (0.373,0.220) --
+  (0.343,0.249) --
+  (0.264,0.284) --
+  (0.030,0.348) --
+  (-0.199,0.377) --
+  (-0.413,0.373) --
+  (-0.604,0.338) --
+  (-0.767,0.272) --
+  (-0.887,0.181) --
+  (-0.920,0.133) --
+  (-0.929,0.092) --
+  (-0.918,0.065) --
+  (-0.890,0.046) --
+  (-0.786,0.039) --
+  (-0.249,0.137) --
+  (0.052,0.174) -- cycle}
 \def\zpinchX{1.120}\def\zpinchY{0.000}
 \def\zmaxX{-0.388}\def\zmaxY{0.248}
 \def\zboxAX{-0.340}\def\zboxAY{-0.816}
@@ -939,8 +968,8 @@
   }
   \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))});
   \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))});
-  % the pendulum's unstable equilibrium P: a sep dot, as in every exact figure of the topic; the
-  % cross of panel (iii) is the reduced model's saddle, as in the generated latent plots
+  % the pendulum's unstable equilibrium P: a sep dot, as in every exact figure of the topic,
+  % and so is the reduced model's saddle P in panel (iii)
   \fill[sep] ({rcx(0,0)},{rcy(0,0)}) circle (1.7pt);
   \fill[lib] ({rcx(180,0)},{rcy(180,0)}) circle (1.5pt);
   \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.3pt);
@@ -971,15 +1000,16 @@
 
   \draw[rot,thick] \rotpath;
   \draw[lib,thick] \libpath;
+  \draw[rot,thick,upper] \uppath;   % the stand-in for R_+ in the lobe, dashed as R_+ in the other panels
   \draw[sep,very thick] \gmpath;
   \draw[sep,very thick] \gppath;
-  \draw[fg,thick] (\pinchX,\pinchY) +(-2.2pt,-2.2pt) -- +(2.2pt,2.2pt) +(-2.2pt,2.2pt) -- +(2.2pt,-2.2pt);
+  \fill[sep] (\pinchX,\pinchY) circle (1.7pt);
 
   \draw[sep!60!bg,line width=0.4pt] (-1.52,1.72) -- (\gmleadX,\gmleadY);
   \node[sep,font=\small,anchor=east,inner sep=2.5pt] at (-1.52,1.72) {$\gamma_-$};
   \draw[sep!60!bg,line width=0.4pt] (\lobemaxX,\lobemaxY) -- (\lobemaxX-0.35,\lobemaxY-0.75);
   \node[sep,font=\small,anchor=north,inner sep=2pt] at (\lobemaxX-0.35,\lobemaxY-0.75) {$\gamma_+$};
-  \node[font=\small,anchor=south,inner sep=1.5pt,fg!65!bg,fill=bg,fill opacity=0.8,text opacity=1] at (\pinchX+0.02,\pinchY+0.06) {$P$};
+  \node[font=\small,anchor=south,inner sep=1.5pt,sep,fill=bg,fill opacity=0.8,text opacity=1] at (\pinchX+0.02,\pinchY+0.06) {$P$};
   \node[font=\small,lib!70!fg] at (0.55,1.0) {$U$};
 
   % the magnified window around the lobe (generated \z... paths), as an inset below right: a rectangle
@@ -993,13 +1023,15 @@
       \fill[lobe!50!bg] \zgppath;
       \draw[rot,thick] \zrotpath;
       \draw[lib,thick] \zlibpath;
+      \draw[rot,thick,upper] \zuppath;
       \draw[sep,very thick] \zgmpath;
       \draw[sep,very thick] \zgppath;
     \end{scope}
-    \draw[fg,thick] (\zpinchX,\zpinchY) +(-2.2pt,-2.2pt) -- +(2.2pt,2.2pt) +(-2.2pt,2.2pt) -- +(2.2pt,-2.2pt);
+    \fill[sep] (\zpinchX,\zpinchY) circle (1.7pt);
     \filldraw[fill=bg,draw=fg,line width=0.45pt] (\zmaxX,\zmaxY) circle (1.3pt);
     \node[font=\small,fg!75!bg,anchor=south,inner sep=1.5pt] at (\zmaxX+0.35,\zmaxY+0.02) {$K$};
-    \node[font=\small,anchor=north,inner sep=1.5pt,fg!65!bg] at (\zpinchX,\zpinchY-0.06) {$P$};
+    \draw[fg!50!bg,line width=0.4pt] (-0.50,0.09) -- (-0.80,-0.30) node[font=\small,fg,anchor=north,inner sep=1.5pt] {$R_+$};
+    \node[font=\small,anchor=north,inner sep=1.5pt,sep] at (\zpinchX,\zpinchY-0.06) {$P$};
     \draw[fg!55!bg] (-1.4,-0.65) rectangle (1.4,0.65);
   \end{scope}
   \draw[fg!45!bg,line width=0.4pt] (\zboxAX,\zboxAY) -- (0.05,-1.50);
