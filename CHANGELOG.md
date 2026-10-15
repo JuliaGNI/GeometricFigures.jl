@@ -204,6 +204,14 @@ package's site.
   with `bg`, so they are dark in the dark theme. The light themes are pixel-identical to the
   paper's sources at 150 dpi.
 
+* **`three-cases` compares three ways of drawing the pendulum's cylinder in one chart.** It is
+  new in the topic `pendulum-autoencoder`. Its three panels draw the circles p_θ = const in the
+  symplectic round chart of `cylinder-to-poloidal`, which cuts the cylinder off and leaves a hole; in
+  a symplectic decoder of the whole plane, which closes the cylinder with a cap, shaded as in
+  `rotating-cap`; and in the chart r = e^(−p_θ), which holds the whole cylinder but is not
+  symplectic. It is analytic: no trained weights or training data enter it. The light theme is
+  pixel-identical to the paper's source at 150 dpi.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The

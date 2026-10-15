@@ -408,6 +408,12 @@ caption = "The pendulum's cut-off cylinder mapped to a planar chart, with librat
 engine = "pdflatex"
 
 [[figure]]
+name = "three-cases"
+topic = "pendulum-autoencoder"
+caption = "The circles p_θ = const of the pendulum's cylinder in three single charts: (a) the symplectic round chart, which cuts the cylinder off at p_θ = a and leaves a hole; (b) a symplectic decoder of the whole plane, which closes the cylinder with a cap off it; (c) the chart r = e^(−p_θ), which holds the whole cylinder but is not symplectic."
+engine = "pdflatex"
+
+[[figure]]
 name = "two-charts"
 topic = "pendulum-autoencoder"
 caption = "A librating orbit, the separatrix and a rotating orbit of the pendulum in the angular representation and in the latent plane of a trained symplectic autoencoder."
