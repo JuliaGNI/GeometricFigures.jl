@@ -9,12 +9,11 @@
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
 \definecolor{net}{HTML}{4E9A4E}
-\definecolor{up}{HTML}{7A5AA8}
 
 % The threshold eps* = (J_L - J_R)/(J_L + J_R) as a function of the two training levels nearest the
 % separatrix, H_L < 1 and H_R > 1. Log axes in the distances 1 - H_L and H_R - 1, because what
 % the threshold does as both approach the separatrix is the point: it tends to 1/3. Each line is
-% one value of eps*; eps* = 0 is J_L = J_R, below and left of which the threshold is positive.
+% one value of eps*, in shades of grey, darker for larger eps* (purple is the p > 0 branch R_+ elsewhere); eps* = 0 is J_L = J_R, below and left of which the threshold is positive.
 %
 % >>> BEGIN GENERATED BLOCK -- generated from the trained network, do not edit by hand
 % Analytic: contours of eps* = (J_L - J_R)/(J_L + J_R) over x = 1 - H_L, y = H_R - 1.
@@ -598,27 +597,22 @@
   axis lines=left,tick label style={font=\footnotesize},label style={font=\small},
   every axis plot/.append style={line width=0.7pt}]
   \addplot[fg!35!bg,dashed] coordinates {\contourA};
-  \addplot[up!25!bg]  coordinates {\contourB};
-  \addplot[up!40!bg]  coordinates {\contourC};
-  \addplot[up!55!bg]  coordinates {\contourD};
-  \addplot[up!70!bg]  coordinates {\contourE};
-  \addplot[up!85!bg]  coordinates {\contourF};
-  \addplot[up]     coordinates {\contourG};
+  \addplot[fg!25!bg]  coordinates {\contourB};
+  \addplot[fg!40!bg]  coordinates {\contourC};
+  \addplot[fg!55!bg]  coordinates {\contourD};
+  \addplot[fg!70!bg]  coordinates {\contourE};
+  \addplot[fg!85!bg]  coordinates {\contourF};
+  \addplot[fg]  coordinates {\contourG};
   % labelled alternately at the left end and at the lower end, where the curves are furthest apart
   \node[font=\footnotesize,fg!55!bg,anchor=south west,inner sep=1pt,fill=bg,fill opacity=0.85,text opacity=1] at \contourlabelA {$\varepsilon_*=0$};
-  \node[font=\footnotesize,up!60!bg,anchor=north,inner sep=2pt] at \contourendB {$0.05$};
-  \node[font=\footnotesize,up!70!bg,anchor=south west,inner sep=1pt] at \contourlabelC {$0.10$};
-  \node[font=\footnotesize,up!80!bg,anchor=north,inner sep=2pt] at \contourendD {$0.15$};
-  \node[font=\footnotesize,up!90!bg,anchor=south west,inner sep=1pt] at \contourlabelE {$0.20$};
-  \node[font=\footnotesize,up,anchor=north,inner sep=2pt]    at \contourendF {$0.25$};
-  \node[font=\footnotesize,up,anchor=south west,inner sep=1pt]    at \contourlabelG {$0.30$};
-  % the two grids, on a white ground where their labels cross a contour
-  \addplot[only marks,mark=*,mark size=2.2pt,net] coordinates {\gridpaper};
-  \node[font=\footnotesize,net,anchor=north east,align=right,fill=bg,fill opacity=0.85,text opacity=1,inner sep=1.5pt] at \gridpaper
-    {paper's grid\\$\varepsilon_*\approx\gridpapereps\%$};
-  \addplot[only marks,mark=square*,mark size=2.2pt,sep] coordinates {\gridsep};
-  \node[font=\footnotesize,sep,anchor=south west,align=left,fill=bg,fill opacity=0.85,text opacity=1,inner sep=1.5pt] at \gridsep
-    {separatrix grid\\$\varepsilon_*\approx\gridsepeps\%$};
+  \node[font=\footnotesize,fg!45!bg,anchor=north,inner sep=2pt] at \contourendB {$0.05$};
+  \node[font=\footnotesize,fg!55!bg,anchor=south west,inner sep=1pt] at \contourlabelC {$0.10$};
+  \node[font=\footnotesize,fg!65!bg,anchor=north,inner sep=2pt] at \contourendD {$0.15$};
+  \node[font=\footnotesize,fg!75!bg,anchor=south west,inner sep=1pt] at \contourlabelE {$0.20$};
+  \node[font=\footnotesize,fg!85!bg,anchor=north,inner sep=2pt]    at \contourendF {$0.25$};
+  \node[font=\footnotesize,fg!85!bg,anchor=south west,inner sep=1pt]    at \contourlabelG {$0.30$};
+  % The two training grids (\gridpaper, \gridsep above) are not marked; their thresholds
+  % are drawn in threshold-actions-paper and threshold-actions-sep.
 \end{loglogaxis}
 \end{tikzpicture}
 \end{document}

@@ -17,7 +17,7 @@
   xtick={0,1.5708,3.1416,4.7124,6.2832},
   xticklabels={$0$,$\pi/2$,$\pi$,$3\pi/2$,$2\pi$},
   xlabel={$\theta$},ylabel={$p_\theta$},
-  axis lines=left,every axis plot/.append style={smooth,samples=200}]
+  axis lines=left,clip=false,every axis plot/.append style={smooth,samples=200}]
   % Librating level sets. Each one is drawn only between its own turning points
   % theta = arccos(H) and 2pi - arccos(H), which is where p_theta = 0 and the
   % loop closes. The domain has to be cut per level: outside it 2(H - cos theta)
@@ -37,7 +37,12 @@
     \addplot[rot,thick,domain=0:6.2832]{ sqrt(2*(\H-cos(deg(x))))};
     \addplot[rot,thick,domain=0:6.2832]{-sqrt(2*(\H-cos(deg(x))))};
   }
-  \node[lib] at (axis cs:3.1416,0.0) {\small libration};
+  % equilibria: stable (blue) at theta = pi, unstable (red) at theta = 0 and 2pi,
+  % the colours of the stable equilibrium in cylinder_to_poloidal and of the
+  % unstable one in the latent plot of the trained encoder
+  \addplot[only marks,mark=*,mark size=2.2pt,lib] coordinates {(3.1416,0)};
+  \addplot[only marks,mark=*,mark size=2.2pt,sep] coordinates {(0,0) (6.2832,0)};
+  \node[lib] at (axis cs:3.1416,0.42) {\small libration};
   \node[rot,fill=bg,inner sep=1pt] at (axis cs:3.1416,2.82) {\small rotation};
   \node[sep,inner sep=0.5pt] at (axis cs:0.68,0) {\small $H=1$};
 \end{axis}

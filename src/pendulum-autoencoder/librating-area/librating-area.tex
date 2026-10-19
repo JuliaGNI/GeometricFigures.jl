@@ -15,8 +15,8 @@
 \begin{tikzpicture}[baseline]
 \begin{axis}[width=7.4cm,height=5.2cm,xmin=0,xmax=6.2832,ymin=-2.6,ymax=2.6,
   xtick={0,3.1416,6.2832},xticklabels={$0$,$\pi$,$2\pi$},
-  xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,title style={at={(0.5,0)},anchor=north,yshift=-3.5em},   % panel label below the panel
-  title={\small librating: area \emph{enclosed}},
+  xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,axis line style={fg},title style={at={(0.5,0)},anchor=north,yshift=-3.5em},   % panel label below the panel
+  title={\small (a)},
   every axis plot/.append style={smooth,samples=200}]
   % H = 0.5 turns at theta = arccos(0.5) = pi/3 and 2pi - pi/3, and the curve is
   % drawn only between them. Running the domain to 0:2pi instead would leave the

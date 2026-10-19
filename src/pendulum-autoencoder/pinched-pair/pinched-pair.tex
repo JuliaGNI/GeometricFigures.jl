@@ -8,6 +8,7 @@
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 \definecolor{net}{HTML}{4E9A4E}
 \definecolor{up}{HTML}{7A5AA8}
 
@@ -58,8 +59,7 @@
 % ===========================================================================
 \begin{scope}[shift={(5.6,0)}]
   \fill[lib!14!bg,even odd rule] (0,1.25) circle (1.25) (0,0.45) circle (0.45);
-  \fill[pattern=north east lines,pattern color=fg!35!bg] (0,0.45) circle (0.20);
-  \draw[fg!45!bg,line width=0.4pt] (0,0.45) circle (0.20);
+  \fill[lobe!50!bg] (0,0.45) circle (0.45);   % the lobe K, inside the inner loop
   \draw[gam] (0,1.25) circle (1.25);
   \draw[gam] (0,0.45) circle (0.45);
 
@@ -79,9 +79,8 @@
 
 % ===========================================================================
 \node[panelcap] at (0,-0.98)
-  {\textbf{(a)} side by side. $U$ is one of the two disks, of area $8$.};
+  {\textbf{(a)}};
 \node[panelcap] at (5.6,-0.98)
-  {\textbf{(b)} nested. $U$ is the crescent, and its area is the
-   \emph{difference}; both curves at $8$ leave it empty.};
+  {\textbf{(b)}};
 \end{tikzpicture}
 \end{document}
