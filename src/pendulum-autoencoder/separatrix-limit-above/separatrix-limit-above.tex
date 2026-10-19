@@ -15,14 +15,18 @@
 \begin{tikzpicture}[baseline]
 \begin{axis}[width=7.4cm,height=5.0cm,xmin=0,xmax=6.2832,ymin=-2.6,ymax=2.6,
   xtick={0,3.1416,6.2832},xticklabels={$0$,$\pi$,$2\pi$},
-  xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,
+  xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,axis line style={fg},
   title style={at={(0.5,0)},anchor=north,yshift=-3.5em},   % panel label below the panel
-  title={\small $H\to1^+$: one branch, $J\to8$},
+  title={\small (d)},
   every axis plot/.append style={smooth,samples=200}]
   \addplot[sep,very thick,name path=U2,domain=0:6.2832]{ 2*abs(sin(deg(x/2)))};
   \addplot[draw=none,name path=Z2,domain=0:6.2832]{0};
   \addplot[sep!22!bg]fill between[of=U2 and Z2];
+  % The shaded band is the area A between the two branches, which is the hole area a_0.
+  \node at (axis cs:3.1416,0.85) {$a_0=A=8$};
   \addplot[sep,very thick,dashed,domain=0:6.2832]{-2*abs(sin(deg(x/2)))};
+  \node[sep,font=\small,anchor=south west,inner sep=1pt] at (axis cs:5.2,1.05) {$\ell_+$};
+  \node[sep,font=\small,anchor=north west,inner sep=1pt] at (axis cs:5.2,-1.05) {$\ell_-$};
 \end{axis}
 \end{tikzpicture}
 \end{document}

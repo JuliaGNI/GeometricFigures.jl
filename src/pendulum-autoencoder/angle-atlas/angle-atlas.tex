@@ -5,29 +5,29 @@
 
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
-\definecolor{chL}{HTML}{2A8C82}
+\definecolor{chL}{HTML}{4063D8}   % Julia blue
 \definecolor{chA}{HTML}{7B5BB0}
 \definecolor{chB}{HTML}{B0507A}
 
 % ---------------------------------------------------------------------------
-% Angle charts for one librating orbit C (H = -0.7) and one rotating orbit R (H = 2, p_theta > 0)
+% Angular charts for one librating orbit iota o c_L (H = -0.7) and one rotating orbit iota o c_R (H = 2, p_theta > 0)
 % of M = S^1 x R, H = p^2/2 + cos(theta). Each chart is a patch:
 %   V_1     = {pi/2 < theta < 3pi/2,   |p_theta| < pl},       phi_1     = (theta_1, p_theta)
 %   V_{2,1} = {pi/3 < theta < 5pi/3,   p0 < p_theta < p1},    phi_{2,1} = (theta_{2,1}, p_theta)
 %   V_{2,2} = {-2pi/3 < theta < 2pi/3, p0 < p_theta < p1},    phi_{2,2} = (theta_{2,2}, p_theta)
 % where theta_i is the angle representative in (0,2pi) for phi_1 and phi_{2,1},
-% (-pi,pi) for phi_{2,2}, and p_theta is unchanged: charts 1 and 2 restricted to the patches,
+% (-pi,pi) for phi_{2,2}, and p_theta is unchanged: the angular and the shifted angular chart restricted to the patches,
 % all symplectic. pl < p0, so V_1 meets neither band. V_{2,1} and V_{2,2} meet in two pieces,
-% O_a = {pi/3 < theta < 2pi/3} and O_b = {4pi/3 < theta < 5pi/3}; the transition
+% G_a = {pi/3 < theta < 2pi/3} and G_b = {4pi/3 < theta < 5pi/3}; the transition
 % phi_{2,2} o phi_{2,1}^{-1} leaves p_theta unchanged and gives theta_{2,2} = theta_{2,1}
-% on O_a and theta_{2,2} = theta_{2,1} - 2pi on O_b.
+% on G_a and theta_{2,2} = theta_{2,1} - 2pi on G_b.
 % C turns at theta = pi +- 45.6 deg, inside V_1.
 %
-% The angle axes carry their chart indices: the same point of O_b has different angle
+% The angle axes carry their chart indices: the same point of G_b has different angle
 % representatives in the two images. Only p_theta, a function on M, gets a tick.
 %
 % Top: the cylinder in the projection of pendulum-solution-manifold, u = theta - pi, turned by \cylA
-% about its axis so that O_a faces the reader (O_b is then behind; no view shows both, they are
+% about its axis so that G_a faces the reader (G_b is then behind; no view shows both, they are
 % opposite) and C is wholly in front. A point at u is in front where cos(u + \cylA) > 0, i.e.
 % u in [-120, 60]; the pieces below are split there by hand. Angles in degrees.
 \newcommand{\cylR}{1.55}   % radius on the page
@@ -38,7 +38,7 @@
 \newcommand{\cylA}{30}     % view angle
 \pgfmathdeclarefunction{cylx}{1}{\pgfmathparse{\cylR*sin((#1)+\cylA)}}
 \pgfmathdeclarefunction{cyly}{2}{\pgfmathparse{-\cylC*\cylR*cos((#1)+\cylA)+\cylS*(#2)}}
-% the orbits; R has 1.41 <= p_theta <= 2.45, C has |p_theta| <= 0.77
+% the orbits; iota o c_R has 1.41 <= p_theta <= 2.45, iota o c_L has |p_theta| <= 0.77
 \def\Hrot{2.0}
 \def\Hlib{-0.7} \def\tlib{45.57}  % acos(0.7)
 \pgfmathdeclarefunction{cylorb}{1}{\pgfmathparse{sqrt(2*(\Hrot+cos(#1)))}}
@@ -126,7 +126,7 @@
 \draw[fg!25!bg] ({\cylR},{-\cylS*\cylQ}) -- ({\cylR},{\cylS*\cylP});
 
 % behind: outlines only, so that nothing behind reads as an overlap in front; the one
-% exception is O_b itself, hatched faintly, as Bishop & Goldberg (Sec. 1.1, Fig. 1) hatch U n V
+% exception is G_b itself, hatched faintly, as Bishop & Goldberg (Sec. 1.1, Fig. 1) hatch U n V
 \patchfill{pattern=north east lines,pattern color=fg!40!bg}{60}{120}{\pzero}{\pone}
 \patchrims{chB,hidden,opacity=0.6}{60}{240}{\pzero}{\pone}
 \patchrims{chA,hidden,opacity=0.6}{60}{120}{\pzero}{\pone}
@@ -153,16 +153,16 @@
 \fill[lib] ({cylx(0)},{cyly(0,0)}) circle (1.3pt);
 
 % labels
-\node[lab,rot,anchor=south] at ({cylx(-30)},{cyly(-30,cylorb(-30))+0.02}) {$R$};
-\node[lab,lib,anchor=west] at ({cylx(\tlib)+0.03},{cyly(\tlib,0)}) {$C$};
+\node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({cylx(-30)},{cyly(-30,cylorb(-30))+0.02}) {$\iota\circ c_R$};
+\node[lab,lib,anchor=west] at ({cylx(\tlib)+0.03},{cyly(\tlib,0)}) {$\iota\circ c_L$};
 \node[lab,chL!80!fg] at ({cylx(-75)},{cyly(-75,0.45)}) {$V_1$};
 \node[lab,chA!80!fg] at ({cylx(10)},{cyly(10,\pzero)+0.20}) {$V_{2,1}$};
 \node[lab,chB!80!fg,anchor=south] at ({cylx(175)},{cyly(175,\pone)+0.10}) {$V_{2,2}$ (behind)};
-\node[lab,fill=bg,inner sep=0.8pt] at ({cylx(-90)},{cyly(-90,\pzero)+0.30}) {$O_a$};
-\node[lab,fill=bg,fill opacity=0.8,text opacity=0.8,inner sep=0.8pt] at ({cylx(90)},{cyly(90,\pone)-0.40}) {$O_b$};
+\node[lab,fill=bg,inner sep=0.8pt] at ({cylx(-90)},{cyly(-90,\pzero)+0.30}) {$G_a$};
+\node[lab,fill=bg,fill opacity=0.8,text opacity=0.8,inner sep=0.8pt] at ({cylx(90)},{cyly(90,\pone)-0.40}) {$G_b$};
 \node[font=\small] at (-2.7,1.6) {$\mathcal{M}$};
 % the overlap, labelled with a leader to each of its two pieces, as in Bishop & Goldberg
-\node[lab] (ov) at (0.1,3.30) {$V_{2,1}\cap V_{2,2}=O_a\cup O_b$};
+\node[lab] (ov) at (0.1,3.30) {$V_{2,1}\cap V_{2,2}=G_a\cup G_b$};
 \fill ({cylx(-100)},{cyly(-100,2.1)}) circle (1.1pt);
 \fill[opacity=0.6] ({cylx(100)},{cyly(100,2.25)}) circle (1.1pt);
 \draw[fg!80!bg] (ov.west) .. controls (-2.2,3.30) and (-2.0,1.45) .. ({cylx(-100)},{cyly(-100,2.1)});
@@ -202,28 +202,28 @@
     plot[domain=180-\tlib:180+\tlib,samples=90,smooth] ({chx(\x,180)},{chy(lorb(\x))})
     -- plot[domain=180+\tlib:180-\tlib,samples=90,smooth] ({chx(\x,180)},{chy(-lorb(\x))}) -- cycle;
   \fill[lib] (0,0) circle (1.3pt);
-  \node[lab,lib,anchor=west] at ({chx(180+\tlib,180)+0.03},0) {$C$};
+  \node[lab,lib,anchor=west] at ({chx(180+\tlib,180)+0.03},0) {$\iota\circ c_L$};
   \node[font=\small,anchor=north] at (0,{chy(-\plib)-0.30}) {$\varphi_1(V_1)$};
 \end{scope}
 
 % phi_{2,1}(V_{2,1})
 \begin{scope}[shift={(-0.2,-4.6)}]
   \chaxes{180}{60}{300}{\pzero}{\pone}{2,1}
-  \bandimage{chA}{180}{60}{300}{$O_a$}{$O_b$}
-  \node[lab,rot,anchor=south] at ({chx(150,180)},{chy(orb(150))+0.02}) {$R$};
+  \bandimage{chA}{180}{60}{300}{$G_a$}{$G_b$}
+  \node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({chx(150,180)},{chy(orb(150))+0.02}) {$\iota\circ c_R$};
   \node[font=\small,anchor=north] at (0.3,{chy(\pzero)-0.30}) {$\varphi_{2,1}(V_{2,1})$};
 \end{scope}
 
 % phi_{2,2}(V_{2,2})
 \begin{scope}[shift={(5.5,-4.6)}]
   \chaxes{0}{-120}{120}{\pzero}{\pone}{2,2}
-  \bandimage{chB}{0}{-120}{120}{$O_b$}{$O_a$}
-  \node[lab,rot,anchor=north] at (0,{chy(orb(0))-0.02}) {$R$};
+  \bandimage{chB}{0}{-120}{120}{$G_b$}{$G_a$}
+  \node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=north] at (0,{chy(orb(0))-0.02}) {$\iota\circ c_R$};
   \node[font=\small,anchor=north] at (-0.25,{chy(\pzero)-0.30}) {$\varphi_{2,2}(V_{2,2})$};
 \end{scope}
 
-% The transition phi_{2,2} o phi_{2,1}^{-1} on the overlap: O_b to O_b shifts the angle
-% by -2pi (the pieces are adjacent), and O_a to O_a leaves it unchanged, under both images.
+% The transition phi_{2,2} o phi_{2,1}^{-1} on the overlap: G_b to G_b shifts the angle
+% by -2pi (the pieces are adjacent), and G_a to G_a leaves it unchanged, under both images.
 \draw[->,fg!70!bg] (1.25,-3.52) -- node[above,lab,fg] {$\varphi_{2,2}\circ\varphi_{2,1}^{-1}$}
   node[below,lab,fg] {$\theta_{2,2}=\theta_{2,1}-2\pi$} (3.80,-3.52);
 \draw[->,fg!70!bg] (-1.17,-4.08) .. controls (-1.17,-6.55) and (6.47,-6.55) ..

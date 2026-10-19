@@ -338,7 +338,7 @@ caption = "The logo of GeometricMachineLearning.jl with the package name, withou
 [[figure]]
 name = "pendulum-phase-portrait"
 topic = "pendulum-autoencoder"
-caption = "The phase portrait of the pendulum: librating orbits (blue) around θ = π, rotating orbits (orange), and the separatrix (red, dashed) through the unstable equilibria."
+caption = "The phase portrait of the pendulum: librating orbits (blue) around θ = π, rotating orbits (orange), and the separatrix (red, dashed) through the unstable equilibria (red dots); the stable equilibrium is the blue dot."
 engine = "pdflatex"
 
 [[figure]]
@@ -414,9 +414,33 @@ caption = "The circles p_θ = const of the pendulum's cylinder in three single c
 engine = "pdflatex"
 
 [[figure]]
+name = "round-chart-to-target"
+topic = "pendulum-autoencoder"
+caption = "A symplectic decoder of the whole plane that is exact on the circles p_θ = s above a level s₁: (a) below s₁ it leaves the solution manifold and closes the cylinder from below onto a grey cap that ends at q = 0, as the paraboloid of cylinder-to-poloidal closes it at its apex; (b) its latent chart, in which every rotating orbit encloses its action."
+engine = "pdflatex"
+
+[[figure]]
 name = "two-charts"
 topic = "pendulum-autoencoder"
 caption = "A librating orbit, the separatrix and a rotating orbit of the pendulum in the angular representation and in the latent plane of a trained symplectic autoencoder."
+engine = "pdflatex"
+
+[[figure]]
+name = "angle-vs-round-chart"
+topic = "pendulum-autoencoder"
+caption = "The separatrix branches ℓ±, the librating region L, the rotating families R± and librating and rotating orbits of the pendulum on the solution manifold, in the angle chart and in the round chart, where ℓ± become the loops γ±, L the crescent U, R₋ the outside of γ₋ and R₊ a ring in the lobe K."
+engine = "pdflatex"
+
+[[figure]]
+name = "round-chart-reduced"
+topic = "pendulum-autoencoder"
+caption = "A librating orbit, the separatrix and a rotating orbit of the pendulum in the round chart and in the reduced model of a symplectic autoencoder trained by vector-field learning, both with an outer loop γ₋ and an inner loop γ₊ around the lobe K."
+engine = "pdflatex"
+
+[[figure]]
+name = "three-charts"
+topic = "pendulum-autoencoder"
+caption = "The same objects of the pendulum in the angle chart, in the round chart and in the reduced model of a symplectic autoencoder trained by vector-field learning: the separatrix, the librating region, the rotating families and their orbits."
 engine = "pdflatex"
 
 [[figure]]
@@ -440,7 +464,7 @@ engine = "pdflatex"
 [[figure]]
 name = "branch-invariants"
 topic = "pendulum-autoencoder"
-caption = "The latent invariant of a trained symplectic autoencoder against the angular action, on both rotating branches of the pendulum."
+caption = "The signed area enclosed by each encoded level set of a trained symplectic autoencoder against the angular action, on both rotating branches of the pendulum."
 engine = "pdflatex"
 
 [[figure]]

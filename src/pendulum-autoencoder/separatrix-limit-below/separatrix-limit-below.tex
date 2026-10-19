@@ -15,13 +15,22 @@
 \begin{tikzpicture}[baseline]
 \begin{axis}[width=7.4cm,height=5.0cm,xmin=0,xmax=6.2832,ymin=-2.6,ymax=2.6,
   xtick={0,3.1416,6.2832},xticklabels={$0$,$\pi$,$2\pi$},
-  xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,
+  xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,axis line style={fg},
   title style={at={(0.5,0)},anchor=north,yshift=-3.5em},   % panel label below the panel
-  title={\small $H\to1^-$: both branches, $J\to16$},
+  title={\small (c)},
   every axis plot/.append style={smooth,samples=200}]
   \addplot[sep,very thick,name path=U,domain=0:6.2832]{ 2*abs(sin(deg(x/2)))};
   \addplot[sep,very thick,name path=L,domain=0:6.2832]{-2*abs(sin(deg(x/2)))};
-  \addplot[sep!22!bg]fill between[of=U and L];
+  \addplot[lib!12!bg]fill between[of=U and L];   % L, blue as in cylinder-to-poloidal and three-charts
+  % the objects of M that a reduced model reproduces: the branches, L between them,
+  % R_+ above and R_- below, and the unstable equilibrium P (sep dots, as in phase_portrait)
+  \node[sep,font=\small,anchor=south west,inner sep=1pt] at (axis cs:5.2,1.05) {$\ell_+$};
+  \node[sep,font=\small,anchor=north west,inner sep=1pt] at (axis cs:5.2,-1.05) {$\ell_-$};
+  \node[lib!70!fg,font=\small] at (axis cs:3.1416,0) {$L$};
+  \node[font=\small,inner sep=1pt] at (axis cs:1.0,1.9) {$R_+$};
+  \node[font=\small,inner sep=1pt] at (axis cs:1.0,-1.9) {$R_-$};
+  \addplot[only marks,mark=*,mark size=2pt,sep] coordinates {(0,0) (6.2832,0)};
+  \node[sep,font=\small,anchor=south west,inner sep=1pt] at (axis cs:0.15,0.3) {$P$};
 \end{axis}
 \end{tikzpicture}
 \end{document}

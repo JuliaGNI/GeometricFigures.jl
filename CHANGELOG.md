@@ -212,6 +212,68 @@ package's site.
   symplectic. It is analytic: no trained weights or training data enter it. The light theme is
   pixel-identical to the paper's source at 150 dpi.
 
+* **The `pendulum-autoencoder` figures are resynced with the paper as of 2026-10-12: one colour
+  per object across the topic.** The lobe K is gold (`lobe`, `#FFD700`, filled at 50 %) wherever
+  it is drawn: in `banana-layout` and `banana-any-chart` it is the whole region inside the inner
+  separatrix loop, and `cylinder-to-poloidal`, `two-charts`, `pinched-pair`, `obstruction-cases`,
+  `upper-branch` and `atlas-vs-chart` fill it gold instead of grey, hatched or orange. The stable equilibrium is a blue
+  dot and the unstable one a red dot in `pendulum-phase-portrait` (whose `libration` label moves up
+  off the dot), `banana-layout` and `banana-any-chart`; bounce points are `fg` dots in those two
+  and in `magnetic-well`. The exact action J(H) is `fg` in `branch-invariants`,
+  `threshold-actions-paper` and `threshold-actions-sep` (red stays for the separatrix), the H = 1
+  line of `branch-invariants` is grey, and the ε* contours of `threshold-map` are greys, darker for
+  larger ε*, instead of purple, which is the branch R₊. `threshold-map` no longer marks the two
+  training grids, so the topic introduction no longer lists it among the figures drawn from the
+  training set. The patch V₁ of `angle-atlas` is blue (`#4063D8`) instead of teal, and the orbit R
+  of `action-angle-chart` and its label are in the rotating orange, while R₊ keeps purple.
+  `separatrix-limit-below` labels ℓ±, L, R± and the unstable equilibria P (red dots), and
+  `separatrix-limit-above` labels ℓ±. The explanatory sentences inside `two-charts`,
+  `upper-branch`, `pinched-pair`, `obstruction-cases`, `atlas-vs-chart`, `cylinder-to-poloidal`
+  and `pendulum-solution-manifold` are gone (panels keep their letters, and the captions say what
+  they show), `branch-invariants` names its curves in a legend, and the encoded curves and the
+  saddle in the latent plane are γ̄± and P̄, distinct from ℓ± and P on the solution manifold.
+  Two dark-theme fixes
+  that leave the light theme unchanged: the legend of `branch-invariants` is filled with `bg`
+  (pgfplots fills it white), and the four area figures (`librating-area`, `rotating-area`,
+  `separatrix-limit-below`, `separatrix-limit-above`) draw their axis lines in `fg`, because
+  `fill between` puts the axes on a layer that does not inherit the theme colour, so they were
+  black on the dark background. The light themes of all 24 resynced figures are pixel-identical
+  to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels in each.
+  `cylinder-to-poloidal` labels the part of the paraboloid above the cut "p_θ > c" instead of
+  "top, not in M": that part belongs to M. The caption of `branch-invariants` speaks of the signed
+  area enclosed by each encoded level set instead of a "latent invariant".
+
+* **The new figure `round-chart-to-target` draws a symplectic decoder of the whole plane that is exact on
+  the circles p_θ = s above a level s₁.** Below s₁ it leaves the solution manifold and closes the
+  cylinder from below onto a cap that ends at q = 0 (grey, `fg!12!bg`); panel (b) is its latent
+  chart. It is analytic. Its light theme is pixel-identical to the paper's source at 150 dpi, and
+  `scripts/check-dark.jl` counts 0 dark pixels.
+
+* **`cylinder-to-poloidal`, `rotating-cap`, `angle-atlas` and `action-angle-chart` are resynced with the paper as of 2026-10-13.**
+  `cylinder-to-poloidal` names the cut c instead of its value 2.6 and draws the axis and the radii
+  of the circles p_θ = ±c: √(2a) on the cylinder (a), √(2(a − c)) and √(2(a + c)) on the
+  paraboloid (b), with dotted lines that carry the heights ±c from (a) to (b). `rotating-cap`
+  names the two charts χ⁰₋ and χ⁰₊ instead of φ₋ and φ₊, and writes its two sets as
+  {x ∈ M : p_θ(x) < 0} and {x ∈ M : p_θ(x) > 0}. In `angle-atlas`, `action-angle-chart` and
+  `rotating-cap` the librating and rotating orbits are labelled ι∘c_L and ι∘c_R instead of C and R;
+  the ι∘c_R labels have a `bg` backing where they cross curves or hatching. The caption of
+  `round-chart-to-target` compares its cap with the apex of the paraboloid of `cylinder-to-poloidal` instead of with "the dome".
+  The light themes are pixel-identical to the paper's sources at 150 dpi, and
+  `scripts/check-dark.jl` counts 0 dark pixels in each.
+
+* **Three new figures compare the angle chart, the round chart and a trained reduced model.**
+  `angle-vs-round-chart` draws the separatrix branches ℓ±, the librating region L, the rotating
+  families R± and librating and rotating orbits on the solution manifold, in the angle chart and in
+  the round chart, where ℓ± become the loops γ±, L the crescent U, R₋ the outside of γ₋ and R₊ a
+  ring in the lobe K. `round-chart-reduced` sets the round chart beside the reduced model of a
+  symplectic autoencoder trained by vector-field learning, and `three-charts` combines the two:
+  the angle chart, the round chart and the reduced model in one row below the solution manifold.
+  The reduced-model panels are generated from that trained network, so the topic introduction
+  lists them among the figures to regenerate after a re-training. `separatrix-limit-below` shades
+  L blue (`lib!12`), as these figures and `cylinder-to-poloidal` do, instead of red. The light
+  themes of the four figures are pixel-identical to the paper's sources at 150 dpi, and
+  `scripts/check-dark.jl` counts 0 dark pixels in each.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The

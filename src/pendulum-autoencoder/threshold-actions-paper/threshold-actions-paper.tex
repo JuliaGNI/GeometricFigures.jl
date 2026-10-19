@@ -11,10 +11,11 @@
 \definecolor{net}{HTML}{4E9A4E}
 \definecolor{up}{HTML}{7A5AA8}
 
-% The angular action across the separatrix (red), with the two training levels of the paper's grid nearest
+% The angular action across the separatrix (black: the pendulum's exact action, as the reference
+% diagonal of the generated plots; red is reserved for the separatrix itself), with the two training levels of the paper's grid nearest
 % to it: the librating level H_L and the rotating level H_R. The bars are J(1 - eps*) .. J(1 + eps*)
 % around each; they meet in exactly one value (dotted), J_L(1 - eps*) = J_R(1 + eps*). An embedding
-% puts the latent action at H_R above that at H_L, so it cannot keep both inside bars any narrower.
+% puts the area of the encoded curve at H_R above that at H_L, so it cannot keep both inside bars any narrower.
 %
 % >>> BEGIN GENERATED BLOCK -- generated from the trained network, do not edit by hand
 % Grid paper: H_L = 0.9130, J_L = 14.7939, H_R = 1.5966, J_R = 10.9214, eps* = 0.1506.
@@ -138,13 +139,13 @@
   axis lines=left,tick label style={font=\footnotesize},label style={font=\small},
   xtick={0.5,1,1.5,2},ytick={0,8,16}]
   \draw[fg!25!bg] (axis cs:1,0) -- (axis cs:1,22);
-  \addplot[sep,thick] coordinates {\Jlib};
-  \addplot[sep,thick] coordinates {\Jrot};
+  \addplot[fg,thick] coordinates {\Jlib};
+  \addplot[fg,thick] coordinates {\Jrot};
   \draw[fg!50!bg,dotted,thick] (axis cs:0.3,\meet) -- (axis cs:2.2,\meet);
   \draw[lib,line width=2.2pt] (axis cs:\HL,\barLlo) -- (axis cs:\HL,\barLhi);
   \draw[rot,line width=2.2pt] (axis cs:\HR,\barRlo) -- (axis cs:\HR,\barRhi);
-  \fill[sep] (axis cs:\HL,\JL) circle (1.8pt);
-  \fill[sep] (axis cs:\HR,\JR) circle (1.8pt);
+  \fill[fg] (axis cs:\HL,\JL) circle (1.8pt);
+  \fill[fg] (axis cs:\HR,\JR) circle (1.8pt);
   \node[font=\footnotesize,lib,anchor=east] at (axis cs:\HL,\barLhi) {$H_L$};
   \node[font=\footnotesize,rot,anchor=west] at (axis cs:\HR,\barRlo) {$H_R$};
 \end{axis}

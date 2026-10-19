@@ -10,6 +10,7 @@
 \definecolor{sep}{HTML}{B03030}
 \definecolor{net}{HTML}{4E9A4E}
 \definecolor{up}{HTML}{7A5AA8}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K (here its encoded counterpart), as (:gold, 0.5) in the generated plots: fill lobe!50
 
 % ---------------------------------------------------------------------------
 % One solution manifold, charted two ways. Middle: M, in the projection and
@@ -17,18 +18,18 @@
 % equilibrium at the front), with the three regimes shaded instead of orbits
 % drawn. Left: the action-angle atlas, one planar chart per regime, each in
 % Cartesian form (X,Y) = sqrt(2I)(cos phi, -sin phi), so orbits are round
-% circles enclosing exactly their action J = 2 pi I. Right: the one chart the
-% network learns, drawn schematically with round circles.
+% circles enclosing exactly their action J = 2 pi I. Right: the trained encoder's
+% image of M^-, drawn schematically with round circles.
 %
 % Unlike two-charts, every plane here is on ONE scale, \s cm per unit of
 % length, and every circle is drawn at its true area: radius = \s*sqrt(A/pi).
 % So areas CAN be compared by eye across all four planes.
 %   atlas:   librating disk 16; rotating holes 8; orbits H = 0.91 (14.758),
 %            H = 1.60 (10.935), H = 4 (17.701) -- the angular actions.
-%   learned: gamma_- 14.7889, gamma_+ 1.8373 (so the crescent is 12.9516),
+%   encoded: gamma_- 14.7889, gamma_+ 1.8373 (so the crescent is 12.9516),
 %            rotating orbits H = 1.60 (16.97) and H = 4 (22.32), the measured
-%            J_latent.
-% The learned panel keeps only the areas: the real curves are panel (ii) of two-charts.
+%            area(γ_H).
+% The encoded panel keeps only the areas: the real curves are panel (ii) of two-charts.
 \newcommand{\s}{0.50}
 \pgfmathdeclarefunction{arad}{1}{\pgfmathparse{\s*sqrt((#1)/pi)}}
 
@@ -105,7 +106,7 @@
   \draw[up,orbit] (0,0) circle ({arad(17.701)});
   \draw[notin] (0,0) circle ({arad(8)});
   \node[say,up] at (-1.35,0)
-    {$R_+$: $H>1$, $p_\theta>0$\\ hole of area $a_0=8$,\\ where $\ell_+$ would be};
+    {$R_+$};
 \end{scope}
 
 % L : a disk of area 16
@@ -116,7 +117,7 @@
   \fill[lib] (0,0) circle (1.2pt);
   \node[num,lib,anchor=south] at (0,0.05) {$16$};
   \node[say,lib] at (-1.35,0)
-    {$L$: $H<1$\\ disk of area $16$,\\ its boundary all of $\ell$};
+    {$L$};
 \end{scope}
 
 % R_- : the exterior of a hole of area 8
@@ -127,7 +128,7 @@
   \draw[rot,orbit] (0,0) circle ({arad(17.701)});
   \draw[notin] (0,0) circle ({arad(8)});
   \node[say,rot] at (-1.35,0)
-    {$R_-$: $H>1$, $p_\theta<0$\\ hole of area $a_0=8$,\\ where $\ell_-$ would be};
+    {$R_-$};
 \end{scope}
 
 \draw[map] (-0.55,{cyly(0,2.7)}) to[out=160,in=0] node[tag,above,fg!60!bg,fill=bg]{$(X,Y)$} (\ax+1.25,2.75);
@@ -135,7 +136,7 @@
 \draw[map] (-0.55,{cyly(0,-2.75)}) to[out=200,in=0] node[tag,below,fg!60!bg,fill=bg]{$(X,Y)$} (\ax+1.25,-2.75);
 
 % ===========================================================================
-% (b) the learned chart: one plane for all of M^-
+% (b) the encoder's latent plane: one plane for all of M^-
 % ===========================================================================
 \def\bx{4.05}
 \pgfmathsetmacro{\Rg}{arad(14.7889)}
@@ -143,31 +144,32 @@
 \begin{scope}[shift={(\bx,0)}]
   \fill[rot!16!bg,even odd rule] (0,0) circle ({arad(22.32)}) (0,0) circle (\Rg);
   \fill[lib!16!bg,even odd rule] (0,0) circle (\Rg) (0,{\Rp-\Rg}) circle (\Rp);
-  \fill[pattern=north east lines,pattern color=up!55!bg] (0,{\Rp-\Rg}) circle (\Rp);
+  \fill[lobe!50!bg] (0,{\Rp-\Rg}) circle (\Rp);   % the encoded lobe, in the lobe colour
+  \fill[pattern=north east lines,pattern color=up!55!bg] (0,{\Rp-\Rg}) circle (\Rp);   % where R_+ goes
   \draw[rot,orbit] (0,0) circle ({arad(16.97)});
   \draw[rot,orbit] (0,0) circle ({arad(22.32)});
   \draw[sep,very thick] (0,0) circle (\Rg);
   \draw[sep,very thick] (0,{\Rp-\Rg}) circle (\Rp);
   \fill[sep] (0,-\Rg) circle (1.5pt);
-  \node[tag,sep,anchor=north,fill=bg,fill opacity=0.85,text opacity=1] at (0,{-\Rg-0.04}) {$P$};
-  \node[tag,sep,anchor=south west] at (45:\Rg) {$\gamma_-$};
-  \node[tag,sep,anchor=west] at ({\Rp+0.03},{\Rp-\Rg+0.12}) {$\gamma_+$};
+  \node[tag,sep,anchor=north,fill=bg,fill opacity=0.85,text opacity=1] at (0,{-\Rg-0.04}) {$\bar P$};
+  \node[tag,sep,anchor=south west] at (45:\Rg) {$\bar\gamma_-$};
+  \node[tag,sep,anchor=west] at ({\Rp+0.03},{\Rp-\Rg+0.12}) {$\bar\gamma_+$};
   \node[num,lib] at (0,0.42) {$12.95$};
   \draw[fg!55!bg] (-0.35,0.75) -- (-0.75,1.75) node[num,fg!70!bg,anchor=south,inner sep=1pt] {$a_0=14.79$};
 \end{scope}
 \node[font=\footnotesize,anchor=north] (btab) at (\bx,-1.62) {%
   \renewcommand{\arraystretch}{1.1}\setlength{\tabcolsep}{3pt}%
   \begin{tabular}{@{}lrr@{}}
-    & learned & (a) \\ \hline
-    \textcolor{lib}{$L$}: the crescent $U$     & $12.95$ & $16$ \\
-    \textcolor{rot}{$R_-$}: its hole $a_0$, inside $\gamma_-$ & $14.79$ & $8$ \\
-    \textcolor{up}{$R_+$}: its limit, $\gamma_+$ & $1.84$  & $8$ \\
+    & (b) & (a) \\ \hline
+    \textcolor{lib}{$L$}, area of $\bar U$ & $12.95$ & $16$ \\
+    \textcolor{rot}{$R_-$}, hole $a_0$ & $14.79$ & $8$ \\
+    \textcolor{up}{$R_+$}, area of $\bar\gamma_+$ & $1.84$  & $8$ \\
   \end{tabular}};
 
 \draw[map] (0.55,{cyly(-20,-0.2)}) to[out=0,in=180] node[tag,above,fg!60!bg]{$\Psi^\mathrm{enc}$} (\bx-1.4,0);
 
 % Panel labels below their panels, on one baseline under the lowest disk of (a).
-\node[head] at (\ax,{-2.75-arad(17.701)-0.12}) {\textbf{(a)} the action--angle atlas};
-\node[head] at (\bx,{-2.75-arad(17.701)-0.12}) {\textbf{(b)} the learned chart};
+\node[head] at (\ax,{-2.75-arad(17.701)-0.12}) {\textbf{(a)}};
+\node[head] at (\bx,{-2.75-arad(17.701)-0.12}) {\textbf{(b)}};
 \end{tikzpicture}
 \end{document}

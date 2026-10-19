@@ -99,21 +99,9 @@
   \draw[->,fg!50!bg] plot[domain=-34:34,samples=26,smooth] ({cylx(\x)},{cyly(\x,-\cylP)});
   \node[font=\small,fg!70!bg,anchor=north] at (0,{-\cylC*\cylR-\cylS*\cylP-0.05}) {$\theta$};
 
-  % --- what the picture says ------------------------------------------------
-  \node[anchor=east,text width=4.5cm,align=right,font=\small] at (-3.3,2.3)
-    {$\mathcal{M}\subset\mathbb{R}^4$: the solution manifold, the image of the cotangent lift.
-     It is a cylinder $S^1\times\mathbb{R}$, drawn here in $\mathbb{R}^3$ --- see the caption.};
-  \node[anchor=east,text width=4.5cm,align=right,font=\small] at (-3.3,-1.35)
-    {\textcolor{lib}{\textbf{librating}}, $H<1$: a loop that \emph{bounds} in $\mathcal{M}$.
-     $\oint p_\theta\,d\theta$ is the symplectic area of the disk it encircles, so every symplectic chart
-     must report the same number.};
-  \node[anchor=west,text width=4.5cm,align=left,font=\small] at (3.3,2.15)
-    {\textcolor{rot}{\textbf{rotating}}, $H>1$: a loop that runs \emph{around} the cylinder.
-     It bounds no surface in $\mathcal{M}$; its action uses the canonical one-form
-     $p_\theta\,d\theta$, independently of the chart.};
-  \node[anchor=west,text width=4.5cm,align=left,font=\small] at (3.3,-2.05)
-    {\textcolor{sep}{\textbf{separatrix}}, $H=1$: the two branches $\ell_\pm$, labelled by the
-     sign of $p_\theta$, each with action $+8$ along the flow. They meet at the unstable
-     equilibrium $\theta=0$.};
+  % --- labels; what the picture shows is said in the caption -----------------
+  \node[font=\small,anchor=east,inner sep=1.5pt] at (-2.45,2.45) {$\mathcal{M}$};
+  \node[lib,font=\small,anchor=west,inner sep=1.5pt] at (2.40,-0.30) {librating};
+  \node[rot,font=\small,anchor=west,inner sep=1.5pt] at (2.40,-1.90) {rotating};
 \end{tikzpicture}
 \end{document}

@@ -9,18 +9,19 @@
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 \definecolor{net}{HTML}{4E9A4E}
 
 % One set of curves on the cylinder, drawn through three charts, all symplectic and all on one
 % scale, so areas can be compared by eye across the panels.
 %   (a) the angular strip (theta, p), theta in radians;
-%   (b) the round chart with kappa = 1:
-%         (theta, p) -> rho (-cos theta, -sin theta),  rho^2/2 = a - p;
+%   (b) the round chart:
+%         (theta, p) -> r (-cos theta, -sin theta),  r^2/2 = a - p;
 %   (c) (b) followed by the two shears (x, y) -> (x + s y^2, y) -> (x, y + t x^2), each with
 %       Jacobian determinant 1, so (c) is symplectic as well.
 % The curves: librating H = 0.5 and H = 0.95 (bounce points at theta = arccos H), the separatrix,
 % the zero section p = 0 (the midline, dotted), and the rotating level H = 1.6 on both branches,
-% p < 0 solid, p > 0 dashed. The grey disk is inside the innermost curve drawn.
+% p < 0 solid, p > 0 dashed. The lobe K, everything inside the image of l_+, is in the lobe colour.
 \pgfmathsetmacro{\a}{3.2}
 \pgfmathsetmacro{\sx}{0.16}
 \pgfmathsetmacro{\sy}{0.13}
@@ -38,10 +39,10 @@
 \pgfmathdeclarefunction{cx}{2}{\pgfmathparse{bx(#1,#2)+\sx*by(#1,#2)*by(#1,#2)}}
 \pgfmathdeclarefunction{cy}{2}{\pgfmathparse{by(#1,#2)+\sy*cx(#1,#2)*cx(#1,#2)}}
 
-% \hole{x-chart}{y-chart}: the grey region inside the innermost curve drawn, the p > 0 rotating
-% orbit at H = 1.6; only the planar charts have one
+% \hole{x-chart}{y-chart}: the lobe K (lobe colour), everything inside
+% the image of l_+; only the planar charts have one
 \newcommand{\hole}[2]{%
-  \addplot[draw=none,fill=fg!8!bg,domain=0:360] ({#1(x,pl(x,1.6))},{#2(x,pl(x,1.6))}) -- cycle;}
+  \addplot[draw=none,fill=lobe!50!bg,domain=0:360] ({#1(x,ps(x))},{#2(x,ps(x))}) -- cycle;}
 % \orbits{x-chart}{y-chart}: every curve of the figure through one chart
 \newcommand{\orbits}[2]{%
   % librating orbits: the p > 0 leg, then the p < 0 leg back
@@ -59,12 +60,13 @@
   % rotating orbits at H = 1.6
   \addplot[rot,thick,domain=0:360] ({#1(x,-pl(x,1.6))},{#2(x,-pl(x,1.6))});
   \addplot[rot,thick,dashed,domain=0:360] ({#1(x,pl(x,1.6))},{#2(x,pl(x,1.6))});
-  % bounce points of the two librating orbits, on the midline
+  % bounce points of the two librating orbits, on the midline: black dots, as in cylinder-to-poloidal
   \foreach \t in {60,300,18.19,341.81}{
-    \addplot[only marks,mark=*,mark size=1.4pt,lib] coordinates {({#1(\t,0)},{#2(\t,0)})};
+    \addplot[only marks,mark=*,mark size=1.1pt,fg] coordinates {({#1(\t,0)},{#2(\t,0)})};
   }
-  % the stable equilibrium (theta = pi) and the unstable one P (theta = 0)
-  \addplot[only marks,mark=*,mark size=1.5pt,fg] coordinates {({#1(180,0)},{#2(180,0)})};
+  % the stable equilibrium (theta = pi, a lib dot) and the unstable one P (theta = 0, a sep dot),
+  % as in pendulum-phase-portrait and the other figures of this topic
+  \addplot[only marks,mark=*,mark size=1.9pt,lib] coordinates {({#1(180,0)},{#2(180,0)})};
   \addplot[only marks,mark=*,mark size=1.9pt,sep] coordinates {({#1(0,0)},{#2(0,0)})};
 }
 
@@ -89,7 +91,7 @@
   \node[font=\footnotesize,sep,fill=bg,inner sep=1pt] at (axis cs:5.35,1.5) {$\ell_+$};
   \node[font=\footnotesize,sep,fill=bg,inner sep=1pt] at (axis cs:5.35,-1.5) {$\ell_-$};
   \node[font=\footnotesize,fg!70!bg,fill=bg,inner sep=1pt] at (axis cs:2.3,0.3) {$\nu$};
-  \node[font=\footnotesize,anchor=north] at (axis cs:pi,-3.95) {(a) the cylinder, cut open};
+  \node[font=\footnotesize,anchor=north] at (axis cs:pi,-3.95) {(a)};
 \end{axis}
 
 % ---------------------------------------------------------------- (b)
@@ -99,7 +101,7 @@
   \orbits{bx}{by}
   \node[sep,font=\footnotesize,anchor=south east,fill=bg,inner sep=0.8pt] at (axis cs:{-sqrt(2*\a)-0.15},0.2) {$P$};
   \node[font=\footnotesize,fg!60!bg] at (axis cs:0,0) {$K$};
-  \node[font=\footnotesize,anchor=north] at (axis cs:0,-3.95) {(b) round chart, $\rho^2/2=a-p_\theta$};
+  \node[font=\footnotesize,anchor=north] at (axis cs:0,-3.95) {(b)};
 \end{axis}
 
 % ---------------------------------------------------------------- (c)
@@ -109,7 +111,7 @@
   \orbits{cx}{cy}
   \node[sep,font=\footnotesize,anchor=south east,fill=bg,inner sep=0.8pt] at (axis cs:{cx(0,0)-0.15},{cy(0,0)+0.2}) {$P$};
   \node[font=\footnotesize,fg!60!bg] at (axis cs:0.25,0.1) {$K$};
-  \node[font=\footnotesize,anchor=north] at (axis cs:0.9,-3.95) {(c) (b), sheared};
+  \node[font=\footnotesize,anchor=north] at (axis cs:0.9,-3.95) {(c)};
 \end{axis}
 \end{tikzpicture}
 \end{document}

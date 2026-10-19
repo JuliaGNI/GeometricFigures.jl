@@ -8,11 +8,12 @@
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 \definecolor{net}{HTML}{4E9A4E}
 \definecolor{up}{HTML}{7A5AA8}
 
 % ---------------------------------------------------------------------------
-% The two cases of the nesting argument, drawn. This is a schematic -- round circles
+% The nesting argument, drawn. This is a schematic -- round circles
 % where the trained chart has the hook of two-charts -- because the statement it
 % draws is topological: only which curve is inside which, and how the areas are
 % therefore ordered, carries any content.
@@ -21,9 +22,7 @@
 % other. Both panels use one pinched pair: an outer circle of radius 2 centred
 % at (0,2) and an inner one of radius 0.7 centred at (0,0.7). Both pass through
 % the origin, and being internally tangent there they meet nowhere else -- which
-% is the one point the two separatrix branches share, the image of the unstable
-% equilibrium. Their areas are in the ratio 4 : 0.49, close to the measured
-% 14.79 : 1.84.
+% is the one point the two loops share, the saddle P. The radii are schematic.
 %
 % The librating curves are the boundaries of the crescent shrunk by delta: the
 % outer circle at radius 2-delta and the inner one at radius 0.7+delta, which
@@ -41,11 +40,12 @@
   panelcap/.style={font=\small,align=center,anchor=north,text width=6.0cm}]
 
 % ===========================================================================
-% (a) rotating outside gamma_- : the layout of the learned chart
+% (a) rotating outside gamma_- : the layout of the trained reduced model
 % ===========================================================================
 \begin{scope}
   % the crescent U = image of the librating region
   \fill[lib!14!bg,even odd rule] (0,2) circle (2) (0,0.7) circle (0.7);
+  \fill[lobe!50!bg] (0,0.7) circle (0.7);   % the lobe K, inside the inner loop
 
   % librating level sets, nested outward, exhausting U
   \draw[libc] (0.99704,0.62308) arc[start angle=-54.09, end angle=234.09, radius=1.70]
@@ -81,6 +81,7 @@
 % ===========================================================================
 \begin{scope}[shift={(7.0,0)}]
   \fill[lib!14!bg,even odd rule] (0,2) circle (2) (0,0.7) circle (0.7);
+  \fill[lobe!50!bg] (0,0.7) circle (0.7);   % the lobe K, inside the inner loop
 
   \draw[libc] (0.99704,0.62308) arc[start angle=-54.09, end angle=234.09, radius=1.70]
                                 arc[start angle=184.41, end angle=-4.41,  radius=1.00] -- cycle;
@@ -116,11 +117,8 @@
 
 % ===========================================================================
 \node[panelcap] at (0,-0.55)
-  {\textbf{(a)} rotating family outside $\gamma_-$: every rotating loop encloses
-   all of $U$, and its area grows from $\mathrm{area}(\gamma_-)$. The layout of
-   the learned chart.};
+  {\textbf{(a)}};
 \node[panelcap] at (7.0,-0.55)
-  {\textbf{(b)} the branches exchanged: rotating family inside $\gamma_-$,
-   nesting \emph{inward}, its area falling to $\mathrm{area}(K)\geq0$.};
+  {\textbf{(b)}};
 \end{tikzpicture}
 \end{document}

@@ -1,0 +1,233 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,calc}
+
+\definecolor{lib}{HTML}{3B75AF}
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
+
+% ---------------------------------------------------------------------------
+% three-charts draws these panels as (i) and (ii), beside a trained reduced model.
+% The cylinder, as in round-chart-reduced: u = theta - pi, so u=0 (the stable
+% equilibrium) is at the front and u=+-180 (the unstable one) at the back.
+\newcommand{\cylR}{1.55}
+\newcommand{\cylC}{0.38}
+\newcommand{\cylS}{0.78}
+\newcommand{\cylP}{2.60}   % the cut |p_theta| < 2.6 of cylinder-to-poloidal and of panels (i) and (ii)
+\pgfmathdeclarefunction{cylx}{1}{\pgfmathparse{\cylR*sin(#1)}}
+\pgfmathdeclarefunction{cyly}{2}{\pgfmathparse{-\cylC*\cylR*cos(#1)+\cylS*(#2)}}
+\pgfmathdeclarefunction{cylorb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)+cos(#1))))}}
+
+% The level sets theta -> p_theta(theta) of the pendulum, in theta (degrees).
+\pgfmathdeclarefunction{orb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
+
+% Panel (i): the angular chart, theta in (0,2pi), as in separatrix-limit-below; the same scales as the angle
+% chart of two-charts.
+\newcommand{\canX}{0.86}   % cm per radian of theta
+\newcommand{\canY}{0.72}   % cm per unit of p_theta
+\pgfmathdeclarefunction{canx}{1}{\pgfmathparse{\canX*((#1)-180)*pi/180}}
+\pgfmathdeclarefunction{cany}{1}{\pgfmathparse{\canY*(#1)}}
+
+% Panel (ii): the round chart of cylinder-to-poloidal (c), exactly as panel (i) of round-chart-reduced (a = 3.2, turned
+% by 165 degrees).
+\newcommand{\rcA}{3.2}     % a
+\newcommand{\rcB}{165}     % turn
+\newcommand{\rcS}{0.60}    % cm per unit of r
+\pgfmathdeclarefunction{rcr}{1}{\pgfmathparse{\rcS*sqrt(max(0,2*(\rcA-(#1))))}}
+\pgfmathdeclarefunction{rcx}{2}{\pgfmathparse{-rcr(#2)*cos((#1)+\rcB)}}
+\pgfmathdeclarefunction{rcy}{2}{\pgfmathparse{-rcr(#2)*sin((#1)+\rcB)}}
+
+% The orbits: two librating ones and the rotating level H = 1.4 of round-chart-reduced on both sides.
+% H = 0 turns at theta = pi/2, 3pi/2 (on the cylinder the silhouette u = +-90), H = -0.5 at
+% theta = 2pi/3, 4pi/3, so both lie on the near side of the cylinder.
+\def\Hlib{0.0}
+\def\tlibA{90}
+\def\tlibB{270}
+\def\Hlibb{-0.5}
+\def\tlibbA{120}
+\def\tlibbB{240}
+\def\Hrot{1.4}
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,
+  hidden/.style={dash pattern=on 2.2pt off 2.2pt,opacity=0.38},
+  upper/.style={dash pattern=on 3pt off 1.8pt},   % the rotating orbit with p_theta > 0, as in cylinder-to-poloidal
+  cut/.style={fg!40!bg,densely dotted},
+  map/.style={->,thin,shorten >=2.5pt,shorten <=2.5pt,opacity=0.9},
+  lab/.style={font=\small,inner sep=1.5pt},
+  panelcap/.style={font=\small,align=center,anchor=north,text width=6.4cm}]
+
+% ===========================================================================
+% (0)  M, the solution manifold, on top
+% ===========================================================================
+\begin{scope}[shift={(0,6.4)}]
+  \fill[fg!4!bg]
+    plot[domain=-90:90,samples=50,smooth] ({cylx(\x)},{cyly(\x,-\cylP)})
+    -- plot[domain=90:270,samples=50,smooth] ({cylx(\x)},{cyly(\x,\cylP)})
+    -- cycle;
+  % near side: R_+ above l_+ (part of K in the round chart) and L between the branches
+  \fill[lobe!50!bg]
+    plot[domain=-90:90,samples=60,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,1.0))})
+    -- plot[domain=90:-90,samples=60,smooth] ({cylx(\x)},{cyly(\x,\cylP)}) -- cycle;
+  \fill[lib!12!bg]
+    plot[domain=-90:90,samples=60,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,1.0))})
+    -- plot[domain=90:-90,samples=60,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,1.0))}) -- cycle;
+  \draw[cut] plot[domain=-180:180,samples=120,smooth] ({cylx(\x)},{cyly(\x,\cylP)});
+  \draw[cut] plot[domain=-180:180,samples=120,smooth] ({cylx(\x)},{cyly(\x,-\cylP)});
+  \draw[fg!25!bg] ({-\cylR},{-\cylS*\cylP}) -- ({-\cylR},{\cylS*\cylP});
+  \draw[fg!25!bg] ({\cylR},{-\cylS*\cylP}) -- ({\cylR},{\cylS*\cylP});
+
+  % --- far side --------------------------------------------------------------
+  \draw[rot,thick,hidden]
+    plot[domain=90:270,samples=90,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\Hrot))});
+  \draw[rot,thick,hidden]
+    plot[domain=90:270,samples=90,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,\Hrot))});
+  \draw[sep,very thick,hidden]
+    plot[domain=90:270,samples=110,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,1.0))});
+  \draw[sep,very thick,hidden]
+    plot[domain=90:270,samples=110,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,1.0))});
+
+  % --- near side -------------------------------------------------------------
+  \foreach \H/\u in {\Hlib/90,\Hlibb/60}{
+    \draw[lib,thick]
+      plot[domain=-\u:\u,samples=60,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,\H))})
+      -- plot[domain=\u:-\u,samples=60,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\H))}) -- cycle;
+  }
+  \draw[sep,very thick]
+    plot[domain=-90:90,samples=90,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,1.0))});
+  \draw[sep,very thick]
+    plot[domain=-90:90,samples=90,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,1.0))});
+  \draw[rot,thick]
+    plot[domain=-90:90,samples=70,smooth] ({cylx(\x)},{cyly(\x,-cylorb(\x,\Hrot))});
+  \draw[rot,thick,upper]
+    plot[domain=-90:90,samples=70,smooth] ({cylx(\x)},{cyly(\x,cylorb(\x,\Hrot))});
+
+  \fill[sep] (0,{\cylC*\cylR}) circle (1.5pt);
+  \fill[lib] (0,{-\cylC*\cylR}) circle (1.5pt);
+
+  % where the arrows start: the separatrix branches and the outer librating orbit
+  \coordinate (Mlib) at ({cylx(-64)},{cyly(-64,-cylorb(-64,\Hlib))});
+  \coordinate (Mlm)  at ({cylx(-74)},{cyly(-74,-cylorb(-74,1.0))});
+  \coordinate (Mlp)  at ({cylx(-50)},{cyly(-50,cylorb(-50,1.0))});
+  \coordinate (Nlib) at ({cylx(64)},{cyly(64,-cylorb(64,\Hlib))});
+  \coordinate (Nlm)  at ({cylx(74)},{cyly(74,-cylorb(74,1.0))});
+  \coordinate (Nlp)  at ({cylx(50)},{cyly(50,cylorb(50,1.0))});
+
+  % labels of the three regions on the left, of the two branches on the right
+  \node[lab,anchor=east] (Rp0) at (-1.75,1.72) {$R_+$};
+  \draw[fg!50!bg,line width=0.4pt] (Rp0.east) -- ({cylx(-62)},{cyly(-62,2.35)});
+  \node[lab,lib!70!fg,anchor=east] (L0) at (-1.75,-0.30) {$L$};
+  \draw[lib!60!bg,line width=0.4pt] (L0.east) -- ({cylx(-80)},{cyly(-80,0.25)});
+  \node[lab,anchor=north] (Rm0) at (0.62,-2.55) {$R_-$};
+  \draw[fg!50!bg,line width=0.4pt] (Rm0.north) -- ({cylx(18)},{cyly(18,-2.25)});
+  \node[lab,sep,anchor=west] at (1.62,1.00) {$\ell_+$};
+  \node[lab,sep,anchor=west] at (1.62,-1.34) {$\ell_-$};
+\end{scope}
+
+% ===========================================================================
+% (i)  the angular chart of separatrix-limit-below, bottom left
+% ===========================================================================
+\begin{scope}[shift={(-4.45,-0.10)}]
+  % R_+ between l_+ and the cut, L between the branches
+  \fill[lobe!50!bg]
+    plot[domain=0:360,samples=120,smooth] ({canx(\x)},{cany(orb(\x,1))})
+    -- ({canx(360)},{cany(\cylP)}) -- ({canx(0)},{cany(\cylP)}) -- cycle;
+  \fill[lib!12!bg]
+    plot[domain=0:360,samples=120,smooth] ({canx(\x)},{cany(orb(\x,1))})
+    -- plot[domain=360:0,samples=120,smooth] ({canx(\x)},{cany(-orb(\x,1))}) -- cycle;
+  % the cuts p_theta = +-2.6, and the seam theta = 0 = 2pi, drawn twice
+  \draw[cut] ({canx(0)},{cany(\cylP)}) -- ({canx(360)},{cany(\cylP)});
+  \draw[cut] ({canx(0)},{cany(-\cylP)}) -- ({canx(360)},{cany(-\cylP)});
+  \draw[fg!55!bg,dash pattern=on 1.8pt off 1.8pt] ({canx(0)},{cany(-\cylP)}) -- ({canx(0)},{cany(\cylP)});
+  \draw[fg!55!bg,dash pattern=on 1.8pt off 1.8pt] ({canx(360)},{cany(-\cylP)}) -- ({canx(360)},{cany(\cylP)});
+
+  \draw[rot,thick] plot[domain=0:360,samples=100,smooth] ({canx(\x)},{cany(-orb(\x,\Hrot))});
+  \draw[rot,thick,upper] plot[domain=0:360,samples=100,smooth] ({canx(\x)},{cany(orb(\x,\Hrot))});
+  \foreach \H/\a/\b in {\Hlib/\tlibA/\tlibB,\Hlibb/\tlibbA/\tlibbB}{
+    \draw[lib,thick]
+      plot[domain=\a:\b,samples=70,smooth] ({canx(\x)},{cany(orb(\x,\H))})
+      -- plot[domain=\b:\a,samples=70,smooth] ({canx(\x)},{cany(-orb(\x,\H))}) -- cycle;
+  }
+  \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({canx(\x)},{cany(orb(\x,1))});
+  \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({canx(\x)},{cany(-orb(\x,1))});
+  \fill[sep] ({canx(0)},0) circle (1.7pt);
+  \fill[sep] ({canx(360)},0) circle (1.7pt);
+  \fill[lib] (0,0) circle (1.5pt);
+
+  \node[lab,anchor=north,inner sep=3pt] at ({canx(0)},{cany(-\cylP)}) {$0$};
+  \node[lab,anchor=north,inner sep=3pt] at (0,{cany(-\cylP)}) {$\pi$};
+  \node[lab,anchor=north,inner sep=3pt] at ({canx(360)},{cany(-\cylP)}) {$2\pi$};
+  \node[lab,anchor=north,inner sep=3pt] at ({canx(270)},{cany(-\cylP)}) {$\theta$};
+  \node[lab,rotate=90,anchor=south,inner sep=3pt] at ({canx(0)},1.15) {$p_\theta$};
+
+  \node[lab,sep,anchor=north west] at ({canx(0)+0.04},-0.06) {$P$};
+  \node[lab,sep,fill=bg,fill opacity=0.85,text opacity=1] at ({canx(232)},{cany(1.42)}) {$\ell_+$};
+  \node[lab,sep,fill=bg,fill opacity=0.85,text opacity=1] at ({canx(232)},{cany(-1.42)}) {$\ell_-$};
+  \node[lab,lib!70!fg] at ({canx(200)},{cany(-0.48)}) {$L$};
+  \node[lab] at ({canx(300)},{cany(2.30)}) {$R_+$};
+  \node[lab] at ({canx(300)},{cany(-2.30)}) {$R_-$};
+
+  \coordinate (Clib) at ({canx(152)},{cany(orb(152,\Hlib))});
+  \coordinate (Cgp)  at ({canx(68)},{cany(orb(68,1))});
+  \coordinate (Cgm)  at ({canx(74)},{cany(-orb(74,1))});
+\end{scope}
+
+% ===========================================================================
+% (ii)  the round chart, as panel (i) of round-chart-reduced, bottom right: the same curves and regions
+% ===========================================================================
+\begin{scope}[shift={(4.45,-0.10)}]
+  % the crescent U inside the outer loop, and the lobe K inside the inner one
+  \fill[lib!12!bg] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))}) -- cycle;
+  \fill[lobe!50!bg] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))}) -- cycle;
+  % the cuts p_theta = +-2.6: the top and bottom edges of panel (i)
+  \draw[cut] (0,0) circle ({rcr(\cylP)});
+  \draw[cut] (0,0) circle ({rcr(-\cylP)});
+
+  \draw[rot,thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,\Hrot))},{rcy(\x,-orb(\x,\Hrot))}) -- cycle;
+  \draw[rot,thick,upper] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,\Hrot))},{rcy(\x,orb(\x,\Hrot))}) -- cycle;
+  \foreach \H/\a/\b in {\Hlib/\tlibA/\tlibB,\Hlibb/\tlibbA/\tlibbB}{
+    \draw[lib,thick]
+      plot[domain=\a:\b,samples=70,smooth] ({rcx(\x,orb(\x,\H))},{rcy(\x,orb(\x,\H))})
+      -- plot[domain=\b:\a,samples=70,smooth] ({rcx(\x,-orb(\x,\H))},{rcy(\x,-orb(\x,\H))}) -- cycle;
+  }
+  \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))});
+  \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))});
+  \fill[sep] ({rcx(0,0)},{rcy(0,0)}) circle (1.7pt);
+  \fill[lib] ({rcx(180,0)},{rcy(180,0)}) circle (1.5pt);
+  \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.3pt);
+
+  \node[lab,sep,anchor=west,fill=bg,fill opacity=0.8,text opacity=1] at ({rcx(0,0)+0.08},{rcy(0,0)}) {$P$};
+  \draw[sep!60!bg,line width=0.4pt] ({rcx(300,-orb(300,1))},{rcy(300,-orb(300,1))}) -- ++(0.55,-0.45)
+    node[lab,sep,anchor=north west] {$\gamma_-$};
+  \draw[sep!60!bg,line width=0.4pt] ({rcx(250,orb(250,1))},{rcy(250,orb(250,1))}) -- (0.25,-0.35)
+    node[lab,sep,anchor=north west,inner sep=1pt] {$\gamma_+$};
+  \node[lab,fg!70!bg,anchor=south] at (0,0.06) {$K$};
+  \node[lab,lib!70!fg] at ({rcx(215,-0.45)},{rcy(215,-0.45)}) {$U$};
+  % the images of R_+ (inside gamma_+, between it and the dotted circle) and of R_- (outside gamma_-)
+  \draw[fg!50!bg,line width=0.4pt] ({rcx(40,2.1)},{rcy(40,2.1)}) -- (0.95,1.95) node[lab,fg,anchor=south west] {$R_+$};
+  \draw[fg!50!bg,line width=0.4pt] ({rcx(250,-2.3)},{rcy(250,-2.3)}) -- (-1.85,-1.85) node[lab,fg,anchor=north east] {$R_-$};
+
+  \coordinate (Dlib) at ({rcx(150,-orb(150,\Hlib))},{rcy(150,-orb(150,\Hlib))});
+  \coordinate (Dgp)  at ({rcx(122,orb(122,1))},{rcy(122,orb(122,1))});
+  \coordinate (Dgm)  at ({rcx(104,-orb(104,1))},{rcy(104,-orb(104,1))});
+\end{scope}
+
+% ===========================================================================
+% the arrows: each curve on M to its image in each chart
+% ===========================================================================
+\draw[map,lib] (Mlib) to[out=205,in=58,looseness=0.8]  (Clib);
+\draw[map,sep] (Mlp)  to[out=234,in=52,looseness=0.7]  (Cgp);
+\draw[map,sep] (Mlm)  to[out=212,in=96,looseness=0.8]  (Cgm);
+
+\draw[map,lib] (Nlib) to[out=-25,in=130,looseness=0.8] (Dlib);
+\draw[map,sep] (Nlp)  to[out=-10,in=110,looseness=0.8] (Dgp);
+\draw[map,sep] (Nlm)  to[out=-35,in=100,looseness=0.8] (Dgm);
+
+% ===========================================================================
+\node[panelcap] at (-4.45,-2.95) {\textbf{(i)}};
+\node[panelcap] at (4.45,-2.95) {\textbf{(ii)}};
+
+\end{tikzpicture}
+\end{document}

@@ -15,10 +15,10 @@
 % separatrix: L = {H < 1} (blue), R_+ = {H > 1, p > 0} (purple), R_- = {H > 1, p < 0} (orange).
 % Each chart is (X,Y) = sqrt(2I)(cos phi, -sin phi), I = J/2pi, so every orbit is a circle
 % enclosing its action J, and the images are drawn at true area: radius \s*sqrt(J/pi).
-%   L:   disk of area 16; the orbit C of angle-atlas (H = -0.7), J = 1.9225.
-%   R_+: outside of a hole of area a_0 = 8; the orbit R of angle-atlas (H = 2, p > 0),
+%   L:   disk of area 16; the orbit iota o c_L of angle-atlas (H = -0.7), J = 1.9225.
+%   R_+: outside of a hole of area a_0 = 8; the orbit iota o c_R of angle-atlas (H = 2, p > 0),
 %        J = 12.357; cut off (dotted) at area 24.
-%   R_-: the same, with the mirror image of R (H = 2, p < 0).
+%   R_-: the same, with the mirror image of iota o c_R (H = 2, p < 0).
 % The separatrix (dashed red) is in no chart: it bounds the disk and both holes.
 \newcommand{\cylR}{1.55}
 \newcommand{\cylC}{0.24}
@@ -27,7 +27,7 @@
 \newcommand{\cylA}{30}
 \pgfmathdeclarefunction{cylx}{1}{\pgfmathparse{\cylR*sin((#1)+\cylA)}}
 \pgfmathdeclarefunction{cyly}{2}{\pgfmathparse{-\cylC*\cylR*cos((#1)+\cylA)+\cylS*(#2)}}
-% separatrix branch |p| = 2|cos(u/2)|; the orbit R, |p| = sqrt(2(2 + cos u)); C at H = -0.7
+% separatrix branch |p| = 2|cos(u/2)|; the orbit iota o c_R, |p| = sqrt(2(2 + cos u)); iota o c_L at H = -0.7
 \pgfmathdeclarefunction{sepp}{1}{\pgfmathparse{2*abs(cos((#1)/2))}}
 \pgfmathdeclarefunction{rotp}{1}{\pgfmathparse{sqrt(2*(2+cos(#1)))}}
 \pgfmathdeclarefunction{libp}{1}{\pgfmathparse{sqrt(max(0,2*(-0.7+cos(#1))))}}
@@ -71,9 +71,9 @@
     \draw[notin] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,\sg*sepp(\x))});
     \draw[notin,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,\sg*sepp(\x))});
   }
-  % the orbits C, R and its mirror image
-  \draw[up,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
-  \draw[up,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
+  % the orbits iota o c_L, iota o c_R and its mirror image
+  \draw[rot,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
+  \draw[rot,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
   \draw[rot,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,-rotp(\x))});
   \draw[rot,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,-rotp(\x))});
   \draw[lib,thick]
@@ -81,12 +81,12 @@
     -- plot[domain=90:-90,samples=90,smooth] ({cylx(\tlib*sin(\x))},{cyly(\tlib*sin(\x),-libp(\tlib*sin(\x)))})
     -- cycle;
   % labels
-  \node[up,anchor=south] at ({cylx(-20)},{cyly(-20,rotp(-20))}) {$R$};
+  \node[rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({cylx(-20)},{cyly(-20,rotp(-20))}) {$\iota\circ c_R$};
   \node[lib] at ({cylx(-75)},{cyly(-75,0)}) {$L$};
   \node[up] at ({cylx(-75)},{cyly(-75,2.75)}) {$R_+$};
   \node[rot] at ({cylx(-75)},{cyly(-75,-2.75)}) {$R_-$};
-  \node[lib,anchor=west] at ({cylx(40)},{cyly(40,0.25)}) {$C$};
-  \node[sep,anchor=west,align=left] at ({\cylR+0.05},{cyly(60,1.0)}) {$\ell$, in no\\ chart};
+  \node[lib,anchor=west] at ({cylx(40)},{cyly(40,0.25)}) {$\iota\circ c_L$};
+  \node[sep,anchor=west,align=left] at ({\cylR+0.05},{cyly(60,1.0)}) {$\ell$};
   \node[anchor=east] at ({-\cylR-0.15},{cyly(-120,1.6)}) {$\mathcal{M}$};
   % points of the domains the arrows start from
   \coordinate (mU) at ({cylx(10)},{cyly(10,2.95)});
@@ -128,12 +128,12 @@
   \fill[up!16!bg] (0,0) circle ({arad(24)});
   \fill[bg] (0,0) circle ({arad(8)});
   \fill[hole] (0,0) circle ({arad(8)});
-  \draw[up,thick] (0,0) circle ({arad(12.357)});
+  \draw[rot,thick] (0,0) circle ({arad(12.357)});
   \draw[notin] (0,0) circle ({arad(8)});
   \draw[cut] (0,0) circle ({arad(24)});
   \node[fill=bg,inner sep=1pt] at (0,0) {$a_0=8$};
   \node[sep,fill=bg,inner sep=1pt] at (0,0.42) {$\ell_+$};
-  \node[up,anchor=south west] at (40:{arad(12.357)}) {$R$};
+  \node[rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south west] at (40:{arad(12.357)}) {$\iota\circ c_R$};
   \coordinate (iU) at (115:{arad(24)});
   \node[chname] at (0,{-arad(24)-0.1}) {$\chi_+(R_+)$};
 \end{scope}
