@@ -37,7 +37,7 @@
 % ===========================================================================
 \begin{scope}
   \fill[lib!14!bg] (-1.05,1.25) circle (1.05);
-  \fill[lib!14!bg] ( 1.05,1.25) circle (1.05);
+  \fill[fg!4!bg] ( 1.05,1.25) circle (1.05);
   \draw[gam]    (-1.05,1.25) circle (1.05);
   \draw[gam]    ( 1.05,1.25) circle (1.05);
 
@@ -50,8 +50,7 @@
   \node[font=\small,lib] at (-1.05,1.25) {$8$};
   \node[font=\small,lib] at ( 1.05,1.25) {$8$};
 
-  \node[sum,fg!75!bg] at (0,-0.52)
-    {$\mathrm{area}(U)=\mathrm{area}(\gamma_-)=\mathrm{area}(\gamma_+)$};
+  \node[tag,lib] at (-1.05,0.7) {$\Omega$};
 \end{scope}
 
 % ===========================================================================
@@ -69,12 +68,10 @@
   \node[tag,sep,anchor=south] at (0,2.54) {$\gamma_-$};
   \draw[sep!60!bg,line width=0.4pt] (0.40,0.28) -- (1.02,-0.10);
   \node[tag,sep,anchor=west] at (1.00,-0.14) {$\gamma_+$};
-  \node[font=\small,lib] at (0,1.86) {$U$};
+  \node[font=\small,lib] at (0,1.86) {$\Omega$};
   \draw[fg!50!bg,line width=0.4pt] (0.16,0.60) -- (0.72,0.96);
   \node[tag,fg!60!bg,anchor=south west] at (0.68,0.92) {$K$};
 
-  \node[sum,fg!75!bg] at (0,-0.52)
-    {$\mathrm{area}(U)=\mathrm{area}(\gamma_-)-\mathrm{area}(\gamma_+)$};
 \end{scope}
 
 % ===========================================================================
