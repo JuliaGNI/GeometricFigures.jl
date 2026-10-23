@@ -1,0 +1,64 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta}
+
+\definecolor{net}{HTML}{4E9A4E}
+
+% The three ways of representing the solution manifold M of the pendulum in a single chart. Each
+% panel draws, in its latent plane, the images of the circles p_theta = s of M (thin; integer s in
+% (a) and (b), half-integer steps in (c)), the zero section nu = {p_theta = 0} (dotted, as in
+% cylinder-to-poloidal), and the hole (open circle, as the apex there).
+%   (a) case 1, the round chart of cylinder-to-poloidal, r^2/2 = a - s with a = 3.2 as there,
+%       s = -2, ..., 3; the circles reach the apex at s = a, {p_theta >= a} is cut off.
+%   (b) case 2, a symplectic decoder of the whole plane, exact on {p_theta < -1}: the chart
+%       r^2/2 = -s of rotating-cap (there with the boundary at -1.05), s = -5, ..., -1; the
+%       disk r < sqrt(2) inside the circle s = -1 decodes onto the cap off M (net!16, as there).
+%   (c) case 3, the homeomorphism r = e^{-s}, s = -1, -1/2, ..., 2 and 3; the circles accumulate
+%       at the hole, the strips between them shrink towards it.
+% All three at the same scale; the strips between circles one unit of p_theta apart have area 2pi
+% in (a) and (b), and not in (c). Labels of the hole and of the cap's edge sit below right, on a leader.
+\newcommand{\un}{0.5}
+\tikzset{lev/.style={fg!45!bg,line width=0.4pt},
+         nu/.style={fg!70!bg,densely dotted,line width=0.6pt},
+         lab/.style={font=\footnotesize,inner sep=1pt},
+         hole/.style={fill=bg,draw=fg,line width=0.45pt}}
+
+\begin{document}
+\begin{tikzpicture}[x=\un cm,y=\un cm]
+
+% ---------------------------------------------------------------- (a) case 1: the round chart
+\begin{scope}
+  \foreach \s in {-2,-1,1,2,3} {\draw[lev] (0,0) circle ({sqrt(2*(3.2-\s))});}
+  \draw[nu] (0,0) circle ({sqrt(6.4)});
+  \filldraw[hole] (0,0) circle (1.3pt);
+  \node[lab,anchor=west] at ({sqrt(2*(3.2+2))+0.05},0) {$p_\theta=-2$};
+  \node[lab,anchor=south] at (0,{sqrt(6.4)}) {$\nu$};
+  \draw[fg!50!bg,line width=0.3pt] (0.12,-0.12) -- (2.6,-3.2) node[lab,anchor=north west,fg] {$p_\theta\to a$};
+  \node[font=\small] at (0,-4.2) {\textbf{(a)}};
+\end{scope}
+
+% ---------------------------------------------------------------- (b) case 2: whole plane, symplectic
+\begin{scope}[shift={(9.5,0)}]
+  \fill[net!16!bg] (0,0) circle ({sqrt(2)});
+  \foreach \s in {-5,-4,-3,-2} {\draw[lev] (0,0) circle ({sqrt(-2*\s)});}
+  \draw[lev] (0,0) circle ({sqrt(2)});
+  \node[lab,anchor=west] at ({sqrt(10)+0.05},0) {$p_\theta=-5$};
+  \draw[fg!50!bg,line width=0.3pt] ({sqrt(2)*cos(-50)},{sqrt(2)*sin(-50)}) -- (2.6,-3.2) node[lab,anchor=north west,fg] {$p_\theta=-1$};
+  \node[lab,net!70!fg] at (0,0) {cap};
+  \node[font=\small] at (0,-4.2) {\textbf{(b)}};
+\end{scope}
+
+% ---------------------------------------------------------------- (c) case 3: all of M, not symplectic
+\begin{scope}[shift={(18.5,0)}]
+  \foreach \s in {-1,-0.5,0.5,1,1.5,2,3} {\draw[lev] (0,0) circle ({exp(-\s)});}
+  \draw[nu] (0,0) circle (1);
+  \filldraw[hole] (0,0) circle (1.3pt);
+  \node[lab,anchor=west] at ({exp(1)+0.05},0) {$p_\theta=-1$};
+  \node[lab,anchor=south] at (0,1) {$\nu$};
+  \draw[fg!50!bg,line width=0.3pt] (0.12,-0.12) -- (2.6,-3.2) node[lab,anchor=north west,fg] {$p_\theta\to\infty$};
+  \node[font=\small] at (0,-4.2) {\textbf{(c)}};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}
