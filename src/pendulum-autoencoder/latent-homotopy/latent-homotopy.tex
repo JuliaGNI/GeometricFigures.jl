@@ -1,0 +1,88 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,decorations.markings}
+
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{net}{HTML}{4E9A4E}
+
+% The contraction h(t,varsigma) = (1-varsigma) gamma(t) + varsigma z_*
+% and its image under the decoder.
+%   (a) the parameter annulus Sigma = S^1 x [0,1], drawn as a square with t = 0 and t = 1 identified;
+%       horizontal lines varsigma = 0, 1/3, 2/3, 1, as in Lipschutz, General Topology, Ch. 13.
+%   (b) h maps each line varsigma = const onto a closed latent curve, shrinking from gamma to z_*.
+%   (c) Psi^dec maps them onto closed curves in R^4 that sweep out a surface and end in a point.
+% The loops in (b) are gamma scaled by 1 - varsigma about z_*; in (c) the same loops, sheared, on a sheet.
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,
+  lab/.style={font=\footnotesize,inner sep=1.5pt},
+  flow/.style={postaction={decorate},decoration={markings,mark=at position #1 with {\arrow{Stealth}}}}]
+
+\def\loop{plot[smooth cycle,tension=0.8] coordinates {(-1.0,-0.35) (-0.2,-0.8) (0.85,-0.55) (1.05,0.35) (0.2,0.8) (-0.75,0.55)}}
+
+% ================================================================ (a) the annulus Sigma
+% laid out as in Lipschutz, General Topology, Ch. 13 (simply connected spaces), where s runs along the curve and t
+% deforms it; here t runs along the curve and varsigma deforms it;
+% horizontal lines varsigma = const are closed curves; t = 0 and t = 1 identified (arrows)
+\begin{scope}
+  \fill[net!12!bg] (0,-1.2) rectangle (2.4,1.2);
+  \draw[fg!50!bg] (0,-1.2) rectangle (2.4,1.2);
+  \draw[fg!50!bg,-{Stealth[length=4pt]}] (0,-0.1) -- (0,0.1);
+  \draw[fg!50!bg,-{Stealth[length=4pt]}] (2.4,-0.1) -- (2.4,0.1);
+  \foreach \y/\o in {-1.2/100,-0.4/75,0.4/50} {
+    \draw[rot!\o!bg,very thick,->] (0,\y) -- (2.4,\y);
+  }
+  \draw[fg,very thick] (0,1.2) -- (2.4,1.2);
+  \node[lab,anchor=east] at (0,-1.2) {$0$};
+  \node[lab,anchor=east] at (0,1.2) {$1$};
+  \node[lab,anchor=east] at (0,0.4) {$\varsigma$};
+  \node[lab,anchor=north] at (1.2,-1.25) {$t$};
+  \node[lab,rot,anchor=west] at (2.45,-1.2) {$\gamma$};
+  \node[lab,anchor=west] at (2.45,1.2) {$z_\ast$};
+  \node[lab] at (1.2,0.85) {$\Sigma$};
+\end{scope}
+
+% ================================================================ (b) the latent plane
+\draw[->,thick,fg!60!bg] (3.0,0) -- node[above,lab,fg] {$h$} (3.75,0);
+\begin{scope}[shift={(5.6,0)}]
+  \fill[fg!4!bg] (-1.7,-1.3) rectangle (1.7,1.3);
+  \node[lab,anchor=north west] at (-1.7,1.3) {$\mathbb{R}^2$};
+  \foreach \sc/\o in {1/100,0.667/75,0.333/50} {
+    \begin{scope}[scale=\sc]
+      \draw[rot!\o!bg,very thick,flow=0.3] \loop;
+    \end{scope}
+  }
+  \fill (0,0) circle (1.4pt);
+  \draw[fg!60!bg] (0,0) -- (-1.15,-1.0);
+  \node[lab,anchor=north east,fill=fg!4!bg] at (-1.1,-0.95) {$z_\ast$};
+  \node[lab,rot,anchor=south west] at (0.95,0.45) {$\gamma$};
+\end{scope}
+
+% ================================================================ (c) R^4
+\draw[->,thick,fg!60!bg] (7.55,0) -- node[above,lab,fg] {$\Psi^\mathrm{dec}$} (8.45,0);
+\begin{scope}[shift={(10.3,0)}]
+  \fill[fg!4!bg] plot[smooth cycle,tension=0.7] coordinates {(-1.75,-1.0) (0.0,-1.4) (1.75,-0.9) (1.55,1.1) (0,1.4) (-1.65,0.95)};
+  \node[lab,anchor=north west] at (-1.8,1.5) {$\mathbb{R}^4$};
+  \begin{scope}[xslant=0.25,yscale=0.85,rotate=-12]
+    \fill[net!12!bg] \loop;
+    \foreach \sc/\o in {1/100,0.667/75,0.333/50} {
+      \begin{scope}[scale=\sc]
+        \draw[rot!\o!bg,very thick,flow=0.3] \loop;
+      \end{scope}
+    }
+    \fill (0,0) circle (1.4pt);
+  \end{scope}
+  \draw[fg!60!bg] (0,0) -- (-0.6,-1.05);
+  \node[lab,anchor=north] at (-0.6,-1.02) {$\Psi^\mathrm{dec}(z_\ast)$};
+  \node[lab,rot,anchor=south west] at (0.95,0.35) {$\Psi^\mathrm{dec}\circ\gamma$};
+  \draw[net!60!fg] (-0.85,0.2) -- (-1.35,0.75);
+  \node[lab,net!60!fg,anchor=south] at (-1.35,0.72) {$\Psi^\mathrm{dec}(h(\Sigma))$};
+\end{scope}
+
+% panel labels below the panels
+\node[font=\footnotesize] at (1.2,-1.85) {\textbf{(a)}};
+\node[font=\footnotesize] at (5.6,-1.85) {\textbf{(b)}};
+\node[font=\footnotesize] at (10.3,-1.85) {\textbf{(c)}};
+\end{tikzpicture}
+\end{document}

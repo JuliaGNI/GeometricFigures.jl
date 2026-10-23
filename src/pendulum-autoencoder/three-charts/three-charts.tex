@@ -8,10 +8,10 @@
 \definecolor{sep}{HTML}{B03030}
 \definecolor{lobe}{HTML}{FFD700}   % the lobe K, as (:gold, 0.5) in the generated plots: fill lobe!50
 
-% One figure for three pictures of the same objects: the cylinder M on top, and below it (i) the angular chart,
-% the angular chart of separatrix-limit-below, (ii) the round chart of cylinder-to-poloidal (c), and (iii)
-% the reduced model of a trained network. It combines angle-vs-round-chart ((i), (ii)) and
-% round-chart-reduced ((ii), (iii)).
+% One figure for three pictures of the same objects: the cylinder M on top, and below it (a) the angular chart,
+% the angular chart of separatrix-limit-below, (b) the round chart of cylinder-to-poloidal (c), and (c) the reduced model of a
+% trained network. It combines angle-vs-round-chart ((a), (b)) and
+% round-chart-reduced ((b), (c)).
 
 % ---------------------------------------------------------------------------
 % The cylinder, in the projection and with the conventions of pendulum-solution-manifold: u = theta - pi,
@@ -19,7 +19,7 @@
 \newcommand{\cylR}{1.55}
 \newcommand{\cylC}{0.38}
 \newcommand{\cylS}{0.78}
-\newcommand{\cylP}{2.60}   % the cut |p_theta| < 2.6 of cylinder-to-poloidal and of panels (i) and (ii)
+\newcommand{\cylP}{2.60}   % the cut |p_theta| < 2.6 of cylinder-to-poloidal and of panels (a) and (b)
 \pgfmathdeclarefunction{cylx}{1}{\pgfmathparse{\cylR*sin(#1)}}
 \pgfmathdeclarefunction{cyly}{2}{\pgfmathparse{-\cylC*\cylR*cos(#1)+\cylS*(#2)}}
 \pgfmathdeclarefunction{cylorb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)+cos(#1))))}}
@@ -27,15 +27,15 @@
 % The level sets theta -> p_theta(theta) of the pendulum, in theta (degrees).
 \pgfmathdeclarefunction{orb}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
 
-% Panel (i): the angular chart, theta in (0,2pi), as in separatrix-limit-below. Smaller than in angle-vs-round-chart,
+% Panel (a): the angular chart, theta in (0,2pi), as in separatrix-limit-below. Smaller than in angle-vs-round-chart,
 % so that three panels fit in a row.
 \newcommand{\canX}{0.66}   % cm per radian of theta
 \newcommand{\canY}{0.62}   % cm per unit of p_theta
 \pgfmathdeclarefunction{canx}{1}{\pgfmathparse{\canX*((#1)-180)*pi/180}}
 \pgfmathdeclarefunction{cany}{1}{\pgfmathparse{\canY*(#1)}}
 
-% Panel (ii): the round chart of cylinder-to-poloidal (c) (a = 3.2), turned by 165 degrees so that the saddle P
-% points the way it does in panel (iii).
+% Panel (b): the round chart of cylinder-to-poloidal (c) (a = 3.2), turned by 165 degrees so that the saddle P
+% points the way it does in panel (c).
 \newcommand{\rcA}{3.2}     % a
 \newcommand{\rcB}{165}     % turn
 \newcommand{\rcS}{0.55}    % cm per unit of r
@@ -45,7 +45,7 @@
 
 % The orbits: two librating ones and the rotating level H = 1.4 on both sides. H = 0 turns at
 % theta = pi/2, 3pi/2 (on the cylinder the silhouette u = +-90), H = -0.5 at theta = 2pi/3, 4pi/3.
-% Panel (iii) follows H = 0 and H = 1.4, p_theta < 0, only: the levels the generated block was made for. Its
+% Panel (c) follows H = 0 and H = 1.4, p_theta < 0, only: the levels the generated block was made for. Its
 % dashed curve in the lobe is not an encoded orbit but a level of H o Psi^dec standing in for R_+.
 \def\Hlib{0.0}
 \def\tlibA{90}
@@ -56,16 +56,16 @@
 \def\Hrot{1.4}
 
 % ---------------------------------------------------------------------------
-% Panel (iii) is the reduced model of a trained network, not a sketch: the separatrix of H o Psi^dec,
+% Panel (c) is the reduced model of a trained network, not a sketch: the separatrix of H o Psi^dec,
 % traced as the two homoclinic orbits of its saddle (gm: the outer loop, gp: the loop around the lobe),
 % and the reduced orbits from the encoded states at H = 0 (lib) and H = 1.4 (rot). Everything between
 % the markers is generated from the trained network; the two axes are scaled differently, so areas in this
-% panel must not be compared by eye with panels (i) and (ii).
+% panel must not be compared by eye with panels (a) and (b).
 % >>> BEGIN GENERATED BLOCK -- generated from the trained network, do not edit by hand
 % Weights: a network trained by vector-field learning (reconstruction, energy, vector field)
 % Latent extent z_q in [-1.658, 1.135], z_p in [-4.204, 8.367].
 % Page scale 1.5397 cm per unit of z_q against 0.4057 of z_p (ratio 3.80): areas in this
-% panel must not be compared by eye with panel (i).
+% panel must not be compared by eye with the angular chart.
 % Saddle level 1.1203. Shoelace areas (counterclockwise positive, the opposite of area(.) in the text): outer loop -14.4504, lobe loop +0.0449.
 % lib and rot are the reduced orbits from the encoded states at H = 0.00 and 1.40.
 % up is the level 1.1465 of H o Psi^dec in the lobe, halfway between the saddle and the maximum: a stand-in for R_+.
@@ -880,7 +880,7 @@
   \fill[sep] (0,{\cylC*\cylR}) circle (1.5pt);
   \fill[lib] (0,{-\cylC*\cylR}) circle (1.5pt);
 
-  % where the arrows start: to (i) from the left, to (ii) from below, to (iii) from the right
+  % where the arrows start: to (a) from the left, to (b) from below, to (c) from the right
   \coordinate (Mlib) at ({cylx(-64)},{cyly(-64,-cylorb(-64,\Hlib))});
   \coordinate (Mlm)  at ({cylx(-74)},{cyly(-74,-cylorb(-74,1.0))});
   \coordinate (Mlp)  at ({cylx(-50)},{cyly(-50,cylorb(-50,1.0))});
@@ -902,7 +902,7 @@
 \end{scope}
 
 % ===========================================================================
-% (i)  the angular chart of separatrix-limit-below, bottom left
+% (a)  the angular chart of separatrix-limit-below, bottom left
 % ===========================================================================
 \begin{scope}[shift={(-5.25,0)}]
   \fill[lobe!50!bg]
@@ -949,13 +949,13 @@
 \end{scope}
 
 % ===========================================================================
-% (ii)  the round chart of cylinder-to-poloidal (c), bottom middle: the same curves and regions
+% (b)  the round chart of cylinder-to-poloidal (c), bottom middle: the same curves and regions
 % ===========================================================================
 \begin{scope}[shift={(0,0)}]
   % the crescent U inside the outer loop, and the lobe K inside the inner one
   \fill[lib!12!bg] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))}) -- cycle;
   \fill[lobe!50!bg] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))}) -- cycle;
-  % the cuts p_theta = +-2.6: the top and bottom edges of panel (i)
+  % the cuts p_theta = +-2.6: the top and bottom edges of panel (a)
   \draw[cut] (0,0) circle ({rcr(\cylP)});
   \draw[cut] (0,0) circle ({rcr(-\cylP)});
 
@@ -969,7 +969,7 @@
   \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,-orb(\x,1))},{rcy(\x,-orb(\x,1))});
   \draw[sep,very thick] plot[domain=0:360,samples=120,smooth] ({rcx(\x,orb(\x,1))},{rcy(\x,orb(\x,1))});
   % the pendulum's unstable equilibrium P: a sep dot, as in every exact figure of the topic,
-  % and so is the reduced model's saddle P in panel (iii)
+  % and so is the reduced model's saddle P in panel (c)
   \fill[sep] ({rcx(0,0)},{rcy(0,0)}) circle (1.7pt);
   \fill[lib] ({rcx(180,0)},{rcy(180,0)}) circle (1.5pt);
   \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.3pt);
@@ -991,16 +991,16 @@
 \end{scope}
 
 % ===========================================================================
-% (iii)  the reduced model, bottom right: level sets of H o Psi^dec in a plane
+% (c)  the reduced model, bottom right: level sets of H o Psi^dec in a plane
 % ===========================================================================
 \begin{scope}[shift={(5.35,0)}]
-  % the crescent U inside the outer loop, and the lobe K inside the inner one, as in panel (ii)
+  % the crescent U inside the outer loop, and the lobe K inside the inner one, as in panel (b)
   \fill[lib!12!bg] \gmpath;
   \fill[lobe!50!bg] \gppath;
 
   \draw[rot,thick] \rotpath;
   \draw[lib,thick] \libpath;
-  \draw[rot,thick,upper] \uppath;   % the stand-in for R_+ in the lobe, dashed as R_+ in the other panels
+  \draw[net,thick,upper] \uppath;   % the stand-in for R_+ in the lobe, dashed as R_+ in (a) and (b)
   \draw[sep,very thick] \gmpath;
   \draw[sep,very thick] \gppath;
   \fill[sep] (\pinchX,\pinchY) circle (1.7pt);
@@ -1023,14 +1023,14 @@
       \fill[lobe!50!bg] \zgppath;
       \draw[rot,thick] \zrotpath;
       \draw[lib,thick] \zlibpath;
-      \draw[rot,thick,upper] \zuppath;
-      \draw[sep,very thick] \zgmpath;
-      \draw[sep,very thick] \zgppath;
+      \draw[net,thick,upper] \zuppath;
+      \draw[sep,line width=0.6pt] \zgmpath;
+      \draw[sep,line width=0.6pt] \zgppath;
     \end{scope}
     \fill[sep] (\zpinchX,\zpinchY) circle (1.7pt);
     \filldraw[fill=bg,draw=fg,line width=0.45pt] (\zmaxX,\zmaxY) circle (1.3pt);
     \node[font=\small,fg!75!bg,anchor=south,inner sep=1.5pt] at (\zmaxX+0.35,\zmaxY+0.02) {$K$};
-    \draw[fg!50!bg,line width=0.4pt] (-0.50,0.09) -- (-0.80,-0.30) node[font=\small,fg,anchor=north,inner sep=1.5pt] {$R_+$};
+    \draw[fg!50!bg,line width=0.4pt] (-0.50,0.09) -- (-0.80,-0.30) node[font=\small,fg,anchor=north,inner sep=1.5pt] {level in $K$};
     \node[font=\small,anchor=north,inner sep=1.5pt,sep] at (\zpinchX,\zpinchY-0.06) {$P$};
     \draw[fg!55!bg] (-1.4,-0.65) rectangle (1.4,0.65);
   \end{scope}
@@ -1061,9 +1061,9 @@
 \draw[map,rot] (Nrot) to[out=-2,in=100,looseness=0.8]  (Lrot);
 
 % ===========================================================================
-\node[panelcap] at (-5.25,-3.35) {\textbf{(i)}};
-\node[panelcap] at (0,-3.35) {\textbf{(ii)}};
-\node[panelcap] at (5.35,-3.35) {\textbf{(iii)}};
+\node[panelcap] at (-5.25,-3.35) {\textbf{(a)}};
+\node[panelcap] at (0,-3.35) {\textbf{(b)}};
+\node[panelcap] at (5.35,-3.35) {\textbf{(c)}};
 
 \end{tikzpicture}
 \end{document}
