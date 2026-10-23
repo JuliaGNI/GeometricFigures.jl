@@ -333,7 +333,7 @@
   \draw[fg!45!bg,dash pattern=on 1.6pt off 1.6pt]
     (0,{\cylC*\cylR-\cylS*\cylP}) -- (0,{\cylC*\cylR+\cylS*\cylP});
   \node[fg!55!bg,font=\small,anchor=south,inner sep=2pt]
-    at (0,{\cylC*\cylR+\cylS*\cylP}) {seam $\theta=0$};
+    at (0,{\cylC*\cylR+\cylS*\cylP}) {seam $\{x\in\mathcal{M}:\theta(x)=0\}$};
 
   % --- far side --------------------------------------------------------------
   \draw[rot,thick,hidden]
@@ -463,9 +463,9 @@
   \fill[sep] (\pinchX,\pinchY) circle (1.6pt);
 
   \draw[sep!60!bg,line width=0.4pt] (-1.52,1.72) -- (\gmleadX,\gmleadY);
-  \node[sep,font=\small,anchor=east,inner sep=2.5pt] at (-1.52,1.72) {$\bar\gamma_-$};
-  \node[sep,font=\small,inner sep=2pt] at (\gplabX,\gplabY) {$\bar\gamma_+$};
-  \node[font=\small,anchor=west,inner sep=3pt,fg!65!bg] at (2.12,-0.66) {$\bar P$};
+  \node[sep,font=\small,anchor=east,inner sep=2.5pt] at (-1.52,1.72) {$\check\gamma_-$};
+  \node[sep,font=\small,inner sep=2pt] at (\gplabX,\gplabY) {$\check\gamma_+$};
+  \node[font=\small,anchor=west,inner sep=3pt,fg!65!bg] at (2.12,-0.66) {$\check P$};
 
   \draw[fg!35!bg,->] (-2.50,-2.92) -- (-1.90,-2.92);
   \draw[fg!35!bg,->] (-2.50,-2.92) -- (-2.50,-2.38);

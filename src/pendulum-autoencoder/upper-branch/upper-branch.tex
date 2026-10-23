@@ -728,6 +728,8 @@
   \draw[sep,very thick,arrowon=0.42] \agmpath;
   \draw[sep,very thick] \agppath;
   \draw[up,thick] \auppath;
+  \draw[bg,line width=2.5pt] \agppath;
+  \draw[sep,very thick] \agppath;
   \fill[sep] (\apinchX,\apinchY) circle (1.5pt);
 
   \draw[fg!45!bg,dash pattern=on 1.8pt off 1.8pt]
@@ -736,9 +738,9 @@
     at (\aboxhiX,\aboxloY) {see (b)};
 
   \draw[sep!60!bg,line width=0.4pt] (-1.28,1.98) -- (-0.60,1.72);
-  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.28,1.98) {$\bar\gamma_-$};
+  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.28,1.98) {$\check\gamma_-$};
   \draw[sep!60!bg,line width=0.4pt] (-1.02,-0.70) -- (-0.34,-1.04);
-  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.02,-0.70) {$\bar\gamma_+$};
+  \node[sep,font=\footnotesize,anchor=east,inner sep=2.5pt] at (-1.02,-0.70) {$\check\gamma_+$};
   \node[rot,font=\footnotesize,anchor=south,align=center,inner sep=3pt]
     at (\alowtopX,\alowtopY) {$p_\theta<0$, $H=1.40$\\$\oint z_p\,dz_q=\lowJ$};
 \end{scope}
@@ -755,13 +757,15 @@
   \draw[up!70!bg,thick] \bupcpath;
   \draw[up!85!bg,thick] \bupdpath;
   \draw[up,thick,arrowon=0.55] \bupepath;
+  \draw[bg,line width=2.5pt] \bgppath;
+  \draw[sep,very thick,arrowon=0.55] \bgppath;
 
   \fill[sep] (\bpinchX,\bpinchY) circle (1.5pt);
 
   % the key: H against the signed area the loop encloses
-  \node[key,fg!60!bg,anchor=west,font=\footnotesize] at (-2.12,2.34) {$H$\quad area $A$};
+  \node[key,fg!60!bg,anchor=west,font=\footnotesize] at (-2.12,2.34) {$H$\quad area $A_+$};
   \draw[sep,very thick] (-2.05,1.98) -- (-1.71,1.98);
-  \node[key,sep]  at (-1.63,1.98) {$1$ \ \ $\gpJ$ \ ($\bar\gamma_+$)};
+  \node[key,sep]  at (-1.63,1.98) {$1$ \ \ $\gpJ$ \ ($\check\gamma_+$)};
   \draw[up!40!bg,thick] (-2.05,1.64) -- (-1.71,1.64);
   \node[key,up]   at (-1.63,1.64) {$1.001$ \ \ $\bupaJ$};
   \draw[up!55!bg,thick] (-2.05,1.30) -- (-1.71,1.30);

@@ -274,6 +274,19 @@ package's site.
   themes of the four figures are pixel-identical to the paper's sources at 150 dpi, and
   `scripts/check-dark.jl` counts 0 dark pixels in each.
 
+* **`atlas-vs-chart`, `two-charts`, `upper-branch` and `pinched-pair` are resynced with the paper
+  as of 2026-10-20: the encoder's images carry a check, because a bar now means closure.** The
+  encoded separatrix branches, the encoded saddle and the encoded librating region are γ̌±, P̌ and
+  Ǔ instead of γ̄±, P̄ and Ū in `atlas-vs-chart`, `two-charts` and `upper-branch`. The planar
+  region of `pinched-pair` is Ω instead of U; it is labelled in both panels, the right disc of the
+  side-by-side layout is grey (`fg!4!bg`) instead of blue, and the area identities below the
+  panels are gone. The seam of `two-charts` is labelled {x ∈ M : θ(x) = 0} instead of θ = 0. The
+  table of `atlas-vs-chart` lists the column of panel (a) before that of panel (b). `upper-branch`
+  draws the boundary of the encoded lobe as the separatrix image on top of the rotating level sets
+  in both panels, and its legend heads the areas A₊ instead of A. The light themes are
+  pixel-identical to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark
+  pixels in each.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The

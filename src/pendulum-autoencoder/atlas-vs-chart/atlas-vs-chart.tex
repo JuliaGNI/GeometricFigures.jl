@@ -16,7 +16,7 @@
 % One solution manifold, charted two ways. Middle: M, in the projection and
 % with the conventions of pendulum-solution-manifold (u = theta - pi, stable
 % equilibrium at the front), with the three regimes shaded instead of orbits
-% drawn. Left: the action-angle atlas, one planar chart per regime, each in
+% drawn. Left: the action-angle atlas, one chart per regime, each in
 % Cartesian form (X,Y) = sqrt(2I)(cos phi, -sin phi), so orbits are round
 % circles enclosing exactly their action J = 2 pi I. Right: the trained encoder's
 % image of M^-, drawn schematically with round circles.
@@ -151,19 +151,19 @@
   \draw[sep,very thick] (0,0) circle (\Rg);
   \draw[sep,very thick] (0,{\Rp-\Rg}) circle (\Rp);
   \fill[sep] (0,-\Rg) circle (1.5pt);
-  \node[tag,sep,anchor=north,fill=bg,fill opacity=0.85,text opacity=1] at (0,{-\Rg-0.04}) {$\bar P$};
-  \node[tag,sep,anchor=south west] at (45:\Rg) {$\bar\gamma_-$};
-  \node[tag,sep,anchor=west] at ({\Rp+0.03},{\Rp-\Rg+0.12}) {$\bar\gamma_+$};
+  \node[tag,sep,anchor=north,fill=bg,fill opacity=0.85,text opacity=1] at (0,{-\Rg-0.04}) {$\check P$};
+  \node[tag,sep,anchor=south west] at (45:\Rg) {$\check\gamma_-$};
+  \node[tag,sep,anchor=west] at ({\Rp+0.03},{\Rp-\Rg+0.12}) {$\check\gamma_+$};
   \node[num,lib] at (0,0.42) {$12.95$};
   \draw[fg!55!bg] (-0.35,0.75) -- (-0.75,1.75) node[num,fg!70!bg,anchor=south,inner sep=1pt] {$a_0=14.79$};
 \end{scope}
 \node[font=\footnotesize,anchor=north] (btab) at (\bx,-1.62) {%
   \renewcommand{\arraystretch}{1.1}\setlength{\tabcolsep}{3pt}%
   \begin{tabular}{@{}lrr@{}}
-    & (b) & (a) \\ \hline
-    \textcolor{lib}{$L$}, area of $\bar U$ & $12.95$ & $16$ \\
-    \textcolor{rot}{$R_-$}, hole $a_0$ & $14.79$ & $8$ \\
-    \textcolor{up}{$R_+$}, area of $\bar\gamma_+$ & $1.84$  & $8$ \\
+    & (a) & (b) \\ \hline
+    \textcolor{lib}{$L$}, area of $\check U$ & $16$ & $12.95$ \\
+    \textcolor{rot}{$R_-$}, hole $a_0$ & $8$ & $14.79$ \\
+    \textcolor{up}{$R_+$}, area of $\check\gamma_+$ & $8$ & $1.84$ \\
   \end{tabular}};
 
 \draw[map] (0.55,{cyly(-20,-0.2)}) to[out=0,in=180] node[tag,above,fg!60!bg]{$\Psi^\mathrm{enc}$} (\bx-1.4,0);
