@@ -287,6 +287,34 @@ package's site.
   pixel-identical to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark
   pixels in each.
 
+* **The `pendulum-autoencoder` figures are resynced with the paper as of 2026-10-23, and
+  its six missing figures are added.** New: `levels-cases`, the three levels of chart learning (a
+  diffeomorphism onto all of ℝⁿ, one chart onto an open subset, an atlas) without and with
+  symplecticity, with the four cases placed on them, a cap from level (2) to level (1) and a
+  cut-off from level (3) to level (2) with symplecticity; `non-symplectic-chart`, the chart
+  r = e^(−p_θ) onto the punctured plane in the three steps of `cylinder-to-poloidal`; `capped-chart`,
+  the cylinder with a point added at p_θ = ∞ and its chart onto a disk, laid out as the round chart;
+  `one-point-compactification`, the plane and the sphere by stereographic projection;
+  `cap-contraction`, why the disk inside a closed latent curve decodes onto a cap; and
+  `latent-homotopy`, the contraction of a closed latent curve on the parameter annulus, in the latent
+  plane and in ℝ⁴. All six are analytic or schematic. Resynced: the panel letters are bold in every
+  figure of the topic, and `three-charts` letters its panels (a)–(c) instead of (i)–(iii). The
+  separatrix is solid in `pendulum-phase-portrait`, `librating-area` and `rotating-area`, and
+  `rotating-area` dashes the orbit with p_θ > 0 instead of the one with p_θ < 0. Orbits with
+  p_θ > 0 are purple (`up`) in `action-angle-chart`, `angle-atlas`, `rotating-cap` and
+  `round-chart-to-target`; `angle-atlas` labels its orbits by their energies H = −0.7 and H = 2 and
+  shades its charts teal and slate. `three-cases` orders its panels as the paper does: (a) the chart
+  r = e^(−p_θ), (b) the round chart, (c) a symplectic decoder of the whole plane.
+  `cylinder-to-poloidal` draws a p_θ scale with −c, 0, c and a beside the band instead of labelling
+  the radii √(2a). `separatrix-limit-above` shades the band between the branches as the lobe K
+  (`lobe!50!bg`) and draws a rotating level above it; `obstruction-cases` labels K; `three-charts`
+  draws the stand-in for R₊ in the lobe in green (`net`), labelled "level in K"; `banana-any-chart`
+  tints its region green (`net!10!bg`); `branch-invariants` labels the area 16. `threshold-map` is
+  regenerated: its contours now end on the axis. Captions say that a decoder "parametrizes" a set
+  instead of being "exact" on it. `banana-any-chart` and `three-charts` now define the colour `net`,
+  which their sources used without defining it. The light themes of the 24 figures are
+  pixel-identical to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels in each.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The

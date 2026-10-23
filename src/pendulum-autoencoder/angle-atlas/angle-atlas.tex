@@ -5,8 +5,9 @@
 
 \definecolor{lib}{HTML}{3B75AF}
 \definecolor{rot}{HTML}{C1701E}
-\definecolor{chL}{HTML}{4063D8}   % Julia blue
-\definecolor{chA}{HTML}{7B5BB0}
+\definecolor{up}{HTML}{7A5AA8}
+\definecolor{chL}{HTML}{2A8C82}   % angular-chart patch, distinct from librating blue
+\definecolor{chA}{HTML}{5D6B7A}   % V_{2,1} slate, distinct from the p_theta>0 purple
 \definecolor{chB}{HTML}{B0507A}
 
 % ---------------------------------------------------------------------------
@@ -99,9 +100,9 @@
   \draw[#1!80!fg] ({chx(#4-60,#2)},{chy(\pzero)}) -- ({chx(#4-60,#2)},{chy(\pone)});
   \draw[#1,dash pattern=on 2pt off 1.5pt]
     ({chx(#3,#2)},{chy(\pzero)}) rectangle ({chx(#4,#2)},{chy(\pone)});
-  \draw[rot,very thick] plot[domain=#3:#4,samples=80,smooth] ({chx(\x,#2)},{chy(orb(\x))});
-  \draw[rot,fill=bg] ({chx(#3,#2)},{chy(orb(#3))}) circle (1.6pt);
-  \draw[rot,fill=bg] ({chx(#4,#2)},{chy(orb(#4))}) circle (1.6pt);
+  \draw[up,very thick] plot[domain=#3:#4,samples=80,smooth] ({chx(\x,#2)},{chy(orb(\x))});
+  \draw[up,fill=bg] ({chx(#3,#2)},{chy(orb(#3))}) circle (1.6pt);
+  \draw[up,fill=bg] ({chx(#4,#2)},{chy(orb(#4))}) circle (1.6pt);
   \node[lab,fill=bg,inner sep=0.8pt] at ({chx(#3+30,#2)},{chy(\pzero)+0.17}) {#5};
   \node[lab,fill=bg,inner sep=0.8pt] at ({chx(#4-30,#2)},{chy(\pzero)+0.17}) {#6};}
 
@@ -134,7 +135,7 @@
 \patchside{chA,hidden,opacity=0.6}{120}{\pzero}{\pone}
 \patchside{chB,hidden,opacity=0.6}{60}{\pzero}{\pone}
 \patchside{chL,hidden,opacity=0.6}{90}{-\plib}{\plib}
-\orbarc{rot,thick,hidden,opacity=0.55}{60}{240}
+\orbarc{up,thick,hidden,opacity=0.55}{60}{240}
 
 % in front
 \patchfill{chA,opacity=0.22}{-120}{60}{\pzero}{\pone}
@@ -147,14 +148,14 @@
 \patchside{chB}{-60}{\pzero}{\pone}
 \patchfill{pattern=north east lines,pattern color=fg!70!bg}{-120}{-60}{\pzero}{\pone}
 \patchside{chL}{-90}{-\plib}{\plib}
-\orbarc{rot,very thick}{-120}{60}
+\orbarc{up,very thick}{-120}{60}
 \libloop{fill=lib!30!bg,fill opacity=0.6}
 \libloop{draw=lib,very thick}
 \fill[lib] ({cylx(0)},{cyly(0,0)}) circle (1.3pt);
 
 % labels
-\node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({cylx(-30)},{cyly(-30,cylorb(-30))+0.02}) {$\iota\circ c_R$};
-\node[lab,lib,anchor=west] at ({cylx(\tlib)+0.03},{cyly(\tlib,0)}) {$\iota\circ c_L$};
+\node[lab,up,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({cylx(-30)},{cyly(-30,cylorb(-30))+0.02}) {$H=2$};
+\node[lab,lib,anchor=west] at ({cylx(\tlib)+0.03},{cyly(\tlib,0)}) {$H=-0.7$};
 \node[lab,chL!80!fg] at ({cylx(-75)},{cyly(-75,0.45)}) {$V_1$};
 \node[lab,chA!80!fg] at ({cylx(10)},{cyly(10,\pzero)+0.20}) {$V_{2,1}$};
 \node[lab,chB!80!fg,anchor=south] at ({cylx(175)},{cyly(175,\pone)+0.10}) {$V_{2,2}$ (behind)};
@@ -202,7 +203,7 @@
     plot[domain=180-\tlib:180+\tlib,samples=90,smooth] ({chx(\x,180)},{chy(lorb(\x))})
     -- plot[domain=180+\tlib:180-\tlib,samples=90,smooth] ({chx(\x,180)},{chy(-lorb(\x))}) -- cycle;
   \fill[lib] (0,0) circle (1.3pt);
-  \node[lab,lib,anchor=west] at ({chx(180+\tlib,180)+0.03},0) {$\iota\circ c_L$};
+  \node[lab,lib,anchor=west] at ({chx(180+\tlib,180)+0.03},0) {$H=-0.7$};
   \node[font=\small,anchor=north] at (0,{chy(-\plib)-0.30}) {$\varphi_1(V_1)$};
 \end{scope}
 
@@ -210,7 +211,7 @@
 \begin{scope}[shift={(-0.2,-4.6)}]
   \chaxes{180}{60}{300}{\pzero}{\pone}{2,1}
   \bandimage{chA}{180}{60}{300}{$G_a$}{$G_b$}
-  \node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({chx(150,180)},{chy(orb(150))+0.02}) {$\iota\circ c_R$};
+  \node[lab,up,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({chx(150,180)},{chy(orb(150))+0.02}) {$H=2$};
   \node[font=\small,anchor=north] at (0.3,{chy(\pzero)-0.30}) {$\varphi_{2,1}(V_{2,1})$};
 \end{scope}
 
@@ -218,7 +219,7 @@
 \begin{scope}[shift={(5.5,-4.6)}]
   \chaxes{0}{-120}{120}{\pzero}{\pone}{2,2}
   \bandimage{chB}{0}{-120}{120}{$G_b$}{$G_a$}
-  \node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=north] at (0,{chy(orb(0))-0.02}) {$\iota\circ c_R$};
+  \node[lab,up,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=north] at (0,{chy(orb(0))-0.02}) {$H=2$};
   \node[font=\small,anchor=north] at (-0.25,{chy(\pzero)-0.30}) {$\varphi_{2,2}(V_{2,2})$};
 \end{scope}
 

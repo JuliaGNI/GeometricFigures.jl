@@ -1,0 +1,106 @@
+\documentclass[crop,tikz,11pt,border=2pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,calc}
+\definecolor{lib}{HTML}{3B75AF}
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}
+\definecolor{net}{HTML}{4E9A4E}
+% The same two-step presentation and palette as cylinder-to-poloidal.
+% The band limits only the drawing; r=exp(-p) is positive at every finite height.
+\def\pc{2.6}\def\Rc{2.3}\def\rs{0.42}
+\def\bet{-30}\def\hc{0.85}\def\se{0.42}
+\pgfmathdeclarefunction{pl}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
+\pgfmathdeclarefunction{ps}{1}{\pgfmathparse{2*abs(sin((#1)/2))}}
+\pgfmathdeclarefunction{rr}{1}{\pgfmathparse{\cyl*\Rc+(1-\cyl)*\rs*exp(-(#1))}}
+\pgfmathdeclarefunction{xp}{2}{\pgfmathparse{-rr(#2)*cos((#1)+\bet)}}
+\pgfmathdeclarefunction{yp}{2}{\pgfmathparse{-rr(#2)*sin((#1)+\bet)}}
+\pgfmathdeclarefunction{pY}{2}{\pgfmathparse{\hc*(#2)+\se*yp(#1,#2)}}
+\newcommand{\orb}[3]{%
+  \addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)<0 ? pY(x,#3) : nan});
+  \addplot[#1,hidden,domain=#2] ({xp(x,#3)},{yp(x,#3)<0 ? nan : pY(x,#3)});}
+\newcommand{\topv}[3]{\addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)});}
+\newcommand{\orbits}[1]{%
+  #1{rot,thick}{0:360}{-pl(x,1.6)}
+  #1{rot,thick,densely dashed}{0:360}{pl(x,1.6)}
+  #1{fg!70!bg,densely dotted,thick}{0:360}{0}
+  #1{sep,very thick}{0:360}{ps(x)}
+  #1{sep,very thick}{0:360}{-ps(x)}
+  #1{lib,thick}{60:300}{pl(x,0.5)}
+  #1{lib,thick}{60:300}{-pl(x,0.5)}
+  #1{lib,thick}{120:240}{pl(x,-0.5)}
+  #1{lib,thick}{120:240}{-pl(x,-0.5)}}
+\newcommand{\markers}[1]{%
+  \addplot[only marks,mark=*,mark size=1.3pt,lib] coordinates {({xp(180,0)},{#1(180,0)})};
+  \addplot[only marks,mark=*,mark size=1.3pt,sep] coordinates {({xp(0,0)},{#1(0,0)})};
+  \addplot[only marks,mark=*,mark size=1pt,fg] coordinates
+    {({xp(60,0)},{#1(60,0)}) ({xp(300,0)},{#1(300,0)})};}
+\pgfplotsset{panel/.style={x=0.475cm,y=0.475cm,hide axis,clip=false,anchor=origin,
+  unbounded coords=jump,every axis plot/.append style={smooth,samples=181,variable=x}}}
+\begin{document}
+\begin{tikzpicture}[>=Stealth,x=0.475cm,y=0.475cm,
+  hidden/.style={dash pattern=on 2pt off 2pt,opacity=0.38},
+  lab/.style={font=\normalsize,inner sep=1pt}]
+% (a) The cylinder, with the same curves and marker styles as cylinder-to-poloidal.
+\def\cyl{1}
+\fill[fg!4!bg] (-\Rc,{-\hc*\pc}) rectangle (\Rc,{\hc*\pc});
+\fill[lobe!50!bg,opacity=0.38]
+  plot[domain=210:390,samples=90,smooth] ({xp(\x,ps(\x))},{pY(\x,ps(\x))})
+  -- plot[domain=390:210,samples=90,smooth] ({xp(\x,\pc)},{pY(\x,\pc)}) -- cycle;
+\fill[lobe!50!bg]
+  plot[domain=30:210,samples=90,smooth] ({xp(\x,ps(\x))},{pY(\x,ps(\x))})
+  -- plot[domain=210:30,samples=90,smooth] ({xp(\x,\pc)},{pY(\x,\pc)}) -- cycle;
+\draw[fg!25!bg] (-\Rc,{-\hc*\pc}) -- (-\Rc,{\hc*\pc}) (\Rc,{-\hc*\pc}) -- (\Rc,{\hc*\pc});
+\foreach \h in {-\pc,\pc}
+  \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=90,smooth] ({xp(\x,\h)},{pY(\x,\h)});
+\begin{axis}[panel]\orbits{\orb}\markers{pY}\end{axis}
+\draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\pc});
+\draw[fg!60!bg,->] ({\Rc+0.65},{-\hc*\pc-0.3}) -- ({\Rc+0.65},{\hc*\pc+0.7})
+  node[lab,above] {$p_\theta$};
+\node[lab,above] at (0,{\hc*\pc+\se*\Rc+0.2}) {$p_\theta\to+\infty$};
+\node[lab,below] at (0,{-\hc*\pc-\se*\Rc-0.2}) {$p_\theta\to-\infty$};
+% (b) A transparent view of the surface of revolution p=-log(r).
+\def\cyl{0}
+\begin{scope}[shift={(12.6,0)}]
+  \fill[fg!4!bg]
+    plot[domain=-\pc:4.0,samples=90,smooth] ({-rr(\x)},{\hc*\x})
+    -- plot[domain=4.0:-\pc,samples=90,smooth] ({rr(\x)},{\hc*\x})
+    -- plot[domain=30:210,samples=90,smooth] ({xp(\x,-\pc)},{pY(\x,-\pc)}) -- cycle;
+  \fill[lobe!50!bg]
+    plot[domain=0:360,samples=181,smooth] ({xp(\x,ps(\x))},{pY(\x,ps(\x))})
+    -- plot[domain=360:0,samples=90,smooth] ({xp(\x,4.0)},{pY(\x,4.0)}) -- cycle;
+  \draw[fg!25!bg] plot[domain=-\pc:4.0,samples=90,smooth] ({-rr(\x)},{\hc*\x});
+  \draw[fg!25!bg] plot[domain=-\pc:4.0,samples=90,smooth] ({rr(\x)},{\hc*\x});
+  \foreach \h in {-\pc,\pc,4}
+    \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=90,smooth] ({xp(\x,\h)},{pY(\x,\h)});
+  \begin{axis}[panel]\orbits{\orb}\markers{pY}\end{axis}
+  \draw[fg!45!bg,dashed,->] (0,{-\hc*\pc}) -- (0,4.3)
+    node[lab,above] {$p_\theta\to+\infty$};
+  \node[lab,below] at (0,{-\hc*\pc-\se*rr(-\pc)-0.2}) {$p_\theta\to-\infty$};
+\end{scope}
+% (c) The same surface projected onto the punctured plane.
+\begin{scope}[shift={(29.0,0)}]
+  \fill[fg!4!bg] (0,0) circle ({rr(-\pc)});
+  \fill[lobe!50!bg] plot[domain=0:360,samples=181,smooth,variable=\x]
+    ({xp(\x,ps(\x))},{yp(\x,ps(\x))}) -- cycle;
+  \draw[fg!30!bg,densely dotted] (0,0) circle ({rr(-\pc)});
+  \begin{axis}[panel]\orbits{\topv}\markers{yp}\end{axis}
+  \filldraw[bg,draw=fg,line width=0.5pt] (0,0) circle (1.3pt);
+  \draw[fg!45!bg,line width=0.35pt] (0,-0.08) -- (2.0,-6.0)
+    node[lab,below,align=center,fill=bg] {excluded origin\\$p_\theta\to+\infty$};
+  \draw[fg!50!bg,->] (-4.8,-5.8) -- ({-4.8+1.4*cos(\bet)},{-5.8+1.4*sin(\bet)}) node[lab,right] {$X$};
+  \draw[fg!50!bg,->] (-4.8,-5.8) -- ({-4.8-1.4*sin(\bet)},{-5.8+1.4*cos(\bet)}) node[lab,above] {$Y$};
+\end{scope}
+\draw[->,thick,fg!60!bg] (4.9,0) -- (8.4,0)
+  node[midway,above,lab,align=center] {radius $r=e^{-p_\theta}$\\at height $p_\theta$};
+\draw[->,thick,fg!60!bg] (18.3,0) -- (22.0,0)
+  node[midway,above,lab,align=center] {look down the axis,\\forget $p_\theta$};
+\coordinate (bot) at ($(current bounding box.south)+(0,-0.4)$);
+\node[lab,anchor=north] at (0,0 |- bot) {\textbf{(a)}};
+\node[lab,anchor=north] at (12.6,0 |- bot) {\textbf{(b)}};
+\node[lab,anchor=north] at (29.0,0 |- bot) {\textbf{(c)}};
+\end{tikzpicture}
+\end{document}
