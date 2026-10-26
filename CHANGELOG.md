@@ -315,13 +315,18 @@ package's site.
   which their sources used without defining it. The light themes of the 24 figures are
   pixel-identical to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels in each.
 
-* **`morse-saddle` adds the Morse lemma at a saddle to `pendulum-autoencoder`.** The graph of
+* **`morse-saddle` and `morse-loops` add the Morse lemma at a saddle to `pendulum-autoencoder`.** The graph of
   y₁² − y₂², the hyperbolic paraboloid, with the horizontal plane at the saddle's height, which cuts
   it in the two lines y₂ = ±y₁ crossing transversally at P; the levels just below and above are drawn
   in blue and orange, on the graph and dashed in the plane. Analytic. The light theme is identical to
   the paper's source at 150 dpi up to a difference of one 8-bit level in the shading of the surface,
   whose grey colormap is now `fg!20!bg` to `fg!4!bg` instead of RGB 205 to 245; `scripts/check-dark.jl`
-  counts 0 dark pixels.
+  counts 0 dark pixels. `morse-saddle` is panel (a) of a four-panel figure and carries the letter
+  (a) below it; the new `morse-loops` holds panels (b)–(d): the level set near P as the preimage of
+  the two lines under the Morse chart, inside its neighborhood N_P, and its four half-branches joined,
+  adjacent ones in pairs, into two loops, side by side (c) or nested (d) with the crescent U and the
+  lobe K. Schematic. The light theme of `morse-loops` is pixel-identical to the paper's source at
+  150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels.
 
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the

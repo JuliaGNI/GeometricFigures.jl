@@ -462,6 +462,12 @@ caption = "The hyperbolic paraboloid y₁² − y₂² of the Morse lemma at a s
 engine = "pdflatex"
 
 [[figure]]
+name = "morse-loops"
+topic = "pendulum-autoencoder"
+caption = "From the Morse lemma to the two loops at a saddle P: the level set near P as the preimage of the lines y₂ = ±y₁, and its half-branches joined into two loops, side by side or nested."
+engine = "pdflatex"
+
+[[figure]]
 name = "atlas-vs-chart"
 topic = "pendulum-autoencoder"
 caption = "The pendulum's cylinder charted two ways: by the action-angle atlas and by a single latent chart of a trained encoder."
