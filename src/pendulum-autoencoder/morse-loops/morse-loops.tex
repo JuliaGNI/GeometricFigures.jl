@@ -16,11 +16,12 @@
 %     is the preimage under the Morse chart y of the lines y_2 = +-y_1: two smooth curves crossing
 %     transversally at P. The chart is drawn as y^{-1}(y_1, y_2) = (y_1, y_2 + k y_1^2), a
 %     diffeomorphism that bends the lines into curves; levels below E_P (blue) lie in the upper and
-%     lower sectors, levels above (orange) in the left and right ones, as in panel (a).
+%     lower sectors, levels above (orange) in the left and right ones, as in panel (a). The four
+%     half-branches are B_1, ..., B_4, counterclockwise from the upper right.
 % (c), (d) Continued beyond N_P, the four half-branches at P join, adjacent ones in pairs, into two
 %     loops: side by side (c), or nested (d), with the crescent U between them (blue tint) and the
 %     lobe K inside the inner loop (yellow). The same four half-branches leave P in all three panels:
-%     upper left and lower left form gamma_-, upper right and lower right form gamma_+.
+%     B_2 and B_3 (upper left, lower left) form gamma_-, B_4 and B_1 (lower right, upper right) gamma_+.
 %
 % Schematic: no values are measured.
 \newcommand{\kk}{0.45}   % bend of the drawn chart
@@ -49,8 +50,13 @@
     \draw[gam,domain=-1:1,samples=30,smooth] plot ({\x},{\x+\kk*\x*\x});
     \draw[gam,domain=-1:1,samples=30,smooth] plot ({\x},{-\x+\kk*\x*\x});
   \end{scope}
+  % the four half-branches at P, counterclockwise from the upper right
+  \node[tag,sep,anchor=south west] at (0.64,0.80) {$\mathcal{B}_1$};
+  \node[tag,sep,anchor=south east] at (-0.64,0.80) {$\mathcal{B}_2$};
+  \node[tag,sep,anchor=north east] at (-0.86,-0.52) {$\mathcal{B}_3$};
+  \node[tag,sep,anchor=north west] at (0.86,-0.52) {$\mathcal{B}_4$};
   \draw[fg!55!bg,dashed] (0,0) circle (1);
-  \node[tag,fg!70!bg,anchor=north west] at (0.62,-0.80) {$N_P$};
+  \node[tag,fg!70!bg,anchor=north] at (0,-1.0) {$N_P$};
   \fill[sep] (0,0) circle (1.0pt);
   \node[tag,sep,anchor=north] at (0,-0.07) {$P$};
 \end{scope}
@@ -103,8 +109,8 @@
 \end{scope}
 
 % ===========================================================================
-\node[panelcap] at (0,-2.05) {\textbf{(b)}};
-\node[panelcap] at (5.4,-2.05) {\textbf{(c)}};
-\node[panelcap] at (10.6,-2.05) {\textbf{(d)}};
+\node[panelcap] at (0,-2.3) {\textbf{(b)}};
+\node[panelcap] at (5.4,-2.3) {\textbf{(c)}};
+\node[panelcap] at (10.6,-2.3) {\textbf{(d)}};
 \end{tikzpicture}
 \end{document}

@@ -323,7 +323,8 @@ package's site.
   whose grey colormap is now `fg!20!bg` to `fg!4!bg` instead of RGB 205 to 245; `scripts/check-dark.jl`
   counts 0 dark pixels. `morse-saddle` is panel (a) of a four-panel figure and carries the letter
   (a) below it; the new `morse-loops` holds panels (b)–(d): the level set near P as the preimage of
-  the two lines under the Morse chart, inside its neighborhood N_P, and its four half-branches joined,
+  the two lines under the Morse chart, inside its neighborhood N_P, with its four half-branches
+  labelled B₁, …, B₄ counterclockwise, and its four half-branches joined,
   adjacent ones in pairs, into two loops, side by side (c) or nested (d) with the crescent U and the
   lobe K. Schematic. The light theme of `morse-loops` is pixel-identical to the paper's source at
   150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels.
