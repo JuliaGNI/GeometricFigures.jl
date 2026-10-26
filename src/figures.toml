@@ -456,6 +456,12 @@ caption = "The two layouts of separatrix images that a decoder parametrizes, sid
 engine = "pdflatex"
 
 [[figure]]
+name = "morse-saddle"
+topic = "pendulum-autoencoder"
+caption = "The hyperbolic paraboloid y₁² − y₂² of the Morse lemma at a saddle P, cut by the horizontal plane at its height in the two lines y₂ = ±y₁ that cross transversally at P."
+engine = "pdflatex"
+
+[[figure]]
 name = "atlas-vs-chart"
 topic = "pendulum-autoencoder"
 caption = "The pendulum's cylinder charted two ways: by the action-angle atlas and by a single latent chart of a trained encoder."

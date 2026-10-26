@@ -315,6 +315,14 @@ package's site.
   which their sources used without defining it. The light themes of the 24 figures are
   pixel-identical to the paper's sources at 150 dpi, and `scripts/check-dark.jl` counts 0 dark pixels in each.
 
+* **`morse-saddle` adds the Morse lemma at a saddle to `pendulum-autoencoder`.** The graph of
+  y₁² − y₂², the hyperbolic paraboloid, with the horizontal plane at the saddle's height, which cuts
+  it in the two lines y₂ = ±y₁ crossing transversally at P; the levels just below and above are drawn
+  in blue and orange, on the graph and dashed in the plane. Analytic. The light theme is identical to
+  the paper's source at 150 dpi up to a difference of one 8-bit level in the shading of the surface,
+  whose grey colormap is now `fg!20!bg` to `fg!4!bg` instead of RGB 205 to 245; `scripts/check-dark.jl`
+  counts 0 dark pixels.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The
