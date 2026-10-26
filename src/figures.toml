@@ -452,7 +452,7 @@ engine = "pdflatex"
 [[figure]]
 name = "pinched-pair"
 topic = "pendulum-autoencoder"
-caption = "The two layouts of separatrix images that a decoder parametrizes, side by side and nested."
+caption = "Two nested separatrix images through P, each enclosing 8: the crescent between them would have area 0."
 engine = "pdflatex"
 
 [[figure]]
@@ -464,7 +464,13 @@ engine = "pdflatex"
 [[figure]]
 name = "morse-loops"
 topic = "pendulum-autoencoder"
-caption = "From the Morse lemma to the two loops at a saddle P: the level set near P as the preimage of the lines y₂ = ±y₁, and its half-branches joined into two loops, side by side or nested."
+caption = "From the Morse lemma to the two loops at a saddle P: the level set near P as the preimage of the lines y₂ = ±y₁, and its half-branches joined into two nested loops."
+engine = "pdflatex"
+
+[[figure]]
+name = "morse-figure-eight"
+topic = "pendulum-autoencoder"
+caption = "The side-by-side case of the two loops at a saddle P: the four half-branches joined into a figure-eight, and its two disks each enclosing 8."
 engine = "pdflatex"
 
 [[figure]]
