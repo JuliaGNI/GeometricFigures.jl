@@ -326,7 +326,8 @@ package's site.
   with the crescent U and the lobe K. The side-by-side case, which the pendulum's layout excludes,
   is `morse-figure-eight`: (a) the same half-branches joined into a figure-eight, (b) its two disks
   each enclosing 8, drawn with a corner at P. That panel replaces panel (a) of `pinched-pair`, which
-  now shows only the nested case, without a panel letter. All three new figures are analytic or
+  now shows only the nested case, without a panel letter, drawn with the same corner at P
+  instead of two tangent circles. All three new figures are analytic or
   schematic. The light themes of `morse-loops`, `morse-figure-eight` and `pinched-pair` are
   pixel-identical to the paper's sources at 150 dpi; that of `morse-saddle` is identical up to a
   difference of one 8-bit level in the shading of the surface, whose grey colormap is `fg!20!bg` to
