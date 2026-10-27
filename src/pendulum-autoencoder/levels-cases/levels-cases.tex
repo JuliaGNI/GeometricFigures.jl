@@ -1,0 +1,53 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,positioning}
+
+% ---------------------------------------------------------------------------
+% The three levels of chart learning,
+% (1) a diffeomorphism onto all of R^n, (2) one chart onto an open subset,
+% (3) an atlas, against the two columns without and with symplecticity, and the
+% four cases of the pendulum placed in them: (i) the chart onto the punctured plane
+% and (ii) the standard autoencoder without symplecticity, (iii) the round chart
+% and (iv) the SAE with it. A star marks the lowest level at which M itself is
+% represented (level (2) without symplecticity, level (3) with it, since no
+% symplectic chart covers M). The arrows from (2) to (1) are
+% the cap off M that a decoder of the whole space costs; the arrow from (3) to (2)
+% with symplecticity is the part {p_theta >= a} that the round chart cuts off.
+% Schematic; all text is \footnotesize.
+% ---------------------------------------------------------------------------
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth, font=\footnotesize,
+  cell/.style={draw=fg!45!bg, fill=fg!3!bg, rounded corners=1.5pt, minimum width=4.9cm,
+               minimum height=1.25cm, align=center, text width=4.6cm, inner sep=3pt},
+  empty/.style={draw=fg!25!bg, dashed, rounded corners=1.5pt, minimum width=4.9cm,
+               minimum height=1.25cm, align=center, text width=4.6cm, text=fg!50!bg},
+  level/.style={align=left, text width=3.9cm, anchor=east},
+  head/.style={align=center, font=\footnotesize\bfseries},
+  capstep/.style={->, fg!70!bg, semithick},
+  star/.style={font=\normalsize}]
+
+  % columns at x = 0 (without symplecticity) and x = 5.4 (with); rows y = 0, -2.0, -4.0
+  \node[head] at (0,1.05)   {without symplecticity};
+  \node[head] at (5.4,1.05) {with symplecticity};
+
+  \node[level] at (-2.75,0)    {(1) a diffeomorphism onto all of $\mathbb{R}^{n}$};
+  \node[level] at (-2.75,-2.0) {(2) one chart onto an open subset of $\mathbb{R}^{n}$};
+  \node[level] at (-2.75,-4.0) {(3) an atlas of several charts};
+
+  \node[cell] (ii)  at (0,0)     {(ii) standard autoencoder:\\ a capped $\mathcal{M}^\mathrm{approx}$};
+  \node[cell] (iv)  at (5.4,0)   {(iv) symplectic autoencoder:\\ a capped $\mathcal{M}^\mathrm{approx}$};
+  \node[cell] (i)   at (0,-2.0)  {(i) chart onto the punctured plane:\\ all of $\mathcal{M}$};
+  \node[cell] (iii) at (5.4,-2.0) {(iii) round chart:\\ \mbox{$\{x\in\mathcal{M}:p_\theta(x)<a\}$}};
+  \node[empty] (n3) at (0,-4.0)  {not needed for $\mathcal{M}$};
+  \node[cell] (a3)  at (5.4,-4.0) {symplectic atlas:\\ all of $\mathcal{M}$};
+
+  \node[star, anchor=east] at (i.east)  {$\star$};
+  \node[star, anchor=east] at (a3.east) {$\star$};
+
+  \draw[capstep] ([xshift=-1.2cm]i.north)   -- node[left=1pt] {cap} ([xshift=-1.2cm]ii.south);
+  \draw[capstep] ([xshift=-1.2cm]iii.north) -- node[left=1pt] {cap} ([xshift=-1.2cm]iv.south);
+  \draw[capstep] ([xshift=-1.2cm]a3.north)  -- node[left=1pt] {cut off} ([xshift=-1.2cm]iii.south);
+\end{tikzpicture}
+\end{document}

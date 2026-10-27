@@ -13,18 +13,13 @@
 \definecolor{up}{HTML}{7A5AA8}
 
 % ---------------------------------------------------------------------------
-% The counting behind exactness on the separatrix itself, and behind the answer to
-% the bounded-cylinder objection: they are the same picture.
+% The nested case of the counting for parametrizing the separatrix itself: two Jordan curves
+% meeting at one point, one inside the other. U, the image of the open librating region, would be
+% the crescent between them, of area 8 - 8 = 0. The side-by-side case is morse-figure-eight (b).
 %
-% Two Jordan curves meeting at one point leave exactly two bounded components of
-% the plane, and there are only two ways for them to meet -- side by side or
-% nested. U, the image of the open librating region, has to be one of those
-% components. Panel (a) is the first way, panel (b) the second. Neither can give
-% U an area of 16 while both curves have area 8.
-%
-% Schematic, and deliberately not to scale in one respect: in (b) the two curves
-% are drawn with clearly different areas, because the case the text rules out is
-% the one where they are equal, and that one has nothing left to draw.
+% Schematic, and deliberately not to scale in one respect: the two curves are drawn with clearly
+% different areas, because the case the text rules out is the one where they are equal, and that
+% one has nothing left to draw.
 \begin{document}
 \begin{tikzpicture}[>=Stealth,
   gam/.style={sep,very thick},
@@ -33,51 +28,31 @@
   panelcap/.style={font=\small,align=center,anchor=north,text width=6.1cm}]
 
 % ===========================================================================
-% (a) side by side
+% nested, with the corner at P that a non-degenerate saddle gives each loop: the shape of
+% morse-loops (c)
 % ===========================================================================
-\begin{scope}
-  \fill[lib!14!bg] (-1.05,1.25) circle (1.05);
-  \fill[fg!4!bg] ( 1.05,1.25) circle (1.05);
-  \draw[gam]    (-1.05,1.25) circle (1.05);
-  \draw[gam]    ( 1.05,1.25) circle (1.05);
-
-  \fill[sep] (0,1.25) circle (1.7pt);
-  \draw[sep!60!bg,line width=0.4pt] (0,1.25) -- (0,0.42);
-  \node[tag,sep,anchor=north] at (0,0.42) {$P$};
-
-  \node[tag,sep,anchor=south] at (-1.05,2.34) {$\gamma_+$};
-  \node[tag,sep,anchor=south] at ( 1.05,2.34) {$\gamma_-$};
-  \node[font=\small,lib] at (-1.05,1.25) {$8$};
-  \node[font=\small,lib] at ( 1.05,1.25) {$8$};
-
-  \node[tag,lib] at (-1.05,0.7) {$\Omega$};
-\end{scope}
-
-% ===========================================================================
-% (b) nested
-% ===========================================================================
-\begin{scope}[shift={(5.6,0)}]
-  \fill[lib!14!bg,even odd rule] (0,1.25) circle (1.25) (0,0.45) circle (0.45);
-  \fill[lobe!50!bg] (0,0.45) circle (0.45);   % the lobe K, inside the inner loop
-  \draw[gam] (0,1.25) circle (1.25);
-  \draw[gam] (0,0.45) circle (0.45);
-
+\begin{scope}[scale=0.78]
+  \fill[lib!14!bg,even odd rule]
+    (0,0) .. controls (-0.9,0.9) and (-1.4,2.3) .. (0.9,2.3)
+          .. controls (3.4,2.3) and (3.4,-2.3) .. (0.9,-2.3)
+          .. controls (-1.4,-2.3) and (-0.9,-0.9) .. (0,0)
+    (0,0) .. controls (0.9,0.9) and (2.1,1.1) .. (2.1,0)
+          .. controls (2.1,-1.1) and (0.9,-0.9) .. (0,0);
+  \fill[lobe!50!bg]   % the lobe K, inside the inner loop
+    (0,0) .. controls (0.9,0.9) and (2.1,1.1) .. (2.1,0)
+          .. controls (2.1,-1.1) and (0.9,-0.9) .. (0,0);
+  \draw[gam] (0,0) .. controls (-0.9,0.9) and (-1.4,2.3) .. (0.9,2.3)
+                   .. controls (3.4,2.3) and (3.4,-2.3) .. (0.9,-2.3)
+                   .. controls (-1.4,-2.3) and (-0.9,-0.9) .. (0,0);
+  \draw[gam] (0,0) .. controls (0.9,0.9) and (2.1,1.1) .. (2.1,0)
+                   .. controls (2.1,-1.1) and (0.9,-0.9) .. (0,0);
   \fill[sep] (0,0) circle (1.7pt);
-  \node[tag,sep,anchor=north] at (0,-0.08) {$P$};
-
-  \node[tag,sep,anchor=south] at (0,2.54) {$\gamma_-$};
-  \draw[sep!60!bg,line width=0.4pt] (0.40,0.28) -- (1.02,-0.10);
-  \node[tag,sep,anchor=west] at (1.00,-0.14) {$\gamma_+$};
-  \node[font=\small,lib] at (0,1.86) {$\Omega$};
-  \draw[fg!50!bg,line width=0.4pt] (0.16,0.60) -- (0.72,0.96);
-  \node[tag,fg!60!bg,anchor=south west] at (0.68,0.92) {$K$};
-
+  \node[tag,sep,anchor=east] at (-0.12,0) {$P$};
+  \node[tag,sep,anchor=south] at (0.9,2.3) {$\gamma_-$};
+  \node[tag,sep,anchor=west] at (2.1,0) {$\gamma_+$};
+  \node[font=\small,lib] at (0.9,1.5) {$\Omega$};
+  \node[tag,fg!70!bg] at (1.35,0) {$K$};
 \end{scope}
 
-% ===========================================================================
-\node[panelcap] at (0,-0.98)
-  {\textbf{(a)}};
-\node[panelcap] at (5.6,-0.98)
-  {\textbf{(b)}};
 \end{tikzpicture}
 \end{document}

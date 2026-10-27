@@ -40,7 +40,7 @@
 \pgfmathdeclarefunction{cy}{2}{\pgfmathparse{by(#1,#2)+\sy*cx(#1,#2)*cx(#1,#2)}}
 
 % \hole{x-chart}{y-chart}: the lobe K (lobe colour), everything inside
-% the image of l_+; only the planar charts have one
+% the image of l_+; only the charts onto the whole plane have one
 \newcommand{\hole}[2]{%
   \addplot[draw=none,fill=lobe!50!bg,domain=0:360] ({#1(x,ps(x))},{#2(x,ps(x))}) -- cycle;}
 % \orbits{x-chart}{y-chart}: every curve of the figure through one chart
@@ -91,7 +91,7 @@
   \node[font=\footnotesize,sep,fill=bg,inner sep=1pt] at (axis cs:5.35,1.5) {$\ell_+$};
   \node[font=\footnotesize,sep,fill=bg,inner sep=1pt] at (axis cs:5.35,-1.5) {$\ell_-$};
   \node[font=\footnotesize,fg!70!bg,fill=bg,inner sep=1pt] at (axis cs:2.3,0.3) {$\nu$};
-  \node[font=\footnotesize,anchor=north] at (axis cs:pi,-3.95) {(a)};
+  \node[font=\footnotesize,anchor=north] at (axis cs:pi,-3.95) {\textbf{(a)}};
 \end{axis}
 
 % ---------------------------------------------------------------- (b)
@@ -101,7 +101,7 @@
   \orbits{bx}{by}
   \node[sep,font=\footnotesize,anchor=south east,fill=bg,inner sep=0.8pt] at (axis cs:{-sqrt(2*\a)-0.15},0.2) {$P$};
   \node[font=\footnotesize,fg!60!bg] at (axis cs:0,0) {$K$};
-  \node[font=\footnotesize,anchor=north] at (axis cs:0,-3.95) {(b)};
+  \node[font=\footnotesize,anchor=north] at (axis cs:0,-3.95) {\textbf{(b)}};
 \end{axis}
 
 % ---------------------------------------------------------------- (c)
@@ -111,7 +111,7 @@
   \orbits{cx}{cy}
   \node[sep,font=\footnotesize,anchor=south east,fill=bg,inner sep=0.8pt] at (axis cs:{cx(0,0)-0.15},{cy(0,0)+0.2}) {$P$};
   \node[font=\footnotesize,fg!60!bg] at (axis cs:0.25,0.1) {$K$};
-  \node[font=\footnotesize,anchor=north] at (axis cs:0.9,-3.95) {(c)};
+  \node[font=\footnotesize,anchor=north] at (axis cs:0.9,-3.95) {\textbf{(c)}};
 \end{axis}
 \end{tikzpicture}
 \end{document}

@@ -338,7 +338,7 @@ caption = "The logo of GeometricMachineLearning.jl with the package name, withou
 [[figure]]
 name = "pendulum-phase-portrait"
 topic = "pendulum-autoencoder"
-caption = "The phase portrait of the pendulum: librating orbits (blue) around θ = π, rotating orbits (orange), and the separatrix (red, dashed) through the unstable equilibria (red dots); the stable equilibrium is the blue dot."
+caption = "The phase portrait of the pendulum: librating orbits (blue) around θ = π, rotating orbits (orange), and the separatrix (red) through the unstable equilibria (red dots); the stable equilibrium is the blue dot."
 engine = "pdflatex"
 
 [[figure]]
@@ -392,7 +392,7 @@ engine = "pdflatex"
 [[figure]]
 name = "rotating-cap"
 topic = "pendulum-autoencoder"
-caption = "The exact encodings of the two rotating families of the pendulum, each a family of closed curves around a cap, at true area."
+caption = "The encodings that parametrize the two rotating families of the pendulum, each a family of closed curves around a cap, at true area."
 engine = "pdflatex"
 
 [[figure]]
@@ -404,19 +404,19 @@ engine = "pdflatex"
 [[figure]]
 name = "cylinder-to-poloidal"
 topic = "pendulum-autoencoder"
-caption = "The pendulum's cut-off cylinder mapped to a planar chart, with librating orbits, the separatrix branches and a rotating level."
+caption = "The pendulum's cut-off cylinder mapped to the round chart, with librating orbits, the separatrix branches and a rotating level."
 engine = "pdflatex"
 
 [[figure]]
 name = "three-cases"
 topic = "pendulum-autoencoder"
-caption = "The circles p_θ = const of the pendulum's cylinder in three single charts: (a) the symplectic round chart, which cuts the cylinder off at p_θ = a and leaves a hole; (b) a symplectic decoder of the whole plane, which closes the cylinder with a cap off it; (c) the chart r = e^(−p_θ), which holds the whole cylinder but is not symplectic."
+caption = "The circles p_θ = const of the pendulum's cylinder in three single charts: (a) the chart r = e^(−p_θ), which holds the whole cylinder but is not symplectic; (b) the symplectic round chart, which cuts the cylinder off at p_θ = a and leaves a hole; (c) a symplectic decoder of the whole plane, which closes the cylinder with a cap off it."
 engine = "pdflatex"
 
 [[figure]]
 name = "round-chart-to-target"
 topic = "pendulum-autoencoder"
-caption = "A symplectic decoder of the whole plane that is exact on the circles p_θ = s above a level s₁: (a) below s₁ it leaves the solution manifold and closes the cylinder from below onto a grey cap that ends at q = 0, as the paraboloid of cylinder-to-poloidal closes it at its apex; (b) its latent chart, in which every rotating orbit encloses its action."
+caption = "A symplectic decoder of the whole plane that parametrizes the circles p_θ = s above a level s₁: (a) below s₁ it leaves the solution manifold and closes the cylinder from below onto a grey cap that ends at q = 0, as the paraboloid of cylinder-to-poloidal closes it at its apex; (b) its latent chart, in which every rotating orbit encloses its action."
 engine = "pdflatex"
 
 [[figure]]
@@ -452,7 +452,25 @@ engine = "pdflatex"
 [[figure]]
 name = "pinched-pair"
 topic = "pendulum-autoencoder"
-caption = "The two layouts of exactly reconstructed separatrix images, side by side and nested."
+caption = "Two nested separatrix images through P, each enclosing 8: the crescent between them would have area 0."
+engine = "pdflatex"
+
+[[figure]]
+name = "morse-saddle"
+topic = "pendulum-autoencoder"
+caption = "The hyperbolic paraboloid y₁² − y₂² of the Morse lemma at a saddle P, cut by the horizontal plane at its height in the two lines y₂ = ±y₁ that cross transversally at P."
+engine = "pdflatex"
+
+[[figure]]
+name = "morse-loops"
+topic = "pendulum-autoencoder"
+caption = "From the Morse lemma to the two loops at a saddle P: the level set near P as the preimage of the lines y₂ = ±y₁, and its half-branches joined into two nested loops."
+engine = "pdflatex"
+
+[[figure]]
+name = "morse-figure-eight"
+topic = "pendulum-autoencoder"
+caption = "The side-by-side case of the two loops at a saddle P: the four half-branches joined into a figure-eight, and its two disks each enclosing 8."
 engine = "pdflatex"
 
 [[figure]]
@@ -531,6 +549,42 @@ engine = "pdflatex"
 name = "banana-any-chart"
 topic = "pendulum-autoencoder"
 caption = "The same curves in two continuous injective charts that are neither round nor symplectic."
+engine = "pdflatex"
+
+[[figure]]
+name = "levels-cases"
+topic = "pendulum-autoencoder"
+caption = "The three levels of chart learning (a diffeomorphism onto all of ℝⁿ, one chart onto an open subset, an atlas) without and with symplecticity, with the four cases of the pendulum placed on them, the lowest level that holds the whole solution manifold starred, and the cap and the cut-off that a step down a level costs."
+engine = "pdflatex"
+
+[[figure]]
+name = "non-symplectic-chart"
+topic = "pendulum-autoencoder"
+caption = "The non-symplectic chart r = e^(−p_θ) of the pendulum's cylinder: the cylinder, its circles at radius e^(−p_θ), and their projection onto the punctured plane, with librating orbits, a rotating level and the separatrix."
+engine = "pdflatex"
+
+[[figure]]
+name = "capped-chart"
+topic = "pendulum-autoencoder"
+caption = "The capped cylinder, the pendulum's cylinder with one point added at p_θ = ∞, and its chart onto a disk, laid out as the round chart."
+engine = "pdflatex"
+
+[[figure]]
+name = "one-point-compactification"
+topic = "pendulum-autoencoder"
+caption = "The one-point compactification of the plane as the sphere, by stereographic projection, with the neighbourhood of the added point shaded."
+engine = "pdflatex"
+
+[[figure]]
+name = "cap-contraction"
+topic = "pendulum-autoencoder"
+caption = "The cap: a closed latent curve that a decoder sends onto a rotating orbit bounds a disk, whose image spans the orbit and cannot lie on the cylinder, while a librating orbit's disk can."
+engine = "pdflatex"
+
+[[figure]]
+name = "latent-homotopy"
+topic = "pendulum-autoencoder"
+caption = "The contraction of a closed latent curve to a point, on the parameter annulus, in the latent plane and under the decoder in ℝ⁴."
 engine = "pdflatex"
 
 # The finite element exterior calculus figures of the talk "Geometric Machine Learning" (LMU,

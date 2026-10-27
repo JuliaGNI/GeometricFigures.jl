@@ -1,0 +1,58 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\definecolor{lib}{HTML}{3B75AF}
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{sep}{HTML}{B03030}
+
+% ---------------------------------------------------------------------------
+% The lemma of Morse at a saddle: in the Morse coordinates (y_1, y_2),
+% H o Psi^dec - E_P = y_1^2 - y_2^2 = (y_1 - y_2)(y_1 + y_2), whose graph is the hyperbolic paraboloid. The horizontal plane at the saddle's height E_P cuts it in the two lines
+% y_2 = +-y_1 (red), which cross transversally at P. Levels slightly below and above E_P are the
+% hyperbolas y_1^2 - y_2^2 = -c (blue, the side of the librating orbits) and = +c (orange, the
+% side of the rotating ones), drawn on the surface and projected onto the plane.
+\newcommand{\cc}{0.45}   % the level offset c of the hyperbolas
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  view={25}{38},
+  width=9.5cm, height=8cm,
+  hide axis,
+  xmin=-1, xmax=1, ymin=-1, ymax=1, zmin=-1, zmax=1,
+  clip=false,
+  colormap={gray}{color(0)=(fg!20!bg) color(1)=(fg!4!bg)},
+]
+% the horizontal plane at the saddle's height
+\addplot3[surf, shader=flat, fill=fg!8!bg, draw=fg!30!bg, fill opacity=0.5,
+  domain=-1:1, y domain=-1:1, samples=2] {0};
+% the graph of y_1^2 - y_2^2
+\addplot3[surf, shader=faceted interp, faceted color=fg!25!bg, fill opacity=0.55,
+  domain=-1:1, y domain=-1:1, samples=21] {x^2-y^2};
+% hyperbolas below (lib) and above (rot) the saddle's level: on the surface, and dashed in the plane
+\foreach \s in {-1,1} {
+  \addplot3[lib, thick, domain={-sqrt(1-\cc)}:{sqrt(1-\cc)}, samples=40, samples y=0]
+    ({x}, {\s*sqrt(x^2+\cc)}, {-\cc});
+  \addplot3[lib, dashed, domain={-sqrt(1-\cc)}:{sqrt(1-\cc)}, samples=40, samples y=0]
+    ({x}, {\s*sqrt(x^2+\cc)}, {0});
+  \addplot3[rot, thick, domain={-sqrt(1-\cc)}:{sqrt(1-\cc)}, samples=40, samples y=0]
+    ({\s*sqrt(x^2+\cc)}, {x}, {\cc});
+  \addplot3[rot, dashed, domain={-sqrt(1-\cc)}:{sqrt(1-\cc)}, samples=40, samples y=0]
+    ({\s*sqrt(x^2+\cc)}, {x}, {0});
+}
+% the cut: the two lines y_2 = y_1 and y_2 = -y_1
+\addplot3[sep, very thick, domain=-1:1, samples=2, samples y=0] ({x}, {x}, {0});
+\addplot3[sep, very thick, domain=-1:1, samples=2, samples y=0] ({x}, {-x}, {0});
+\addplot3[only marks, mark=*, mark size=1.8pt, sep] coordinates {(0,0,0)};
+\node[sep, anchor=south, inner sep=1.5pt, yshift=3pt, fill=bg, fill opacity=0.8, text opacity=1] at (axis cs:0,0,0) {$P$};
+\node[sep, anchor=west, font=\footnotesize] at (axis cs:1,1,0) {$y_2=y_1$};
+\node[sep, anchor=west, font=\footnotesize] at (axis cs:1,-1,0) {$y_2=-y_1$};
+% the coordinate directions, along two edges of the plane
+\draw[-stealth, fg!70!bg] (axis cs:-1,-1,0) -- (axis cs:-0.55,-1,0) node[anchor=north, font=\footnotesize] {$y_1$};
+\draw[-stealth, fg!70!bg] (axis cs:-1,-1,0) -- (axis cs:-1,-0.55,0) node[anchor=east, font=\footnotesize] {$y_2$};
+\end{axis}
+\node[font=\small,anchor=north] at ([yshift=-4pt]current bounding box.south) {\textbf{(a)}};
+\end{tikzpicture}
+\end{document}

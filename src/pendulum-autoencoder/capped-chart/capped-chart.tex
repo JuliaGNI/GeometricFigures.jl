@@ -1,0 +1,211 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,patterns,calc}
+
+\definecolor{lib}{HTML}{3B75AF}
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{sep}{HTML}{B03030}
+\definecolor{lobe}{HTML}{FFD700}   % the lobe K: fill lobe!50
+\definecolor{net}{HTML}{4E9A4E}
+
+% The capped cylinder M_infty = M u {x_infty} and its chart chi_infty onto the
+% disk B(r0), laid out as cylinder-to-poloidal (the round chart), with three differences:
+%   * the circle at height p goes to the radius r(p) = r0/(1+exp(p/4)), r0 = 2 sqrt(2a), not to
+%     r^2/2 = a - p; r(0) = sqrt(2a), as in the round chart, but r -> 0 only as p -> infinity, so
+%     nothing is cut off, and r -> r0 as p -> -infinity, so the image is the bounded disk B(r0);
+%   * the top of (b) is the point x_infty (filled dot), not the apex (open circle) that the round
+%     chart leaves out; it sits at p = infinity, not at p = a;
+%   * (b) does not keep heights: the circle at p is drawn at the height h(p) = a - r(p)^2/2 of the
+%     same paraboloid as in the round chart, which keeps the visibility test of that file exact;
+%     the dotted lines between (a) and (b) join the circles p = -c and p = c, no longer level.
+% (a) is the band of cylinder-to-poloidal (a), with the p_theta scale ending in x_infty.
+% (c) is (b) seen from above: the map chi_infty, onto the disk of radius r0 (solid circle).
+\pgfmathsetmacro{\a}{3.2}
+\pgfmathsetmacro{\pc}{2.6}            % where the band is cut
+\pgfmathsetmacro{\bet}{-30}
+\pgfmathsetmacro{\se}{0.42}
+\pgfmathsetmacro{\hc}{0.85}
+\pgfmathsetmacro{\Rc}{sqrt(2*\a)}      % cylinder radius = r(0)
+\pgfmathsetmacro{\rO}{2*\Rc}           % r0, the radius of the image disk
+\pgfmathdeclarefunction{rd}{1}{\pgfmathparse{\rO/(1+exp((#1)/4))}}
+\pgfmathsetmacro{\Rb}{rd(-\pc)}        % bottom rim of the dome
+\pgfmathsetmacro{\Rt}{rd(\pc)}         % top rim of the band on the dome
+\pgfmathsetmacro{\hB}{\a-\Rb*\Rb/2}    % their heights on the drawing
+\pgfmathsetmacro{\hT}{\a-\Rt*\Rt/2}
+\pgfmathsetmacro{\thr}{\se/\hc}        % visibility threshold on the dome
+\pgfmathsetmacro{\pap}{\a-\thr*\thr/2} % top of the dome's silhouette
+\pgfmathdeclarefunction{pl}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
+\pgfmathdeclarefunction{ps}{1}{\pgfmathparse{2*abs(sin((#1)/2))}}
+% radius and drawing height of the circle at p_theta = #1: \cyl = 1 on the cylinder, 0 on the dome
+\pgfmathdeclarefunction{rr}{1}{\pgfmathparse{\cyl*\Rc+(1-\cyl)*rd(#1)}}
+\pgfmathdeclarefunction{hh}{1}{\pgfmathparse{\cyl*(#1)+(1-\cyl)*(\a-rd(#1)^2/2)}}
+\pgfmathdeclarefunction{xp}{2}{\pgfmathparse{-rr(#2)*cos((#1)+\bet)}}
+\pgfmathdeclarefunction{yp}{2}{\pgfmathparse{-rr(#2)*sin((#1)+\bet)}}
+\pgfmathdeclarefunction{pY}{2}{\pgfmathparse{\hc*hh(#2)+\se*yp(#1,#2)}}
+% points of the dome given by angle and drawing height h, r^2/2 = a - h
+\pgfmathdeclarefunction{xh}{2}{\pgfmathparse{-sqrt(max(0,2*(\a-(#2))))*cos((#1)+\bet)}}
+\pgfmathdeclarefunction{yh}{2}{\pgfmathparse{\hc*(#2)-\se*sqrt(max(0,2*(\a-(#2))))*sin((#1)+\bet)}}
+% the lowest visible point of the lobe K = {p > ps(theta)} at theta on the dome, as a drawing
+% height: in front the point on l_+, behind the silhouette r |sin(theta+bet)| = thr
+\pgfmathdeclarefunction{hkd}{1}{\pgfmathparse{sin((#1)+\bet) >= 0 ? \a-rd(ps(#1))^2/2 :
+  max(\a-rd(ps(#1))^2/2, \a-(\thr/max(0.05,abs(sin((#1)+\bet))))^2/2)}}
+
+% \orb{style}{domain}{p as a function of x}: one curve on a 3d panel, solid in front, dashed behind
+\newcommand{\orb}[3]{%
+  \addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)<\vis ? pY(x,#3) : nan});
+  \addplot[#1,hidden,domain=#2] ({xp(x,#3)},{yp(x,#3)<\vis ? nan : pY(x,#3)});}
+% \top{style}{domain}{p}: the same curve on the top view
+\newcommand{\topv}[3]{\addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)});}
+
+% \radius{h}{r}: a radius of the circle at drawing height h, along +x', from the axis to the circle
+\newcommand{\radius}[2]{%
+  \draw[fg!75!bg,line width=0.6pt] (0,{\hc*(#1)}) -- ({#2},{\hc*(#1)});
+  \fill[fg!75!bg] (0,{\hc*(#1)}) circle (0.9pt) ({#2},{\hc*(#1)}) circle (0.9pt);}
+
+% every orbit drawn, on whichever panel
+\newcommand{\orbits}[1]{%
+  #1{rot,thick}{0:360}{-pl(x,1.6)}
+  #1{rot,thick,densely dashed}{0:360}{pl(x,1.6)}
+  #1{fg!70!bg,densely dotted,thick}{0:360}{0}
+  #1{sep,very thick}{0:360}{ps(x)}
+  #1{sep,very thick}{0:360}{-ps(x)}
+  #1{lib,thick}{60:300}{pl(x,0.5)}
+  #1{lib,thick}{60:300}{-pl(x,0.5)}
+  #1{lib,thick}{120:240}{pl(x,-0.5)}
+  #1{lib,thick}{120:240}{-pl(x,-0.5)}}
+
+\pgfplotsset{panel/.style={x=0.475cm,y=0.475cm,hide axis,clip=false,anchor=origin,
+  unbounded coords=jump,
+  every axis plot/.append style={smooth,samples=181,variable=x}}}
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,x=0.475cm,y=0.475cm,
+  hidden/.style={dash pattern=on 2pt off 2pt,opacity=0.38},
+  lab/.style={font=\footnotesize,inner sep=1pt}]
+
+% markers: #1 is yp or pY. The stable equilibrium and the bounce point at theta = pi/3 are in
+% front on both 3d panels, P and the bounce point at 5pi/3 behind.
+\newcommand{\eqmarks}[2]{%
+  \addplot[only marks,mark=*,mark size=1.3pt,lib] coordinates {({xp(180,0)},{#1(180,0)})};
+  \addplot[only marks,mark=*,mark size=1.3pt,sep,opacity=#2] coordinates {({xp(0,0)},{#1(0,0)})};
+  \addplot[only marks,mark=*,mark size=1pt,fg] coordinates {({xp(60,0)},{#1(60,0)})};
+  \addplot[only marks,mark=*,mark size=1pt,fg,opacity=#2] coordinates {({xp(300,0)},{#1(300,0)})};}
+
+% ================================================================ (a) the band of M
+\def\cyl{1}\def\vis{0}
+\fill[fg!4!bg]
+  plot[domain=30:210,samples=60,smooth] ({xp(\x,-\pc)},{pY(\x,-\pc)})
+  -- plot[domain=210:390,samples=60,smooth] ({xp(\x,\pc)},{pY(\x,\pc)}) -- cycle;
+\fill[lobe!50!bg,opacity=0.38]
+  plot[domain=210:390,samples=90,smooth] ({xp(\x,ps(\x))},{pY(\x,ps(\x))})
+  -- plot[domain=390:210,samples=90,smooth] ({xp(\x,\pc)},{pY(\x,\pc)}) -- cycle;
+\fill[lobe!50!bg]
+  plot[domain=30:210,samples=90,smooth] ({xp(\x,ps(\x))},{pY(\x,ps(\x))})
+  -- plot[domain=210:30,samples=90,smooth] ({xp(\x,\pc)},{pY(\x,\pc)}) -- cycle;
+\draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({xp(\x,\pc)},{pY(\x,\pc)});
+\draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({xp(\x,-\pc)},{pY(\x,-\pc)});
+\draw[fg!25!bg] ({-\Rc},{-\hc*\pc}) -- ({-\Rc},{\hc*\pc});
+\draw[fg!25!bg] ({\Rc},{-\hc*\pc}) -- ({\Rc},{\hc*\pc});
+\begin{axis}[panel]
+  \orbits{\orb}
+  \eqmarks{pY}{0.4}
+\end{axis}
+\draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\pc});
+\radius{\pc}{\Rc}
+\radius{-\pc}{\Rc}
+% the p_theta scale of (a): the band from -c to c (solid), and above it, dotted, the end
+% p_theta -> infinity, closed by the point x_infty (filled dot)
+\pgfmathsetmacro{\sx}{\Rc+0.75}
+\draw[fg!60!bg] (\sx,{-\hc*\pc}) -- (\sx,{\hc*\pc});
+\draw[fg!60!bg,densely dotted] (\sx,{\hc*\pc}) -- (\sx,{\hc*\a});
+\foreach \h/\t in {-\pc/-c,0/0,\pc/c}
+  \draw[fg!60!bg] ({\sx-0.12},{\hc*\h}) -- ({\sx+0.12},{\hc*\h}) node[lab,fg,anchor=west] {$\t$};
+\fill[fg] (\sx,{\hc*\a}) circle (2.2pt);
+\node[lab,anchor=west] at ({\sx+0.15},{\hc*\a}) {$x_\infty$};
+\node[lab,anchor=south] at (0,{\hc*\pc+\se*\Rc+0.1}) {cut at $p_\theta=c$};
+\node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rc-0.1}) {cut at $p_\theta=-c$};
+\node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=0.75] at ({xp(0,0)-0.35},{pY(0,0)+0.35}) {$P$};
+\node[lab,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(45,0)-0.3},{pY(40,0)-0.1}) {$\nu$};
+
+% ================================================================ (b) the capped dome
+\def\cyl{0}\def\vis{\thr}
+\begin{scope}[shift={(12.6,0)}]
+  \fill[fg!4!bg]
+    plot[domain=\hB:\pap,samples=60,smooth] ({sqrt(max(0,2*(\a-\x)-\thr*\thr))},{\hc*\x+\se*\thr})
+    -- plot[domain=\pap:\hB,samples=60,smooth] ({-sqrt(max(0,2*(\a-\x)-\thr*\thr))},{\hc*\x+\se*\thr})
+    -- plot[domain={180+asin(\thr/\Rb)-\bet}:{-asin(\thr/\Rb)-\bet},samples=60,smooth]
+         ({xp(\x,-\pc)},{pY(\x,-\pc)}) -- cycle;
+  % the visible part of the lobe K, its part p > c and the point x_infty included
+  \fill[lobe!50!bg] plot[domain=0:360,samples=181,smooth] ({xh(\x,min(\hT,hkd(\x)))},{yh(\x,min(\hT,hkd(\x)))}) -- cycle;
+  \fill[lobe!50!bg] plot[domain=0:360,samples=80,smooth] ({xp(\x,\pc)},{pY(\x,\pc)}) -- cycle;
+  \fill[lobe!50!bg]
+    plot[domain=\hT:\pap,samples=30,smooth] ({sqrt(max(0,2*(\a-\x)-\thr*\thr))},{\hc*\x+\se*\thr})
+    -- plot[domain=\pap:\hT,samples=30,smooth] ({-sqrt(max(0,2*(\a-\x)-\thr*\thr))},{\hc*\x+\se*\thr}) -- cycle;
+  \draw[fg!25!bg]
+    plot[domain=\hB:\pap,samples=60,smooth] ({sqrt(max(0,2*(\a-\x)-\thr*\thr))},{\hc*\x+\se*\thr})
+    -- plot[domain=\pap:\hB,samples=60,smooth] ({-sqrt(max(0,2*(\a-\x)-\thr*\thr))},{\hc*\x+\se*\thr});
+  \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({xp(\x,-\pc)},{pY(\x,-\pc)});
+  \begin{axis}[panel]
+    \orb{fg!40!bg}{0:360}{\pc}
+    \orbits{\orb}
+    \eqmarks{pY}{0.4}
+    \addplot[only marks,mark=*,mark size=1.3pt,fg] coordinates {(0,{\hc*\a})};
+  \end{axis}
+  \draw[fg!45!bg,dashed] (0,{\hc*\hB}) -- (0,{\hc*\a});
+  \radius{\hT}{\Rt}
+  \node[lab,anchor=west,fill=bg,fill opacity=0.8,text opacity=1] at ({\Rt+0.35},{\hc*\hT+0.16}) {$r(c)$};
+  \radius{\hB}{\Rb}
+  \node[lab,anchor=west,fill=bg,fill opacity=0.8,text opacity=1] at ({\Rb+0.1},{\hc*\hB}) {$r(-c)$};
+  \draw[fg!50!bg] (0,{\hc*\a}) -- (1.7,{\hc*\a+1.3})
+    node[lab,fg,anchor=south west,align=left] {$x_\infty$,\\$p_\theta=\infty$};
+  \draw[fg!50!bg] (-0.7,{\hc*\hT+0.25}) -- (-2.2,{\hc*\a+1.3})
+    node[lab,fg,anchor=south east,align=right] {$p_\theta>c$};
+  \node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=0.75] at ({xp(0,0)-0.35},{pY(0,0)+0.35}) {$P$};
+  \node[lab,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(45,0)-0.3},{pY(40,0)-0.1}) {$\nu$};
+  \node[lab,anchor=north] at (0,{\hc*\hB-\se*\Rb-0.1}) {cut at $p_\theta=-c$};
+\end{scope}
+
+% ================================================================ (c) seen from above
+\def\cyl{0}
+\begin{scope}[shift={(25.6,0)}]
+  \fill[fg!4!bg] (0,0) circle ({\Rb});
+  \fill[lobe!50!bg] plot[domain=0:360,samples=181,smooth,variable=\x] ({xp(\x,ps(\x))},{yp(\x,ps(\x))}) -- cycle;
+  \draw[fg!30!bg,densely dotted] (0,0) circle ({\Rb});
+  \draw[fg!40!bg] (0,0) circle ({\Rt});
+  % the boundary of the image disk B(r0), the image of no point: p_theta -> -infinity
+  \draw[fg!70!bg] (0,0) circle ({\rO});
+  \draw[fg!30!bg] ({xp(0,-4.0)},{yp(0,-4.0)}) -- ({xp(180,-4.0)},{yp(180,-4.0)});
+  \node[lab,anchor=south,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(0,-4.0)+0.2},{yp(0,-4.0)+0.05}) {$\theta=0$};
+  \node[lab,anchor=north west] at ({xp(180,-4.0)},{yp(180,-4.0)}) {$\theta=\pi$};
+  \begin{axis}[panel]
+    \orbits{\topv}
+    \eqmarks{yp}{1}
+    \addplot[only marks,mark=*,mark size=1.3pt,fg] coordinates {(0,0)};
+  \end{axis}
+  \node[lab,fg!70!bg,anchor=north] at (0,-0.15) {$x_\infty$};
+  \node[lab,fg!70!bg,anchor=south] at (0,0.15) {$K$};
+  \node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(0,0)-0.3},{yp(0,0)+0.3}) {$P$};
+  \node[lab,anchor=east,fill=bg,fill opacity=0.8,text opacity=1] at ({xp(45,0)-0.4},{yp(40,0)-0.3}) {$\nu$};
+  \node[lab,anchor=north] at (0,{\rO-0.1}) {$B^\circ(r_0)$};
+\end{scope}
+
+% ================================================================ the two steps
+% the circles p = -c and p = c of (a) and of (b), at other heights in (b)
+\def\cyl{0}
+\draw[fg!35!bg,densely dotted] ({\Rc+0.15},{-\hc*\pc}) -- ({12.6-\Rb-0.15},{\hc*\hB});
+\draw[fg!35!bg,densely dotted] ({\Rc+0.15},{\hc*\pc}) -- ({12.6-\Rt-0.15},{\hc*\hT});
+\draw[->,thick,fg!60!bg] (4.9,0) -- (8.4,0)
+  node[midway,above,lab,fg,align=center] {radius\\$r(p_\theta)$};
+\draw[->,thick,fg!60!bg] (17.3,0) -- (20.2,0)
+  node[midway,above,lab,fg,align=center] {look down\\the axis};
+
+% panel labels below the panels, on one line under the lowest thing drawn
+\coordinate (bot) at ($(current bounding box.south)+(0,-0.35)$);
+\node[font=\footnotesize,anchor=north] at (0,0 |- bot) {\textbf{(a)}};
+\node[font=\footnotesize,anchor=north] at (12.6,0 |- bot) {\textbf{(b)}};
+\node[font=\footnotesize,anchor=north] at (25.6,0 |- bot) {\textbf{(c)}};
+\end{tikzpicture}
+\end{document}
