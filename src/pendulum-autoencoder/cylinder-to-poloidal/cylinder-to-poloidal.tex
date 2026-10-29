@@ -24,7 +24,7 @@
 % equilibrium theta = pi to the front right. The 3d panels are orthographic, from elevation e:
 % page (X, Y) = (x', hc p + se y'). An arc is drawn solid where it faces the viewer: y' < 0 on
 % the cylinder, y' < se/hc on the paraboloid (its normal (r cos, r sin, 1/h) makes the test
-% exact, because the paraboloid is convex). Otherwise it is dashed.
+% exact, because the paraboloid is convex). Otherwise it is faded.
 \pgfmathsetmacro{\a}{3.2}
 \pgfmathsetmacro{\pc}{2.6}            % where the band is cut
 \pgfmathsetmacro{\bet}{-30}
@@ -49,7 +49,7 @@
 \pgfmathdeclarefunction{pkd}{1}{\pgfmathparse{sin((#1)+\bet) >= 0 ? ps(#1) :
   min(\pc, max(ps(#1), \a-(\thr/max(0.05,abs(sin((#1)+\bet))))^2/2))}}
 
-% \orb{style}{domain}{p as a function of x}: one curve on a 3d panel, solid in front, dashed behind
+% \orb{style}{domain}{p as a function of x}: one curve on a 3d panel, solid in front, faded behind
 \newcommand{\orb}[3]{%
   \addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)<\vis ? pY(x,#3) : nan});
   \addplot[#1,hidden,domain=#2] ({xp(x,#3)},{yp(x,#3)<\vis ? nan : pY(x,#3)});}
@@ -81,7 +81,7 @@
 
 \begin{document}
 \begin{tikzpicture}[>=Stealth,x=0.475cm,y=0.475cm,
-  hidden/.style={dash pattern=on 2pt off 2pt,opacity=0.38},
+  hidden/.style={opacity=0.38},
   lab/.style={font=\footnotesize,inner sep=1pt}]
 
 % markers: #1 is yp or pY. The stable equilibrium and the bounce point at theta = pi/3 are in
@@ -113,7 +113,7 @@
   \eqmarks{pY}{0.4}
 \end{axis}
 % the axis and the radius sqrt(2a) of the circles at heights -c and c
-\draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\pc});
+\draw[fg!45!bg,thin] (0,{-\hc*\pc}) -- (0,{\hc*\pc});
 \radius{\pc}{\Rc}{$\sqrt{2a}$}
 \radius{-\pc}{\Rc}{$\sqrt{2a}$}
 \node[lab,anchor=south] at (0,{\hc*\pc+\se*\Rc+0.1}) {cut at $p_\theta=c$};
@@ -149,7 +149,7 @@
   \end{axis}
   % the axis and the radii r of the circles at heights -c and c, 1/2 r^2 = a -+ c; their labels
   % sit to their right, the top one because it is too short, the bottom one off the drawing
-  \draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\a});
+  \draw[fg!45!bg,thin] (0,{-\hc*\pc}) -- (0,{\hc*\a});
   \radius{\pc}{\Rt}{}
   \node[lab,anchor=west,fill=bg,fill opacity=0.8,text opacity=1] at ({\Rt+0.1},{\hc*\pc}) {$\sqrt{2(a-c)}$};
   \radius{-\pc}{\Rb}{}

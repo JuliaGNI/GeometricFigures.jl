@@ -30,7 +30,7 @@
 \node[above of=gq4, psd, align=center] (psd1) {\texttt{PSDLayer(2N, 2n)}};
 
 \node[right of=input, xshift=6cm] (output) {Output}; 
-\node[above of=output, gradient, yshift=.6cm] (gq7) {\texttt{GradientQ(2N, 2N, tanh)}};
+\node[above of=output, gradient, yshift=.6cm] (gq7) {\texttt{GradientQ(2N, 10N, tanh)}};
 \node[above of=gq7, psd] (psd2) {\texttt{PSDLayer(2n, 2N)}};
 \node[above of=psd2, gradient] (gq6) {\texttt{GradientP(2n, 10n, tanh)}};
 \node[above of=gq6, gradient] (gq5) {\texttt{GradientQ(2n, 10n, tanh)}};
