@@ -10,6 +10,12 @@ package's site.
 
 ### Changed
 
+* **The last decoder layer of `sae-paper-architecture` is `GradientQ(2N, 10N, tanh)`, as in the
+  paper's revised figure.** The linear-wave experiment of the paper (arXiv:2312.10004) was re-run
+  with the decoder that `GeometricMachineLearning.SymplecticAutoencoder` builds with one output
+  layer, which upscales by `sympnet_upscale = 5` like every other gradient layer; the figure had
+  `GradientQ(2N, 2N, tanh)`. Nothing else in the figure changes.
+
 * **Julia 1.12 is the floor** (`[compat] julia = "1.12"`). This version does not install on
   Julia 1.11 or earlier. The package's code has no version-conditional branch and no workaround
   for an older Julia, so nothing is deleted.
