@@ -10,6 +10,12 @@ package's site.
 
 ### Changed
 
+* **The pendulum-autoencoder figures use the Julia logo colors.** Librating orbits `lib` are
+  Julia blue `4063D8` (was `3B75AF`), the separatrix `sep` Julia red `CB3C33` (was `B03030`),
+  networks and caps `net` Julia green `389826` (was `4E9A4E`), and the upper branch `up` Julia
+  purple `9558B2` (was `7A5AA8`), as in the paper. Rotating orbits (`rot`, `C1701E`) and the lobe
+  (`lobe`, `FFD700`) have no Julia counterpart and keep their colors.
+
 * **CI uploads coverage from the `Julia 1 - ubuntu-latest` job.** It replaces `Julia min`, and a
   test job saves the Julia cache only when it succeeds.
 
