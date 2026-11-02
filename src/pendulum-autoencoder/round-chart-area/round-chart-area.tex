@@ -1,0 +1,111 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,calc}
+
+\definecolor{rot}{HTML}{C1701E}
+
+% The region D = {H < H0, p < 0} between the rotating orbit of energy H0 = 1.6 with p < 0 and the
+% zero section nu, and its latent pictures (the paper's remark on the round chart, arXiv:2312.10004).
+%   (b) the band |p| < c = 2.6 of M, drawn as the cut-off cylinder of cylinder-to-poloidal (a)
+%       (same radius sqrt(2a), angle beta, elevation); D in orange, 0 < p < c in grey.
+%   (a) the latent plane R^2: the latent curve gamma of a symplectic decoder of the plane encloses the
+%       area J = |D|, so the preimage of D fills int gamma and nu has nowhere to go. Drawn with
+%       r^2/2 = -p (the round chart with a = 0), which sends the whole circle nu to the origin.
+%   (c) the round chart, r^2/2 = a - p, a = 3.2: D becomes the annulus between gamma and phi(nu), the
+%       circle of radius sqrt(2a); inside phi(nu) the image of 0 < p < a (grey) and the missing
+%       origin (open circle), where the circle p = a would be.
+% (a) and (c) are drawn to the same scale, so their orange areas are equal (both J).
+\pgfmathsetmacro{\a}{3.2}
+\pgfmathsetmacro{\Ho}{1.6}
+\pgfmathsetmacro{\pc}{2.6}
+\pgfmathsetmacro{\bet}{-30}
+\pgfmathsetmacro{\se}{0.42}
+\pgfmathsetmacro{\hc}{0.85}
+\pgfmathsetmacro{\Rc}{sqrt(2*\a)}
+\pgfmathsetmacro{\Rn}{sqrt(2*\a)}   % radius of phi(nu) in (c)
+% p on the rotating orbit of energy H0 with p < 0
+\pgfmathdeclarefunction{po}{1}{\pgfmathparse{-sqrt(2*(\Ho-cos(#1)))}}
+% the cylinder: page (X, Y) = (x', hc p + se y')
+\pgfmathdeclarefunction{cx}{1}{\pgfmathparse{-\Rc*cos((#1)+\bet)}}
+\pgfmathdeclarefunction{cY}{2}{\pgfmathparse{\hc*(#2)-\se*\Rc*sin((#1)+\bet)}}
+% the latent planes: radius r(p) with r^2/2 = #2 - p
+\pgfmathdeclarefunction{lx}{3}{\pgfmathparse{-sqrt(2*max(0,(#2)-(#3)))*cos((#1)+\bet)}}
+\pgfmathdeclarefunction{ly}{3}{\pgfmathparse{-sqrt(2*max(0,(#2)-(#3)))*sin((#1)+\bet)}}
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,x=0.475cm,y=0.475cm,
+  hidden/.style={opacity=0.38},
+  lab/.style={font=\footnotesize,inner sep=1pt},
+  mask/.style={fill=bg,fill opacity=0.8,text opacity=1}]
+
+% ================================================================ (b) D on the cylinder
+% theta in (30, 210) faces the viewer
+\begin{scope}[shift={(9.5,0)}]
+  \fill[fg!4!bg]
+    plot[domain=30:210,samples=60,smooth] ({cx(\x)},{cY(\x,-\pc)})
+    -- plot[domain=210:390,samples=60,smooth] ({cx(\x)},{cY(\x,\pc)}) -- cycle;
+  \foreach \lo/\hi/\op in {210/390/0.38,30/210/1} {
+    \fill[rot!40!bg,opacity=\op]
+      plot[domain=\lo:\hi,samples=90,smooth] ({cx(\x)},{cY(\x,po(\x))})
+      -- plot[domain=\hi:\lo,samples=90,smooth] ({cx(\x)},{cY(\x,0)}) -- cycle;
+    \fill[fg!14!bg,opacity=\op]
+      plot[domain=\lo:\hi,samples=90,smooth] ({cx(\x)},{cY(\x,0)})
+      -- plot[domain=\hi:\lo,samples=90,smooth] ({cx(\x)},{cY(\x,\pc)}) -- cycle;}
+  \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({cx(\x)},{cY(\x,\pc)});
+  \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({cx(\x)},{cY(\x,-\pc)});
+  \draw[fg!25!bg] ({-\Rc},{-\hc*\pc}) -- ({-\Rc},{\hc*\pc});
+  \draw[fg!25!bg] ({\Rc},{-\hc*\pc}) -- ({\Rc},{\hc*\pc});
+  \draw[rot,thick,hidden] plot[domain=210:390,samples=90,smooth] ({cx(\x)},{cY(\x,po(\x))});
+  \draw[fg!70!bg,densely dotted,thick,hidden] plot[domain=210:390,samples=90,smooth] ({cx(\x)},{cY(\x,0)});
+  \draw[rot,thick] plot[domain=30:210,samples=90,smooth] ({cx(\x)},{cY(\x,po(\x))});
+  \draw[fg!70!bg,densely dotted,thick] plot[domain=30:210,samples=90,smooth] ({cx(\x)},{cY(\x,0)});
+  \node[lab] at ({cx(150)},{cY(150,0.5*po(150))}) {$D$};
+  \node[lab,anchor=south,mask] at ({cx(95)},{cY(95,0)+0.05}) {$\nu$};
+  % the p_theta scale, as in cylinder-to-poloidal (a)
+  \pgfmathsetmacro{\sx}{\Rc+0.75}
+  \draw[fg!60!bg] (\sx,{-\hc*\pc}) -- (\sx,{\hc*\pc});
+  \draw[fg!60!bg,densely dotted,->] (\sx,{\hc*\pc}) -- (\sx,{\hc*\a+1.0})
+    node[lab,fg,anchor=south] {$p_\theta$};
+  \foreach \h/\t in {-\pc/-c,0/0,\pc/c}
+    \draw[fg!60!bg] ({\sx-0.12},{\hc*\h}) -- ({\sx+0.12},{\hc*\h}) node[lab,fg,anchor=west] {$\t$};
+  \draw[fg,fill=bg,line width=0.5pt] (\sx,{\hc*\a}) circle (2.2pt);
+  \node[lab,anchor=west] at ({\sx+0.15},{\hc*\a}) {$a$};
+\end{scope}
+
+% ================================================================ (a) the latent plane R^2
+\begin{scope}[shift={(0,0)}]
+  \fill[rot!40!bg] plot[domain=0:360,samples=181,smooth] ({lx(\x,0,po(\x))},{ly(\x,0,po(\x))}) -- cycle;
+  \draw[rot,thick] plot[domain=0:360,samples=181,smooth] ({lx(\x,0,po(\x))},{ly(\x,0,po(\x))}) -- cycle;
+  \fill[fg] (0,0) circle (1.3pt);
+  \node[lab,anchor=south west] at (0.08,0.08) {$\nu$};
+  \node[lab,rot!70!fg,anchor=south east] at ({lx(345,0,po(345))},{ly(345,0,po(345))}) {$\gamma$};
+  \node[lab,anchor=north] at (0,-3.7) {$\lvert\operatorname{int}\gamma\rvert=J$};
+\end{scope}
+
+% ================================================================ (c) the punctured plane
+\begin{scope}[shift={(21,0)}]
+  \fill[rot!40!bg] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x))},{ly(\x,\a,po(\x))}) -- cycle;
+  \fill[fg!14!bg] (0,0) circle ({\Rn});
+  \draw[fg!70!bg,densely dotted,thick] (0,0) circle ({\Rn});
+  \draw[rot,thick] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x))},{ly(\x,\a,po(\x))}) -- cycle;
+  \draw[fg,fill=bg,line width=0.5pt] (0,0) circle (2.2pt);
+  \node[lab,anchor=north] at (0,{\Rn-0.15}) {$\varphi(\nu)$};
+  \node[lab,rot!70!fg,anchor=south east] at ({lx(345,\a,po(345))},{ly(345,\a,po(345))}) {$\gamma$};
+  \draw[fg!50!bg] ({lx(150,\a,0.5*po(150))},{ly(150,\a,0.5*po(150))}) -- (3.6,-2.9)
+    node[lab,fg,anchor=north west] {$\varphi(D)$};
+  \node[lab,anchor=north] at (0,-3.7) {$\lvert\operatorname{int}\gamma\rvert=J+2\pi a$};
+\end{scope}
+
+% ================================================================ the maps
+\draw[->,thick,fg!60!bg] (6.4,0) -- (2.9,0)
+  node[midway,above,lab,fg] {$\tfrac12 r^2=-p_\theta$};
+\draw[->,thick,fg!60!bg] (14.0,0) -- (17.4,0)
+  node[midway,above,lab,fg] {$\tfrac12 r^2=a-p_\theta$};
+
+\coordinate (bot) at ($(current bounding box.south)+(0,-0.35)$);
+\node[font=\footnotesize,anchor=north] at (0,0 |- bot) {\textbf{(a)}};
+\node[font=\footnotesize,anchor=north] at (9.5,0 |- bot) {\textbf{(b)}};
+\node[font=\footnotesize,anchor=north] at (21,0 |- bot) {\textbf{(c)}};
+\end{tikzpicture}
+\end{document}

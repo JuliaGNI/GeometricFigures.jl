@@ -35,6 +35,12 @@ package's site.
 
 ### New Features
 
+* **`round-chart-area` shows the region D between a rotating orbit and the zero section ν of the
+  pendulum's cylinder, and its latent pictures.** New in the paper on symplectic autoencoders
+  (arXiv:2312.10004), beside `cylinder-to-poloidal`: (a) a latent plane without a hole, where the
+  rotating orbit's latent curve γ encloses only the area of D, (b) D on the cylinder, (c) the round
+  chart, where γ also encloses the disk inside the image of ν. Panels (a) and (c) share one scale.
+
 * **`figure_url(name; theme, format, dpi = nothing)` locates published figures.** Returns the URL
   of a figure in the `"light"` or `"dark"` theme, as `"pdf"`, `"svg"` or `"png"`. A PNG requires a
   `dpi` of 150, 300 or 600. Throws `ArgumentError` for an unknown figure name, theme or format, for
