@@ -474,6 +474,18 @@ caption = "The side-by-side case of the two loops at a saddle P: the four half-b
 engine = "pdflatex"
 
 [[figure]]
+name = "encoded-curves"
+topic = "pendulum-autoencoder"
+caption = "A librating orbit, the separatrix and a rotating orbit of the pendulum under the encoder of a symplectic autoencoder trained on reconstruction, with the lobe between the two separatrix images."
+engine = "pdflatex"
+
+[[figure]]
+name = "two-charts-reduced"
+topic = "pendulum-autoencoder"
+caption = "The pendulum's cylinder, its angular chart and the reduced model of a symplectic autoencoder trained by vector-field learning, with the separatrix of the reduced model, its lobe and the reduced orbits of a librating and a rotating state."
+engine = "pdflatex"
+
+[[figure]]
 name = "atlas-vs-chart"
 topic = "pendulum-autoencoder"
 caption = "The pendulum's cylinder charted two ways: by the action-angle atlas and by a single latent chart of a trained encoder."

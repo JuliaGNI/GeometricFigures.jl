@@ -334,6 +334,17 @@ package's site.
   difference of one 8-bit level in the shading of the surface, whose grey colormap is `fg!20!bg` to
   `fg!4!bg` instead of RGB 205 to 245. `scripts/check-dark.jl` counts 0 dark pixels in each.
 
+* **`encoded-curves` and `two-charts-reduced` complete `pendulum-autoencoder`.** `encoded-curves` is
+  the encoder panel of `two-charts`: a librating orbit, the separatrix images, which meet at the
+  image of the unstable equilibrium, and a rotating orbit under the encoder of the network trained
+  on reconstruction, with the lobe between the separatrix images. `two-charts-reduced` sets the
+  cylinder and its angular chart beside the reduced model of the network trained by vector-field
+  learning: the separatrix of the reduced model, traced as the two homoclinic orbits of its saddle,
+  the lobe with a magnified window, and the reduced orbits of the encoded states at H = 0 and H = 1.4.
+  Both draw measurements on trained weights in a generated block, and the topic introduction lists
+  them. They are the last figures of the paper's companion note that were not in the topic; the
+  note no longer draws them itself.
+
 * **A topic page can open with a tracked introduction.** `docs/make.jl` writes
   `docs/topic-intros/<topic>.md`, where it exists, between the page's heading and its figures; the
   file is outside `docs/src/`, so Documenter does not publish it as a page of its own. The
