@@ -22,6 +22,11 @@ package's site.
   `src/<name>.jl`, and there is no `src/epoch.jl`. The function is in `src/build.jl`, whose mirror
   `test/build.jl` already holds the tests of `build`.
 
+* **The test dependency Aqua has the floor 0.8.14** (`Aqua = "0.8.14"` in `test/Project.toml`).
+  CI's Downgrade job runs the tests at the `[compat]` lower bounds. Aqua 0.8.0 to 0.8.13 read the
+  `mt` field of `Core.TypeName`, which Julia 1.12 does not have, so the piracy check throws a
+  `FieldError`. Aqua 0.8.14 is the first release that reads `Core.methodtable` instead.
+
 ### New Features
 
 * **`figure_url(name; theme, format, dpi = nothing)` locates published figures.** Returns the URL
