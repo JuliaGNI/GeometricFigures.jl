@@ -1,0 +1,66 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta}
+
+\definecolor{lib}{HTML}{3B75AF}
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{sep}{HTML}{B03030}
+
+% ---------------------------------------------------------------------------
+% The side-by-side case of the two loops at a saddle P, which the pendulum's layout excludes but
+% the argument for parametrizing the separatrix itself has to treat.
+% (a) The four half-branches of morse-loops (b), continued beyond N_P (dashed), joined adjacent
+%     ones in pairs into a figure-eight: B_2 and B_3 form gamma_-, B_4 and B_1 gamma_+, and each loop
+%     bounds its own disk.
+% (b) The same loops, each enclosing 8: Omega is one of the two disks.
+% Each loop has a corner at P, where its two half-branches meet at a nonzero angle. Schematic.
+\newcommand{\loopminus}{(0,0) .. controls (-0.9,0.9) and (-2.4,1.5) .. (-2.4,0)
+                   .. controls (-2.4,-1.5) and (-0.9,-0.9) .. (0,0)}
+\newcommand{\loopplus}{(0,0) .. controls (0.9,0.9) and (2.4,1.5) .. (2.4,0)
+                   .. controls (2.4,-1.5) and (0.9,-0.9) .. (0,0)}
+\begin{document}
+\begin{tikzpicture}[>=Stealth,
+  gam/.style={sep,very thick},
+  tag/.style={font=\footnotesize,inner sep=1.5pt},
+  panelcap/.style={font=\small,anchor=north}]
+
+% ===========================================================================
+% (a) the half-branches
+% ===========================================================================
+\begin{scope}[scale=0.78]
+  \draw[fg!40!bg,dashed] (0,0) circle (0.55);
+  \draw[gam] \loopminus;
+  \draw[gam] \loopplus;
+  \fill[sep] (0,0) circle (1.7pt);
+  \node[tag,sep,anchor=south west] at (0.3,0.62) {$\mathcal{B}_1$};
+  \node[tag,sep,anchor=south east] at (-0.3,0.62) {$\mathcal{B}_2$};
+  \node[tag,sep,anchor=north east] at (-0.3,-0.62) {$\mathcal{B}_3$};
+  \node[tag,sep,anchor=north west] at (0.3,-0.62) {$\mathcal{B}_4$};
+  \node[tag,sep,anchor=north] at (0,-1.05) {$P$};
+  \draw[sep!60!bg,line width=0.4pt] (0,-0.06) -- (0,-1.05);
+  \node[tag,sep,anchor=south] at (-1.7,1.15) {$\gamma_-$};
+  \node[tag,sep,anchor=south] at ( 1.7,1.15) {$\gamma_+$};
+\end{scope}
+
+% ===========================================================================
+% (b) the areas
+% ===========================================================================
+\begin{scope}[shift={(5.2,0)},scale=0.78]
+  \fill[lib!14!bg] \loopminus;
+  \fill[fg!4!bg] \loopplus;
+  \draw[gam] \loopminus;
+  \draw[gam] \loopplus;
+  \fill[sep] (0,0) circle (1.7pt);
+  \node[tag,sep,anchor=north] at (0,-0.2) {$P$};
+  \node[tag,sep,anchor=south] at (-1.7,1.15) {$\gamma_-$};
+  \node[tag,sep,anchor=south] at ( 1.7,1.15) {$\gamma_+$};
+  \node[font=\small,lib] at (-1.45,0.2) {$8$};
+  \node[font=\small,fg!70!bg] at (1.45,0.2) {$8$};
+  \node[tag,lib] at (-1.45,-0.4) {$\Omega$};
+\end{scope}
+
+\node[panelcap] at (0,-1.55) {\textbf{(a)}};
+\node[panelcap] at (5.2,-1.55) {\textbf{(b)}};
+\end{tikzpicture}
+\end{document}

@@ -72,8 +72,8 @@
     \draw[notin,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,\sg*sepp(\x))});
   }
   % the orbits iota o c_L, iota o c_R and its mirror image
-  \draw[rot,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
-  \draw[rot,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
+  \draw[up,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
+  \draw[up,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,rotp(\x))});
   \draw[rot,thick] plot[domain=\fa:\fb,samples=90,smooth] ({cylx(\x)},{cyly(\x,-rotp(\x))});
   \draw[rot,thick,hidden] plot[domain=\fb:240,samples=90,smooth] ({cylx(\x)},{cyly(\x,-rotp(\x))});
   \draw[lib,thick]
@@ -81,7 +81,7 @@
     -- plot[domain=90:-90,samples=90,smooth] ({cylx(\tlib*sin(\x))},{cyly(\tlib*sin(\x),-libp(\tlib*sin(\x)))})
     -- cycle;
   % labels
-  \node[rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({cylx(-20)},{cyly(-20,rotp(-20))}) {$\iota\circ c_R$};
+  \node[up,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south] at ({cylx(-20)},{cyly(-20,rotp(-20))}) {$\iota\circ c_R$};
   \node[lib] at ({cylx(-75)},{cyly(-75,0)}) {$L$};
   \node[up] at ({cylx(-75)},{cyly(-75,2.75)}) {$R_+$};
   \node[rot] at ({cylx(-75)},{cyly(-75,-2.75)}) {$R_-$};
@@ -128,12 +128,12 @@
   \fill[up!16!bg] (0,0) circle ({arad(24)});
   \fill[bg] (0,0) circle ({arad(8)});
   \fill[hole] (0,0) circle ({arad(8)});
-  \draw[rot,thick] (0,0) circle ({arad(12.357)});
+  \draw[up,thick] (0,0) circle ({arad(12.357)});
   \draw[notin] (0,0) circle ({arad(8)});
   \draw[cut] (0,0) circle ({arad(24)});
   \node[fill=bg,inner sep=1pt] at (0,0) {$a_0=8$};
   \node[sep,fill=bg,inner sep=1pt] at (0,0.42) {$\ell_+$};
-  \node[rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south west] at (40:{arad(12.357)}) {$\iota\circ c_R$};
+  \node[up,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=south west] at (40:{arad(12.357)}) {$\iota\circ c_R$};
   \coordinate (iU) at (115:{arad(24)});
   \node[chname] at (0,{-arad(24)-0.1}) {$\chi_+(R_+)$};
 \end{scope}

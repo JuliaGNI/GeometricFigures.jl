@@ -12,7 +12,9 @@
 \definecolor{net}{HTML}{4E9A4E}
 
 % From the cut-off cylinder to the round chart, in three steps.
-%   (a) the band |p| < 2.6 of M, the round cylinder of pendulum-solution-manifold, of radius sqrt(2a).
+%   (a) the band |p| < 2.6 of M, the round cylinder of pendulum-solution-manifold, drawn with radius sqrt(2a)
+%       so that the circle p = 0 has the same radius in (a) and (b); the radius is not a property of M
+%       and is not labelled.
 %   (b) the same band with the circle at height p given the radius r(p), r^2/2 = a - p
 %       (a = 3.2, as in banana-layout). Height is kept, so the band becomes a
 %       ring of the paraboloid p = a - r^2/2, a dome with apex r = 0, p = a. The top 2.6 < p < a
@@ -112,10 +114,20 @@
   \orbits{\orb}
   \eqmarks{pY}{0.4}
 \end{axis}
-% the axis and the radius sqrt(2a) of the circles at heights -c and c
+% the axis and the (unlabelled) radii of the circles at heights -c and c
 \draw[fg!45!bg,dashed] (0,{-\hc*\pc}) -- (0,{\hc*\pc});
-\radius{\pc}{\Rc}{$\sqrt{2a}$}
-\radius{-\pc}{\Rc}{$\sqrt{2a}$}
+\radius{\pc}{\Rc}{}
+\radius{-\pc}{\Rc}{}
+% the p_theta scale of (a): the band from -c to c (solid), and above it, dotted, the height a > c of
+% the circle that the round chart sends to the apex of (b) (open circle, as the apex)
+\pgfmathsetmacro{\sx}{\Rc+0.75}
+\draw[fg!60!bg] (\sx,{-\hc*\pc}) -- (\sx,{\hc*\pc});
+\draw[fg!60!bg,densely dotted,->] (\sx,{\hc*\pc}) -- (\sx,{\hc*\a+1.0})
+  node[lab,fg,anchor=south] {$p_\theta$};
+\foreach \h/\t in {-\pc/-c,0/0,\pc/c}
+  \draw[fg!60!bg] ({\sx-0.12},{\hc*\h}) -- ({\sx+0.12},{\hc*\h}) node[lab,fg,anchor=west] {$\t$};
+\draw[fg,fill=bg,line width=0.5pt] (\sx,{\hc*\a}) circle (2.2pt);
+\node[lab,anchor=west] at ({\sx+0.15},{\hc*\a}) {$a$};
 \node[lab,anchor=south] at (0,{\hc*\pc+\se*\Rc+0.1}) {cut at $p_\theta=c$};
 \node[lab,anchor=north] at (0,{-\hc*\pc-\se*\Rc-0.1}) {cut at $p_\theta=-c$};
 \node[lab,sep,anchor=east,fill=bg,fill opacity=0.8,text opacity=0.75] at ({xp(0,0)-0.35},{pY(0,0)+0.35}) {$P$};
@@ -190,15 +202,15 @@
 % the heights -c and c are kept from (a) to (b)
 \foreach \h in {-\pc,\pc}
   \draw[fg!35!bg,densely dotted] ({\Rc+0.15},{\hc*\h}) -- ({12.6-sqrt(2*(\a-\h))-0.15},{\hc*\h});
-\draw[->,thick,fg!60!bg] (4.0,0) -- (7.4,0)
+\draw[->,thick,fg!60!bg] (4.9,0) -- (8.4,0)
   node[midway,above,lab,fg,align=center] {radius $r$ at\\height $p_\theta$,\\$\tfrac12 r^2=a-p_\theta$};
 \draw[->,thick,fg!60!bg] (17.3,0) -- (20.5,0)
   node[midway,above,lab,fg,align=center] {look down\\the axis,\\forget $p_\theta$};
 
 % panel labels below the panels, on one line under the lowest thing drawn
 \coordinate (bot) at ($(current bounding box.south)+(0,-0.35)$);
-\node[font=\footnotesize,anchor=north] at (0,0 |- bot) {(a)};
-\node[font=\footnotesize,anchor=north] at (12.6,0 |- bot) {(b)};
-\node[font=\footnotesize,anchor=north] at (24.9,0 |- bot) {(c)};
+\node[font=\footnotesize,anchor=north] at (0,0 |- bot) {\textbf{(a)}};
+\node[font=\footnotesize,anchor=north] at (12.6,0 |- bot) {\textbf{(b)}};
+\node[font=\footnotesize,anchor=north] at (24.9,0 |- bot) {\textbf{(c)}};
 \end{tikzpicture}
 \end{document}

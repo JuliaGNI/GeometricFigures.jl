@@ -30,8 +30,8 @@
     \addplot[lib,thick,domain=\ta:\tb]{-sqrt(max(0,2*(\H-cos(deg(x)))))};
   }
   % separatrix
-  \addplot[sep,very thick,dashed,domain=0:6.2832]{ 2*abs(sin(deg(x/2)))};
-  \addplot[sep,very thick,dashed,domain=0:6.2832]{-2*abs(sin(deg(x/2)))};
+  \addplot[sep,very thick,domain=0:6.2832]{ 2*abs(sin(deg(x/2)))};
+  \addplot[sep,very thick,domain=0:6.2832]{-2*abs(sin(deg(x/2)))};
   % rotating
   \foreach \H in {1.5,2.2}{
     \addplot[rot,thick,domain=0:6.2832]{ sqrt(2*(\H-cos(deg(x))))};

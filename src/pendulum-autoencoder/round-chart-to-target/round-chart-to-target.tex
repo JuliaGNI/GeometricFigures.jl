@@ -4,9 +4,10 @@
 \usetikzlibrary{arrows.meta}
 
 \definecolor{rot}{HTML}{C1701E}
+\definecolor{up}{HTML}{7A5AA8}
 \definecolor{sep}{HTML}{B03030}
 
-% The target decoder with its ripple switched off (c = 0): the latent circle of
+% The constructed decoder with its ripple switched off (c = 0): the latent circle of
 % s = |z|^2/2 goes to the circle p_theta = s, on M (radius R = 1 in the q-plane) for s >= s1 and
 % off M (R < 1) for s < s1. Drawn in the coordinates (q, p_theta): R is the distance from the axis,
 % p_theta the height, oblique projection. Off M = gray (not yellow: no lobe is meant here).
@@ -44,15 +45,15 @@
   \draw[fg!55!bg] plot[domain=180:360,samples=60,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,\sone)});
   \draw[fg!55!bg,densely dotted] plot[domain=0:360,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,\ztop)});
   % a rotating orbit with p_theta > 0 on the exact part, H = 2.4 (front solid, back faded)
-  \draw[rot,thick,densely dashed] plot[domain=180:360,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,pr(\t,2.4))});
-  \draw[rot,thick,densely dashed,back] plot[domain=0:180,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,pr(\t,2.4))});
+  \draw[up,thick,densely dashed] plot[domain=180:360,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,pr(\t,2.4))});
+  \draw[up,thick,densely dashed,back] plot[domain=0:180,samples=90,smooth,variable=\t] ({PX(\t,1)},{PY(\t,1,pr(\t,2.4))});
   % the bottom of the cap: q = 0, the image of the latent origin
   \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.6pt);
   \node[font=\small,anchor=north] at (0,-0.06) {$q=0$};
   \node[font=\small,anchor=west] at (1.05,{\hz*0.5*(\sone+\ztop)}) {on $\mathcal{M}$};
   \node[font=\small,anchor=west,fg!60!bg] at ({Rb(0.45)+0.08},{\hz*0.4}) {off $\mathcal{M}$};
   \node[font=\small,anchor=east] at (-1.05,{\hz*\sone}) {$p_\theta=s_1$};
-  \node[font=\small] at (0,-0.85) {(a)};
+  \node[font=\small] at (0,-0.85) {\textbf{(a)}};
 \end{scope}
 
 % ---------------------------------------------------------------- (b) its latent chart
@@ -63,12 +64,12 @@
   % the image of the band: the annulus s1 <= s <= ztop
   \draw[fg!55!bg,densely dotted] (0,0) circle ({sqrt(2*\ztop)*0.62});
   % the orbit of (a): angle beta = -theta, s = p_theta(theta)
-  \draw[rot,thick,densely dashed] plot[domain=0:360,samples=120,smooth,variable=\t]
+  \draw[up,thick,densely dashed] plot[domain=0:360,samples=120,smooth,variable=\t]
     ({0.62*sqrt(2*pr(\t,2.4))*cos(-\t)},{0.62*sqrt(2*pr(\t,2.4))*sin(-\t)});
   \filldraw[fill=bg,draw=fg,line width=0.45pt] (0,0) circle (1.6pt);
   \draw[->,fg!50!bg] (-1.75,-1.75) -- (-1.25,-1.75) node[anchor=west,font=\small] {$z_q$};
   \draw[->,fg!50!bg] (-1.75,-1.75) -- (-1.75,-1.25) node[anchor=south,font=\small] {$z_p$};
-  \node[font=\small] at (0,-2.3) {(b)};
+  \node[font=\small] at (0,-2.3) {\textbf{(b)}};
 \end{scope}
 \end{tikzpicture}
 \end{document}

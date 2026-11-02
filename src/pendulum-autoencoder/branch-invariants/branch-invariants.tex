@@ -111,7 +111,8 @@
   \addlegendentry{angular action $\oint p_\theta\,d\theta$}
   \addplot[fg,mark=*,mark size=1.2,forget plot] coordinates {\rotact};
   \addplot[fg,dotted,forget plot] coordinates {(0.9,14.6409)(1.0,16.0)};
-  \addplot[fg,only marks,mark=o,mark size=2.2,forget plot] coordinates {(1.0,16.0)(1.0,8.0)};
+  \addplot[fg,only marks,mark=o,mark size=2.8,forget plot] coordinates {(1.0,16.0)(1.0,8.0)};
+  \node[anchor=west,font=\small,fill=bg,inner sep=1pt] at (axis cs:1.06,16) {$16$};
 
   \addplot[net,mark=square*,mark size=1.1] coordinates {\libnet};
   \addlegendentry{latent $\oint z_p\,dz_q$, librating and $p_\theta<0$}

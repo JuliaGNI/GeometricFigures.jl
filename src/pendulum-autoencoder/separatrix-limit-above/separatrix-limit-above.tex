@@ -10,6 +10,7 @@
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{sep}{HTML}{B03030}
 \definecolor{net}{HTML}{4E9A4E}
+\definecolor{lobe}{HTML}{FFD700}
 
 \begin{document}
 \begin{tikzpicture}[baseline]
@@ -17,11 +18,12 @@
   xtick={0,3.1416,6.2832},xticklabels={$0$,$\pi$,$2\pi$},
   xlabel={$\theta$},ylabel={$p_\theta$},axis lines=left,axis line style={fg},
   title style={at={(0.5,0)},anchor=north,yshift=-3.5em},   % panel label below the panel
-  title={\small (d)},
+  title={\small\textbf{(d)}},
   every axis plot/.append style={smooth,samples=200}]
   \addplot[sep,very thick,name path=U2,domain=0:6.2832]{ 2*abs(sin(deg(x/2)))};
   \addplot[draw=none,name path=Z2,domain=0:6.2832]{0};
-  \addplot[sep!22!bg]fill between[of=U2 and Z2];
+  \addplot[lobe!50!bg]fill between[of=U2 and Z2];
+  \addplot[rot,thick,dashed,domain=0:6.2832]{sqrt(2*(1.15-cos(deg(x))))};
   % The shaded band is the area A between the two branches, which is the hole area a_0.
   \node at (axis cs:3.1416,0.85) {$a_0=A=8$};
   \addplot[sep,very thick,dashed,domain=0:6.2832]{-2*abs(sin(deg(x/2)))};

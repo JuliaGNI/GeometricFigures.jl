@@ -7,7 +7,7 @@
 \definecolor{net}{HTML}{4E9A4E}
 \definecolor{up}{HTML}{7A5AA8}
 
-% The exact encodings of the two rotating families,
+% The encodings that parametrize the two rotating families,
 % laid out as angle-atlas: M on top, in the same projection, the charts
 % below it, and arrows from a point of each patch to its image.
 %   phi_-: the chart r^2/2 = -p_theta at polar angle theta of {p_theta < 0}, which encodes family
@@ -46,9 +46,10 @@
 \newcommand{\circleat}[2]{\draw[#1] plot[domain=-180:180,samples=120,smooth] ({cylx(\x)},{cyly(\x,#2)});}
 % the orbits at H = 2 and 4 on the side #1 = -1 (family (ii)) or +1 (family (iii))
 \newcommand{\orbits}[1]{%
+  \ifnum#1=1\def\orbitcolor{up}\else\def\orbitcolor{rot}\fi
   \foreach \H/\w in {2/very thick,4/thick}{
-    \draw[rot,\w] plot[domain=-120:60,samples=70,smooth] ({cylx(\x)},{cyly(\x,#1*orb(\x,\H))});
-    \draw[rot,\w,hidden] plot[domain=60:240,samples=70,smooth] ({cylx(\x)},{cyly(\x,#1*orb(\x,\H))});}}
+    \draw[\orbitcolor,\w] plot[domain=-120:60,samples=70,smooth] ({cylx(\x)},{cyly(\x,#1*orb(\x,\H))});
+    \draw[\orbitcolor,\w,hidden] plot[domain=60:240,samples=70,smooth] ({cylx(\x)},{cyly(\x,#1*orb(\x,\H))});}}
 % the cylinder's outline between the heights #1 < #2, and its cut at #3 (dotted)
 \newcommand{\outline}[3]{%
   \draw[fg!25!bg] ({-\cylR},{\cylS*(#1)}) -- ({-\cylR},{\cylS*(#2)});
@@ -75,7 +76,7 @@
   \fi
   \draw[net,thick] (0,0) circle (\rb);
   \foreach \H/\w in {2/very thick,4/thick}{
-    \draw[rot,\w,smooth,samples=180,domain=0:360,variable=\t]
+    \draw[#2,\w,smooth,samples=180,domain=0:360,variable=\t]
       plot ({rl(\t,\H)*cos(#1*\t-30)},{rl(\t,\H)*sin(#1*\t-30)}) -- cycle;}
   \node[net!70!fg,lab,align=center,fill=net!16!bg,fill opacity=0.85,text opacity=1,inner sep=0.5pt] at (0,0) {#3};}
 
@@ -99,7 +100,7 @@
   \node[lab,rot!80!fg,anchor=east] at ({-\cylR-0.05},{\cylS*(-2.2)}) {$V_-$};
   \node[lab,up!80!fg,anchor=east] at ({-\cylR-0.05},{\cylS*2.2}) {$V_+$};
   \node[lab,align=center] at (0,{cyly(-30,0)}) {in neither};
-  \node[lab,rot,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=north] at ({cylx(-75)},{cyly(-75,orb(-75,2))-0.03}) {$\iota\circ c_R$};
+  \node[lab,up,fill=bg,fill opacity=0.8,text opacity=1,inner sep=0.6pt,anchor=north] at ({cylx(-75)},{cyly(-75,orb(-75,2))-0.03}) {$\iota\circ c_R$};
   \node[font=\small] at (-2.0,2.25) {$\mathcal{M}$};
   \draw[->,fg!50!bg] ({\cylR+0.35},-0.45) -- ({\cylR+0.35},0.45) node[above,lab,fg] {$p_\theta$};
   % the points the chart arrows start from, one in each patch

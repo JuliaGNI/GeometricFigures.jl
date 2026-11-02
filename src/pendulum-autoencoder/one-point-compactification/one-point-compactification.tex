@@ -1,0 +1,71 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,calc}
+
+% The one-point compactification of X = R^2, drawn as the
+% stereographic projection: the sphere S^2 of radius R rests on the plane z = 0 at the origin, the
+% added point xhat is its north pole N = (0, 0, 2R), and the line from N through a point x of the
+% plane meets the sphere in the image N + t (x - N) of x, t = 4R^2 / (|x|^2 + 4R^2).
+% Gray: the complement X \ C of the compact disk C = {|x| <= rC} and its image, the cap about N;
+% with xhat it is the open set (X \ C) u {xhat} of the definition.
+% Oblique projection: page (X, Y) = (x, hc z + se y); a point of the sphere faces the
+% viewer if -hc (y - c_y) + se (z - c_z) > 0, with c the center.
+\pgfmathsetmacro{\R}{2}
+\pgfmathsetmacro{\L}{5.6}              % half side of the drawn square of the plane
+\pgfmathsetmacro{\rC}{3.5}            % radius of C
+\pgfmathsetmacro{\se}{0.42}
+\pgfmathsetmacro{\hc}{0.85}
+\pgfmathsetmacro{\Sy}{\R*sqrt(\hc*\hc+\se*\se)}   % vertical semi-axis of the sphere's outline
+% the boundary circle of the cap: polar angle alpha_c from N, cos(alpha_c) = (z - R)/R
+\pgfmathsetmacro{\tc}{4*\R*\R/(\rC*\rC+4*\R*\R)}
+\pgfmathsetmacro{\ac}{acos((2*\R*(1-\tc)-\R)/\R)}
+% a point of the sphere, by polar angle #1 from N and azimuth #2
+\pgfmathdeclarefunction{SX}{2}{\pgfmathparse{\R*sin(#1)*cos(#2)}}
+\pgfmathdeclarefunction{SY}{2}{\pgfmathparse{\hc*\R*(1+cos(#1))+\se*\R*sin(#1)*sin(#2)}}
+% the polar angle of the outline on the meridian #1: visible iff alpha < atan2(se, hc sin(phi))
+\pgfmathdeclarefunction{asil}{1}{\pgfmathparse{atan2(\se,\hc*sin(#1))}}
+\pgfmathdeclarefunction{acap}{1}{\pgfmathparse{min(\ac,asil(#1))}}
+% the point x of the plane and its image on the sphere
+\pgfmathsetmacro{\qx}{-4.0}
+\pgfmathsetmacro{\qy}{-2.3}
+\pgfmathsetmacro{\tq}{4*\R*\R/(\qx*\qx+\qy*\qy+4*\R*\R)}
+\pgfmathsetmacro{\px}{\tq*\qx}
+\pgfmathsetmacro{\py}{\tq*\qy}
+\pgfmathsetmacro{\pz}{2*\R*(1-\tq)}
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,x=0.475cm,y=0.475cm,
+  hidden/.style={dash pattern=on 2pt off 2pt,opacity=0.45},
+  lab/.style={font=\footnotesize,inner sep=1pt}]
+
+% ---------------------------------------------------------------- the plane X, gray outside C
+\fill[fg!4!bg] ({-\L},{-\se*\L}) -- ({\L},{-\se*\L}) -- ({\L},{\se*\L}) -- ({-\L},{\se*\L}) -- cycle;
+\fill[fg!16!bg,even odd rule]
+  ({-\L},{-\se*\L}) -- ({\L},{-\se*\L}) -- ({\L},{\se*\L}) -- ({-\L},{\se*\L}) -- cycle
+  (0,0) ellipse ({\rC} and {\se*\rC});
+\draw[fg!40!bg] ({-\L},{-\se*\L}) -- ({\L},{-\se*\L}) -- ({\L},{\se*\L}) -- ({-\L},{\se*\L}) -- cycle;
+\draw[fg!70!bg] (0,0) ellipse ({\rC} and {\se*\rC});
+\node[lab] at ({0.52*\rC},{-0.5*\se*\rC}) {$C$};
+\node[lab,anchor=south east] at ({\L-0.15},{-\se*\L+0.15}) {$X=\mathbb{R}^2$};
+
+% ---------------------------------------------------------------- the sphere, gray cap about N
+\fill[bg] (0,{\hc*\R}) ellipse ({\R} and {\Sy});
+\fill[fg!4!bg] (0,{\hc*\R}) ellipse ({\R} and {\Sy});
+\fill[fg!16!bg] plot[domain=0:360,samples=181,smooth] ({SX(acap(\x),\x)},{SY(acap(\x),\x)}) -- cycle;
+% the boundary of the cap, the image of the circle bounding C: solid in front, dashed behind
+\draw[fg!70!bg] plot[domain=180:360,samples=91,smooth] ({SX(\ac,\x)},{SY(\ac,\x)});
+\draw[fg!70!bg,hidden] plot[domain=0:180,samples=91,smooth] ({SX(\ac,\x)},{SY(\ac,\x)});
+\draw[fg!50!bg] (0,{\hc*\R}) ellipse ({\R} and {\Sy});
+\node[lab,anchor=south west] at ({0.72*\R},{\hc*\R+0.72*\Sy}) {$S^2$};
+
+% ---------------------------------------------------------------- the line from xhat through the image of x to x
+\draw[fg!70!bg,hidden] (0,{2*\hc*\R}) -- ({\px},{\hc*\pz+\se*\py});
+\draw[fg!70!bg] ({\px},{\hc*\pz+\se*\py}) -- ({\qx},{\se*\qy});
+\fill[fg] (0,{2*\hc*\R}) circle (2.2pt);
+\node[lab,anchor=south] at (0,{2*\hc*\R+0.15}) {$\hat{x}$};
+\fill[fg] ({\px},{\hc*\pz+\se*\py}) circle (1.6pt);
+\fill[fg] ({\qx},{\se*\qy}) circle (1.6pt);
+\node[lab,anchor=north] at ({\qx},{\se*\qy-0.12}) {$x$};
+\end{tikzpicture}
+\end{document}
