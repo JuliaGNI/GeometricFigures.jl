@@ -35,11 +35,12 @@ package's site.
 
 ### New Features
 
-* **`round-chart-area` shows what fills the latent hole of the region D between a rotating orbit
-  and the zero section ν of the pendulum's cylinder.** New in the paper on symplectic autoencoders
-  (arXiv:2312.10004): (a), (b) the round chart fills it with the band up to the apex, whose missing
-  point carries the area 2πa; (c), (d) a symplectic decoder of the whole plane would fill it with
-  the preimage of a cap C over ν, of area ∮_ν p_θ dθ = 0. Panels (b) and (d) share one scale.
+* **`round-chart-area` shows why a symplectic chart without a hole cannot hold a rotating orbit of
+  each family and the annulus between them.** New in the paper on symplectic autoencoders
+  (arXiv:2312.10004): the latent curves τ± of the orbits O± are nested and run the same way, so
+  their signed areas have the same sign. (a), (b) The round chart's missing origin shifts both by
+  −2πa, to ±J − 2πa. (c), (d) A decoder of the whole plane, here with a cap C over O₊, would need
+  the actions ±J, of opposite signs.
 
 * **The pendulum-autoencoder figures use the Julia logo colors.** Librating orbits `lib` are
   Julia blue `4063D8` (was `3B75AF`), the separatrix `sep` Julia red `CB3C33` (was `B03030`),

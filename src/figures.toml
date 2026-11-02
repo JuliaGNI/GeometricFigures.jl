@@ -410,7 +410,7 @@ engine = "pdflatex"
 [[figure]]
 name = "round-chart-area"
 topic = "pendulum-autoencoder"
-caption = "The latent annulus of the region D between a rotating orbit and the zero section of the pendulum's cylinder: filled by the band up to the apex under the round chart, and by a cap of zero area under a symplectic decoder of the plane."
+caption = "Two rotating orbits of opposite signs of the pendulum, the annulus between them and their latent curves: under the round chart, whose missing origin shifts both enclosed areas, and under a decoder of the whole plane with a cap, where the curves would need areas of opposite signs."
 engine = "pdflatex"
 
 [[figure]]
