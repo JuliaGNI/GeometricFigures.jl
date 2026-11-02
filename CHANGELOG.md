@@ -35,11 +35,17 @@ package's site.
 
 ### New Features
 
-* **`round-chart-area` shows the region D between a rotating orbit and the zero section ν of the
-  pendulum's cylinder, and its latent pictures.** New in the paper on symplectic autoencoders
-  (arXiv:2312.10004), beside `cylinder-to-poloidal`: (a) a latent plane without a hole, where the
-  rotating orbit's latent curve γ encloses only the area of D, (b) D on the cylinder, (c) the round
-  chart, where γ also encloses the disk inside the image of ν. Panels (a) and (c) share one scale.
+* **`round-chart-area` shows what fills the latent hole of the region D between a rotating orbit
+  and the zero section ν of the pendulum's cylinder.** New in the paper on symplectic autoencoders
+  (arXiv:2312.10004): (a), (b) the round chart fills it with the band up to the apex, whose missing
+  point carries the area 2πa; (c), (d) a symplectic decoder of the whole plane would fill it with
+  the preimage of a cap C over ν, of area ∮_ν p_θ dθ = 0. Panels (b) and (d) share one scale.
+
+* **The pendulum-autoencoder figures use the Julia logo colors.** Librating orbits `lib` are
+  Julia blue `4063D8` (was `3B75AF`), the separatrix `sep` Julia red `CB3C33` (was `B03030`),
+  networks and caps `net` Julia green `389826` (was `4E9A4E`), and the upper branch `up` Julia
+  purple `9558B2` (was `7A5AA8`), as in the paper. Rotating orbits (`rot`, `C1701E`) and the lobe
+  (`lobe`, `FFD700`) have no Julia counterpart and keep their colors.
 
 * **`figure_url(name; theme, format, dpi = nothing)` locates published figures.** Returns the URL
   of a figure in the `"light"` or `"dark"` theme, as `"pdf"`, `"svg"` or `"png"`. A PNG requires a
