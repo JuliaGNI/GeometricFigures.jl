@@ -16,6 +16,7 @@
 %       of cylinder-to-poloidal (a); the latent picture is that of (b) with the green preimage of C in
 %       place of the grey disk and the missing origin, and the latent curves would need the signed
 %       areas -+J, the actions, of opposite signs, although the two curves run the same way.
+% Layout: (b) left, (a) above (c) in the middle, (d) right.
 % Geometry as in cylinder-to-poloidal: a point (theta, p) at (x', y', p), x' = -r cos(theta+beta),
 % y' = -r sin(theta+beta), orthographic from elevation e: page (X, Y) = (x', hc p + se y');
 % theta in (30, 210) faces the viewer, where increasing theta runs from left to right.
@@ -104,12 +105,12 @@
 \node[lab,mask] at ({lx(165,\a,0)},{pY(165,\a,0)}) {$A$};
 
 % ================================================================ (b) case (iii): the punctured plane
-\begin{scope}[shift={(12.4,0)}]
+\begin{scope}[shift={(-12.4,-5.25)}]
   \latent{fg!16!bg}
   \draw[fg,fill=bg,line width=0.5pt] (0,0) circle (2.2pt);
   \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=\pm J-2\pi a<0$};
 \end{scope}
-\draw[->,thick,fg!60!bg] (4.9,0) -- (8.6,0) node[midway,above,lab,fg] {$\varphi$};
+\draw[->,thick,fg!60!bg] (-4.4,-1.6) -- (-8.2,-3.4) node[midway,above,sloped,lab,fg] {$\varphi$};
 
 % ================================================================ (c) case (iv): A and a cap over O_+
 \begin{scope}[shift={(0,-10.5)}]
@@ -133,15 +134,15 @@
 \end{scope}
 
 % ================================================================ (d) case (iv): the latent plane R^2
-\begin{scope}[shift={(12.4,-10.5)}]
+\begin{scope}[shift={(12.4,-5.25)}]
   \latent{net!35!bg}
   \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=\pm J$ required};
 \end{scope}
-\draw[<-,thick,fg!60!bg] (4.9,-10.5) -- (8.6,-10.5) node[midway,above,lab,fg] {$\Psi^\mathrm{dec}$};
+\draw[<-,thick,fg!60!bg] (4.4,-9.0) -- (8.2,-7.2) node[midway,above,sloped,lab,fg] {$\Psi^\mathrm{dec}$};
 
 \node[font=\footnotesize,anchor=north] at (0,-4.6) {\textbf{(a)}};
-\node[font=\footnotesize,anchor=north] at (12.4,-4.6) {\textbf{(b)}};
+\node[font=\footnotesize,anchor=north] at (-12.4,-10.1) {\textbf{(b)}};
 \node[font=\footnotesize,anchor=north] at (0,-15.1) {\textbf{(c)}};
-\node[font=\footnotesize,anchor=north] at (12.4,-15.1) {\textbf{(d)}};
+\node[font=\footnotesize,anchor=north] at (12.4,-10.1) {\textbf{(d)}};
 \end{tikzpicture}
 \end{document}
