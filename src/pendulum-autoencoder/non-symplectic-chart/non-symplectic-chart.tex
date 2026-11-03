@@ -11,17 +11,20 @@
 \definecolor{net}{HTML}{389826}
 % The same two-step presentation and palette as cylinder-to-poloidal.
 % The band limits only the drawing; r=exp(-p) is positive at every finite height.
+% Visibility on (b): the surface r = f(p) faces the viewer where y' < se f(p)^2 / hc, since
+% f' = -f (see cylinder-to-poloidal for the projection).
 \def\pc{2.6}\def\Rc{2.3}\def\rs{0.42}
 \def\bet{-30}\def\hc{0.85}\def\se{0.42}
 \pgfmathdeclarefunction{pl}{2}{\pgfmathparse{sqrt(max(0,2*((#2)-cos(#1))))}}
 \pgfmathdeclarefunction{ps}{1}{\pgfmathparse{2*abs(sin((#1)/2))}}
 \pgfmathdeclarefunction{rr}{1}{\pgfmathparse{\cyl*\Rc+(1-\cyl)*\rs*exp(-(#1))}}
+\pgfmathdeclarefunction{vis}{1}{\pgfmathparse{(1-\cyl)*\se*rr(#1)^2/\hc}}
 \pgfmathdeclarefunction{xp}{2}{\pgfmathparse{-rr(#2)*cos((#1)+\bet)}}
 \pgfmathdeclarefunction{yp}{2}{\pgfmathparse{-rr(#2)*sin((#1)+\bet)}}
 \pgfmathdeclarefunction{pY}{2}{\pgfmathparse{\hc*(#2)+\se*yp(#1,#2)}}
 \newcommand{\orb}[3]{%
-  \addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)<0 ? pY(x,#3) : nan});
-  \addplot[#1,hidden,domain=#2] ({xp(x,#3)},{yp(x,#3)<0 ? nan : pY(x,#3)});}
+  \addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)<vis(#3) ? pY(x,#3) : nan});
+  \addplot[#1,hidden,domain=#2] ({xp(x,#3)},{yp(x,#3)<vis(#3) ? nan : pY(x,#3)});}
 \newcommand{\topv}[3]{\addplot[#1,domain=#2] ({xp(x,#3)},{yp(x,#3)});}
 \newcommand{\orbits}[1]{%
   #1{rot,thick}{0:360}{-pl(x,1.6)}
@@ -65,10 +68,13 @@
 % (b) A transparent view of the surface of revolution p=-log(r).
 \def\cyl{0}
 \begin{scope}[shift={(12.6,0)}]
+  % the projection of a surface of revolution is the union of the projections of its circles;
+  % the band between the outlines fills the narrow part, where the circles are thinner than their spacing
+  \foreach \h in {-2.6,-2.55,...,4.0}
+    \fill[fg!4!bg] (0,{\hc*\h}) ellipse ({rr(\h)} and {\se*rr(\h)});
   \fill[fg!4!bg]
     plot[domain=-\pc:4.0,samples=90,smooth] ({-rr(\x)},{\hc*\x})
-    -- plot[domain=4.0:-\pc,samples=90,smooth] ({rr(\x)},{\hc*\x})
-    -- plot[domain=30:210,samples=90,smooth] ({xp(\x,-\pc)},{pY(\x,-\pc)}) -- cycle;
+    -- plot[domain=4.0:-\pc,samples=90,smooth] ({rr(\x)},{\hc*\x}) -- cycle;
   \fill[lobe!50!bg]
     plot[domain=0:360,samples=181,smooth] ({xp(\x,ps(\x))},{pY(\x,ps(\x))})
     -- plot[domain=360:0,samples=90,smooth] ({xp(\x,4.0)},{pY(\x,4.0)}) -- cycle;

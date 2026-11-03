@@ -299,7 +299,9 @@ package's site.
   symplecticity, with the four cases placed on them, a cap from level (2) to level (1) and a
   cut-off from level (3) to level (2) with symplecticity; `non-symplectic-chart`, the chart
   r = e^(−p_θ) onto the punctured plane in the three steps of `cylinder-to-poloidal`, with its rotating
-  level solid on both sides of the zero section; `capped-chart`,
+  level solid on both sides of the zero section, a curve on the surface of revolution faded only where
+  the surface turns away from the viewer, and the surface filled as the union of its circles
+  (as of 2026-11-03); `capped-chart`,
   the cylinder with a point added at p_θ = ∞ and its chart onto a disk, laid out as the round chart;
   `one-point-compactification`, the plane and the sphere by stereographic projection;
   `cap-contraction`, why the disk inside a closed latent curve decodes onto a cap; and
