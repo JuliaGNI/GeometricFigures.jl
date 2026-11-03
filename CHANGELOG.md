@@ -39,7 +39,8 @@ package's site.
   each family and the annulus between them.** New in the paper on symplectic autoencoders
   (arXiv:2312.10004): the latent curves τ± of the orbits O± are nested and run the same way, so
   their signed areas have the same sign. (a), (b) The round chart's missing origin shifts both by
-  −2πa, to ±J − 2πa. (c), (d) A decoder of the whole plane, here with a cap C over O₊, would need
+  −2πa, to ±J − 2πa; the apex is labeled ν_a: 2πa, the circle p_θ = a that the round chart
+  contracts to it, of action 2πa. (c), (d) A decoder of the whole plane, here with a cap C over O₊, would need
   the actions ±J, of opposite signs.
 
 * **The pendulum-autoencoder figures use the Julia logo colors.** Librating orbits `lib` are

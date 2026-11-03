@@ -85,7 +85,7 @@
   -- plot[domain=\pap:-\pc,samples=60,smooth] ({sil(-1,\x)},{\hc*\x+\se*\thr})
   -- plot[domain={180+asin(\thr/\Rb)-\bet}:{-asin(\thr/\Rb)-\bet},samples=60,smooth]
        ({lx(\x,\a,-\pc)},{pY(\x,\a,-\pc)}) -- cycle;
-% the part of M_a above O_+: from the front of O_+ up the silhouette to the top and down again
+% M_a cap M_> for O_+: from the front of O_+ up the silhouette to the top and down again
 \pgfmathsetmacro{\pr}{po(210,1)}
 \pgfmathsetmacro{\pl}{po(30,1)}
 \fill[fg!16!bg]
@@ -100,8 +100,8 @@
 \orbits{\a}
 \node[lab,rot!70!fg,anchor=south,mask] at ({lx(100,\a,po(100,1))},{pY(100,\a,po(100,1))+0.15}) {$\mathcal{O}_+$: $+J$};
 \draw[fg,fill=bg,line width=0.5pt] (0,{\hc*\a}) circle (2.2pt);
-\draw[fg!50!bg] (0.12,{\hc*\a}) -- (2.2,{\hc*\a})
-  node[lab,fg,anchor=west,align=left] {apex: the circle\\$p_\theta=a$, action $2\pi a$};
+\draw[fg!50!bg] (0.12,{\hc*\a-0.06}) -- (2.2,{\hc*\a-0.4})
+  node[lab,fg,anchor=west] {$\nu_a$: $2\pi a$};
 \node[lab,mask] at ({lx(165,\a,0)},{pY(165,\a,0)}) {$A$};
 
 % ================================================================ (b) case (iii): the punctured plane
