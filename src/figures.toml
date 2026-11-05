@@ -410,7 +410,7 @@ engine = "pdflatex"
 [[figure]]
 name = "round-chart-area"
 topic = "pendulum-autoencoder"
-caption = "Two rotating orbits of opposite signs of the pendulum, the annulus between them and their latent curves, traversed along the flow: under the round chart, whose missing origin gives the enclosed areas opposite signs, and under a decoder of the whole plane with a cap, which cannot exist because both curves would need the same area although they run in opposite directions."
+caption = "Two rotating orbits of opposite signs of the pendulum, the annulus between them and their latent curves, traversed along the flow: under the round chart, whose missing origin gives the enclosed areas opposite signs, and under a decoder of the whole plane with a cap, which cannot exist because both curves would need the same area although they run in opposite directions; and the annulus on the cylinder cut open, divided into two halves of equal area, the actions of the two orbits."
 engine = "pdflatex"
 
 [[figure]]

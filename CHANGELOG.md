@@ -42,7 +42,9 @@ package's site.
   The round chart's missing origin shifts them by ∓2πa, to J ∓ 2πa; the apex is labeled ν_a: 2πa,
   the circle p_θ = a that the round chart contracts to it, of action 2πa. (c), (d) A decoder of the
   whole plane, here with a cap C over O₊, would need the same area J for both; the arrow from (d) to
-  (c) is crossed out, since no such symplectic decoder exists.
+  (c) is crossed out, since no such symplectic decoder exists. (e) The annulus on the cylinder cut
+  open along θ = 0: the circle p_θ = 0 divides it into two halves of area J, the equal actions of O₊
+  and O₋ along the flow.
 
 * **The pendulum-autoencoder figures use the Julia logo colors.** Librating orbits `lib` are
   Julia blue `4063D8` (was `3B75AF`), the separatrix `sep` Julia red `CB3C33` (was `B03030`),
