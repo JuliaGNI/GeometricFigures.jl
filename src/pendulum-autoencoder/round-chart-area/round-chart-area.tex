@@ -7,16 +7,18 @@
 \definecolor{net}{HTML}{389826}    % the cap, filled net!35
 
 % The rotating orbits O_- (p < 0, solid) and O_+ (p > 0, dashed) of energy H0 = 1.6 of the pendulum,
-% the closed annulus A between them (hatched), and their latent curves tau_-+, all traversed in the
-% direction of increasing theta (arrows); from the paper on symplectic autoencoders, arXiv:2312.10004.
+% the closed annulus A between them (hatched), and their latent curves tau_-+, all traversed along
+% the pendulum's flow (arrows): O_+ and tau_+ in the direction of increasing theta, O_- and tau_- in
+% the direction of decreasing theta; from the paper on symplectic autoencoders, arXiv:2312.10004.
 %   (a), (b) the round chart r^2/2 = a - p (a = 3.2), as cylinder-to-poloidal (b), (c): the part of
 %       M_a above O_+ (grey) is closed by the apex (open circle), which is not on M, so the origin of
-%       the latent plane is missing; area(tau_-+) = -+J - 2 pi a, both negative.
+%       the latent plane is missing; area(tau_-+) = J +- 2 pi a, of opposite signs.
 %   (c), (d) a symplectic decoder of all of R^2: A closed by a cap C over O_+ (green), on the cylinder
 %       of cylinder-to-poloidal (a); the latent picture is that of (b) with the green preimage of C in
 %       place of the grey disk and the missing origin, and the latent curves would need the signed
-%       areas -+J, the actions, of opposite signs, although the two curves run the same way.
-% Layout: (b) left, (a) above (c) in the middle, (d) right.
+%       area J, of the same sign, although the two curves run in opposite directions.
+% Layout: (b) left, (a) above (c) in the middle, (d) right; the arrow from (d) to (c) is crossed out,
+% since no symplectic decoder of the whole plane maps (d) onto (c).
 % Geometry as in cylinder-to-poloidal: a point (theta, p) at (x', y', p), x' = -r cos(theta+beta),
 % y' = -r sin(theta+beta), orthographic from elevation e: page (X, Y) = (x', hc p + se y');
 % theta in (30, 210) faces the viewer, where increasing theta runs from left to right.
@@ -54,10 +56,10 @@
   \foreach \s/\st in {-1/solid,1/densely dashed} {
     \draw[rot,thick,\st,hidden] plot[domain=210:390,samples=90,smooth] ({lx(\x,#1,po(\x,\s))},{pY(\x,#1,po(\x,\s))});
     \draw[rot,thick,\st] plot[domain=30:210,samples=90,smooth] ({lx(\x,#1,po(\x,\s))},{pY(\x,#1,po(\x,\s))});
-    \draw[rot,thick,tip] ({lx(118,#1,po(118,\s))},{pY(118,#1,po(118,\s))}) -- ({lx(122,#1,po(122,\s))},{pY(122,#1,po(122,\s))});}
+    \draw[rot,thick,tip] ({lx(120-2*\s,#1,po(120-2*\s,\s))},{pY(120-2*\s,#1,po(120-2*\s,\s))}) -- ({lx(120+2*\s,#1,po(120+2*\s,\s))},{pY(120+2*\s,#1,po(120+2*\s,\s))});}
   \draw[fg!70!bg,densely dotted,thick,hidden] plot[domain=210:390,samples=90,smooth] ({lx(\x,#1,0)},{pY(\x,#1,0)});
   \draw[fg!70!bg,densely dotted,thick] plot[domain=30:210,samples=90,smooth] ({lx(\x,#1,0)},{pY(\x,#1,0)});
-  \node[lab,rot!70!fg,anchor=north] at ({lx(150,#1,po(150,-1))},{pY(150,#1,po(150,-1))-0.15}) {$\mathcal{O}_-$: $-J$};
+  \node[lab,rot!70!fg,anchor=north] at ({lx(150,#1,po(150,-1))},{pY(150,#1,po(150,-1))-0.15}) {$\mathcal{O}_-$: $J$};
   \node[lab,anchor=east,mask] at ({lx(45,#1,0)-0.3},{pY(40,#1,0)-0.1}) {$\nu$};}
 % \hatchA{A}: the front of the annulus A between O_- and O_+
 \newcommand{\hatchA}[1]{%
@@ -74,7 +76,7 @@
   \draw[rot,thick] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,-1))},{ly(\x,\a,po(\x,-1))});
   \draw[rot,thick,densely dashed] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,1))},{ly(\x,\a,po(\x,1))});
   \foreach \s in {-1,1}
-    \draw[rot,thick,tip] ({lx(118,\a,po(118,\s))},{ly(118,\a,po(118,\s))}) -- ({lx(122,\a,po(122,\s))},{ly(122,\a,po(122,\s))});
+    \draw[rot,thick,tip] ({lx(120-2*\s,\a,po(120-2*\s,\s))},{ly(120-2*\s,\a,po(120-2*\s,\s))}) -- ({lx(120+2*\s,\a,po(120+2*\s,\s))},{ly(120+2*\s,\a,po(120+2*\s,\s))});
   \node[lab,rot!70!fg,anchor=south east] at ({lx(345,\a,po(345,-1))},{ly(345,\a,po(345,-1))}) {$\tau_-$};
   \node[lab,rot!70!fg,mask] at ({lx(240,\a,po(240,1)+0.45)},{ly(240,\a,po(240,1)+0.45)}) {$\tau_+$};
   \node[lab,mask] at ({lx(150,\a,-0.2)},{ly(150,\a,-0.2)}) {$2J$};}
@@ -98,7 +100,7 @@
   -- plot[domain=\pap:-\pc,samples=60,smooth] ({sil(-1,\x)},{\hc*\x+\se*\thr});
 \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({lx(\x,\a,-\pc)},{pY(\x,\a,-\pc)});
 \orbits{\a}
-\node[lab,rot!70!fg,anchor=south,mask] at ({lx(100,\a,po(100,1))},{pY(100,\a,po(100,1))+0.15}) {$\mathcal{O}_+$: $+J$};
+\node[lab,rot!70!fg,anchor=south,mask] at ({lx(100,\a,po(100,1))},{pY(100,\a,po(100,1))+0.15}) {$\mathcal{O}_+$: $J$};
 \draw[fg,fill=bg,line width=0.5pt] (0,{\hc*\a}) circle (2.2pt);
 \draw[fg!50!bg] (0.12,{\hc*\a-0.06}) -- (2.2,{\hc*\a-0.4})
   node[lab,fg,anchor=west] {$\nu_a$: $2\pi a$};
@@ -108,7 +110,7 @@
 \begin{scope}[shift={(-12.4,-5.25)}]
   \latent{fg!16!bg}
   \draw[fg,fill=bg,line width=0.5pt] (0,0) circle (2.2pt);
-  \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=\pm J-2\pi a<0$};
+  \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=J\mp2\pi a$};
 \end{scope}
 \draw[->,thick,fg!60!bg] (-4.4,-1.6) -- (-8.2,-3.4) node[midway,above,sloped,lab,fg] {$\varphi$};
 
@@ -128,7 +130,7 @@
   \draw[fg!25!bg] ({\Rc},{-\hc*\pc}) -- ({\Rc},\yr);
   \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({lx(\x,-1,-\pc)},{pY(\x,-1,-\pc)});
   \orbits{-1}
-  \node[lab,rot!70!fg,anchor=north,mask] at ({lx(100,-1,po(100,1))},{pY(100,-1,po(100,1))-0.2}) {$\mathcal{O}_+$: $+J$};
+  \node[lab,rot!70!fg,anchor=north,mask] at ({lx(100,-1,po(100,1))},{pY(100,-1,po(100,1))-0.2}) {$\mathcal{O}_+$: $J$};
   \node[lab] at (0,{\yr+1.2}) {$C$};
   \node[lab,mask] at ({lx(165,-1,0)},{pY(165,-1,0)}) {$A$};
 \end{scope}
@@ -136,9 +138,11 @@
 % ================================================================ (d) case (iv): the latent plane R^2
 \begin{scope}[shift={(12.4,-5.25)}]
   \latent{net!35!bg}
-  \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=\pm J$ required};
+  \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=J$ required};
 \end{scope}
-\draw[<-,thick,fg!60!bg] (4.4,-9.0) -- (8.2,-7.2) node[midway,above,sloped,lab,fg] {$\Psi^\mathrm{dec}$};
+\draw[<-,thick,fg!60!bg] (4.4,-9.0) -- (8.2,-7.2) node[pos=0.82,above,sloped,lab,fg] {$\Psi^\mathrm{dec}$};
+% no symplectic decoder of the whole plane maps (d) onto (c), so the arrow is crossed out
+\draw[fg,very thick] ($(5.9,-8.29)+(-0.35,-0.35)$) -- ++(0.7,0.7) ($(5.9,-8.29)+(-0.35,0.35)$) -- ++(0.7,-0.7);
 
 \node[font=\footnotesize,anchor=north] at (0,-4.6) {\textbf{(a)}};
 \node[font=\footnotesize,anchor=north] at (-12.4,-10.1) {\textbf{(b)}};
