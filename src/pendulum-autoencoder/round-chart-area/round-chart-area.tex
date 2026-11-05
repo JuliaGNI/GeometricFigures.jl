@@ -5,6 +5,7 @@
 
 \definecolor{rot}{HTML}{C1701E}
 \definecolor{net}{HTML}{389826}    % the cap, filled net!35
+\definecolor{sep}{HTML}{CB3C33}    % the cross on the impossible arrow, Julia red
 
 % The rotating orbits O_- (p < 0, solid) and O_+ (p > 0, dashed) of energy H0 = 1.6 of the pendulum,
 % the closed annulus A between them (hatched), and their latent curves tau_-+, all traversed along
@@ -144,19 +145,19 @@
 \end{scope}
 \draw[<-,thick,fg!60!bg] (4.4,-9.0) -- (8.2,-7.2) node[pos=0.82,above,sloped,lab,fg] {$\Psi^\mathrm{dec}$};
 % no symplectic decoder of the whole plane maps (d) onto (c), so the arrow is crossed out
-\draw[fg,very thick] ($(5.9,-8.29)+(-0.35,-0.35)$) -- ++(0.7,0.7) ($(5.9,-8.29)+(-0.35,0.35)$) -- ++(0.7,-0.7);
+\draw[sep,very thick] ($(5.9,-8.29)+(-0.35,-0.35)$) -- ++(0.7,0.7) ($(5.9,-8.29)+(-0.35,0.35)$) -- ++(0.7,-0.7);
 
 % ================================================================ (e) A on the strip [0, 2 pi] x R
 % The cylinder cut along theta = 0 (grey edges, identified): nu = {p = 0} splits A into the part
 % between nu and O_+ and the part between O_- and nu, of areas oint_{O_+} p dtheta and
 % oint_{O_-} p dtheta along the flow, both J.
-\begin{scope}[shift={(-12.4,-13.1)}]
+\begin{scope}[shift={(-12.4,-13.3)}]
   \pgfmathsetmacro{\sx}{8/360}
-  \pgfmathsetmacro{\sy}{0.85}
+  \pgfmathsetmacro{\sy}{0.75}
   \fill[hatchA]
     plot[domain=0:360,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,-1)})
     -- plot[domain=360:0,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,1)}) -- cycle;
-  \draw[fg!40!bg] (-4,{-\sy*2.6}) -- (-4,{\sy*2.6}) (4,{-\sy*2.6}) -- (4,{\sy*2.6});
+  \draw[fg!40!bg] (-4,{-\sy*2.3}) -- (-4,{\sy*2.3}) (4,{-\sy*2.3}) -- (4,{\sy*2.3});
   \draw[fg!70!bg,densely dotted,thick] (-4,0) -- (4,0);
   \draw[rot,thick] plot[domain=0:360,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,-1)});
   \draw[rot,thick,densely dashed] plot[domain=0:360,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,1)});
@@ -165,14 +166,14 @@
   \node[lab,rot!70!fg,anchor=west] at (4.1,{\sy*po(0,1)}) {$\mathcal{O}_+$};
   \node[lab,rot!70!fg,anchor=west] at (4.1,{\sy*po(0,-1)}) {$\mathcal{O}_-$};
   \node[lab,anchor=west] at (4.1,0) {$\nu$};
-  \node[lab,mask] at (-0.3,0.66) {$\oint_{\mathcal{O}_+}p_\theta\,d\theta=J$};
-  \node[lab,mask] at (-0.3,-0.66) {$\oint_{\mathcal{O}_-}p_\theta\,d\theta=J$};
+  \node[lab,mask] at (-0.3,0.6) {$\oint_{\mathcal{O}_+}p_\theta\,d\theta=J$};
+  \node[lab,mask] at (-0.3,-0.6) {$\oint_{\mathcal{O}_-}p_\theta\,d\theta=J$};
 \end{scope}
 
 \node[font=\footnotesize,anchor=north] at (0,-4.6) {\textbf{(a)}};
 \node[font=\footnotesize,anchor=north] at (-12.4,-10.1) {\textbf{(b)}};
-\node[font=\footnotesize,anchor=north] at (0,-15.45) {\textbf{(c)}};
+\node[font=\footnotesize,anchor=north] at (0,-15.15) {\textbf{(c)}};
 \node[font=\footnotesize,anchor=north] at (12.4,-10.1) {\textbf{(d)}};
-\node[font=\footnotesize,anchor=north] at (-12.4,-15.45) {\textbf{(e)}};
+\node[font=\footnotesize,anchor=north] at (-12.4,-15.15) {\textbf{(e)}};
 \end{tikzpicture}
 \end{document}
