@@ -10,6 +10,17 @@ package's site.
 
 ### Changed
 
+* **The last decoder layer of `sae-paper-architecture` is `GradientQ(2N, 10N, tanh)`, as in the
+  paper's revised figure.** The linear-wave experiment of the paper (arXiv:2312.10004) was re-run
+  with the decoder that `GeometricMachineLearning.SymplecticAutoencoder` builds with one output
+  layer, which upscales by `sympnet_upscale = 5` like every other gradient layer; the figure had
+  `GradientQ(2N, 2N, tanh)`. Nothing else in the figure changes.
+
+* **In `cylinder-to-poloidal` the far side is faded, no longer dashed, and the axis of revolution
+  is a thin solid line.** Dashes now mark only the rotating level with p_θ > 0; before, they
+  also marked the far side and the axis. The style `hidden` keeps the opacity 0.38 and drops its
+  dash pattern, so a curve keeps its own pattern behind the surface.
+
 * **Julia 1.12 is the floor** (`[compat] julia = "1.12"`). This version does not install on
   Julia 1.11 or earlier. The package's code has no version-conditional branch and no workaround
   for an older Julia, so nothing is deleted.
@@ -28,6 +39,23 @@ package's site.
   `FieldError`. Aqua 0.8.14 is the first release that reads `Core.methodtable` instead.
 
 ### New Features
+
+* **`round-chart-area` shows why a symplectic chart without a hole cannot hold a rotating orbit of
+  each family and the annulus between them.** New in the paper on symplectic autoencoders
+  (arXiv:2312.10004): the latent curves τ± of the orbits O±, traversed along the pendulum's flow,
+  are nested and run in opposite directions, so their signed areas have opposite signs. (a), (b)
+  The round chart's missing origin shifts them by ∓2πa, to J ∓ 2πa; the apex is labeled ν_a: 2πa,
+  the circle p_θ = a that the round chart contracts to it, of action 2πa. (c), (d) A decoder of the
+  whole plane, here with a cap C over O₊, would need the same area J for both; the arrow from (d) to
+  (c) is crossed out in red, since no such symplectic decoder exists. (e) The annulus on the cylinder cut
+  open along θ = 0: the circle p_θ = 0 divides it into two halves of area J, the equal actions of O₊
+  and O₋ along the flow.
+
+* **The pendulum-autoencoder figures use the Julia logo colors.** Librating orbits `lib` are
+  Julia blue `4063D8` (was `3B75AF`), the separatrix `sep` Julia red `CB3C33` (was `B03030`),
+  networks and caps `net` Julia green `389826` (was `4E9A4E`), and the upper branch `up` Julia
+  purple `9558B2` (was `7A5AA8`), as in the paper. Rotating orbits (`rot`, `C1701E`) and the lobe
+  (`lobe`, `FFD700`) have no Julia counterpart and keep their colors.
 
 * **`figure_url(name; theme, format, dpi = nothing)` locates published figures.** Returns the URL
   of a figure in the `"light"` or `"dark"` theme, as `"pdf"`, `"svg"` or `"png"`. A PNG requires a

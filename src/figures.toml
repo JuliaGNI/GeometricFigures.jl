@@ -408,6 +408,12 @@ caption = "The pendulum's cut-off cylinder mapped to a planar chart, with librat
 engine = "pdflatex"
 
 [[figure]]
+name = "round-chart-area"
+topic = "pendulum-autoencoder"
+caption = "Two rotating orbits of opposite signs of the pendulum, the annulus between them and their latent curves, traversed along the flow: under the round chart, whose missing origin gives the enclosed areas opposite signs, and under a decoder of the whole plane with a cap, which cannot exist because both curves would need the same area although they run in opposite directions; and the annulus on the cylinder cut open, divided into two halves of equal area, the actions of the two orbits."
+engine = "pdflatex"
+
+[[figure]]
 name = "three-cases"
 topic = "pendulum-autoencoder"
 caption = "The circles p_θ = const of the pendulum's cylinder in three single charts: (a) the symplectic round chart, which cuts the cylinder off at p_θ = a and leaves a hole; (b) a symplectic decoder of the whole plane, which closes the cylinder with a cap off it; (c) the chart r = e^(−p_θ), which holds the whole cylinder but is not symplectic."

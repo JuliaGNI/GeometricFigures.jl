@@ -1,0 +1,179 @@
+\documentclass[crop,tikz,11pt]{standalone}
+\usepackage{geometricfigures}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,patterns,calc}
+
+\definecolor{rot}{HTML}{C1701E}
+\definecolor{net}{HTML}{389826}    % the cap, filled net!35
+\definecolor{sep}{HTML}{CB3C33}    % the cross on the impossible arrow, Julia red
+
+% The rotating orbits O_- (p < 0, solid) and O_+ (p > 0, dashed) of energy H0 = 1.6 of the pendulum,
+% the closed annulus A between them (hatched), and their latent curves tau_-+, all traversed along
+% the pendulum's flow (arrows): O_+ and tau_+ in the direction of increasing theta, O_- and tau_- in
+% the direction of decreasing theta; from the paper on symplectic autoencoders, arXiv:2312.10004.
+%   (a), (b) the round chart r^2/2 = a - p (a = 3.2), as cylinder-to-poloidal (b), (c): the part of
+%       M_a above O_+ (grey) is closed by the apex (open circle), which is not on M, so the origin of
+%       the latent plane is missing; area(tau_-+) = J +- 2 pi a, of opposite signs.
+%   (c), (d) a symplectic decoder of all of R^2: A closed by a cap C over O_+ (green), on the cylinder
+%       of cylinder-to-poloidal (a); the latent picture is that of (b) with the green preimage of C in
+%       place of the grey disk and the missing origin, and the latent curves would need the signed
+%       area J, of the same sign, although the two curves run in opposite directions.
+%   (e) A on the cylinder cut open along theta = 0: nu splits it into two halves of area J, the
+%       actions of O_+ and O_- along the flow.
+% Layout: (b) above (e) on the left, (a) above (c) in the middle, (d) right; the arrow from (d) to (c)
+% is crossed out, since no symplectic decoder of the whole plane maps (d) onto (c).
+% Geometry as in cylinder-to-poloidal: a point (theta, p) at (x', y', p), x' = -r cos(theta+beta),
+% y' = -r sin(theta+beta), orthographic from elevation e: page (X, Y) = (x', hc p + se y');
+% theta in (30, 210) faces the viewer, where increasing theta runs from left to right.
+\pgfmathsetmacro{\a}{3.2}
+\pgfmathsetmacro{\Ho}{1.6}
+\pgfmathsetmacro{\pc}{2.6}
+\pgfmathsetmacro{\bet}{-30}
+\pgfmathsetmacro{\se}{0.42}
+\pgfmathsetmacro{\hc}{0.85}
+\pgfmathsetmacro{\Rc}{sqrt(2*\a)}       % cylinder radius, = radius of the image of nu
+\pgfmathsetmacro{\Rb}{sqrt(2*(\a+\pc))} % bottom rim of the dome
+\pgfmathsetmacro{\thr}{\se/\hc}        % visibility threshold on the dome
+\pgfmathsetmacro{\pap}{\a-\thr*\thr/2} % top of the dome's silhouette
+% p on O_+ (#2 = 1) and O_- (#2 = -1)
+\pgfmathdeclarefunction{po}{2}{\pgfmathparse{(#2)*sqrt(2*(\Ho-cos(#1)))}}
+% the radius of the circle at height #1: r^2/2 = #2 - p (dome, latent planes), or Rc (#2 < 0: cylinder)
+\pgfmathdeclarefunction{rof}{2}{\pgfmathparse{(#2) < 0 ? \Rc : sqrt(2*max(0,(#2)-(#1)))}}
+\pgfmathdeclarefunction{lx}{3}{\pgfmathparse{-rof(#3,#2)*cos((#1)+\bet)}}
+\pgfmathdeclarefunction{ly}{3}{\pgfmathparse{-rof(#3,#2)*sin((#1)+\bet)}}
+\pgfmathdeclarefunction{pY}{3}{\pgfmathparse{\hc*(#3)+\se*ly(#1,#2,#3)}}
+% the silhouette of the dome at height #2, on the side #1 = +-1
+\pgfmathdeclarefunction{sil}{2}{\pgfmathparse{(#1)*sqrt(max(0,2*(\a-(#2))-\thr*\thr))}}
+
+\begin{document}
+\begin{tikzpicture}[>=Stealth,x=0.475cm,y=0.475cm,
+  hidden/.style={opacity=0.38},
+  hatchA/.style={pattern=north east lines,pattern color=fg!55!bg},
+  tip/.style={-{Stealth[length=5pt,width=4pt]},shorten <=0pt},
+  lab/.style={font=\footnotesize,inner sep=1pt},
+  mask/.style={fill=bg,fill opacity=0.85,text opacity=1}]
+
+% \orbits{A}: O_- (solid) and O_+ (dashed) on a 3d panel, with arrows of increasing theta in front,
+% and nu (dotted); A = a on the dome, -1 on the cylinder
+\newcommand{\orbits}[1]{%
+  \foreach \s/\st in {-1/solid,1/densely dashed} {
+    \draw[rot,thick,\st,hidden] plot[domain=210:390,samples=90,smooth] ({lx(\x,#1,po(\x,\s))},{pY(\x,#1,po(\x,\s))});
+    \draw[rot,thick,\st] plot[domain=30:210,samples=90,smooth] ({lx(\x,#1,po(\x,\s))},{pY(\x,#1,po(\x,\s))});
+    \draw[rot,thick,tip] ({lx(120-2*\s,#1,po(120-2*\s,\s))},{pY(120-2*\s,#1,po(120-2*\s,\s))}) -- ({lx(120+2*\s,#1,po(120+2*\s,\s))},{pY(120+2*\s,#1,po(120+2*\s,\s))});}
+  \draw[fg!70!bg,densely dotted,thick,hidden] plot[domain=210:390,samples=90,smooth] ({lx(\x,#1,0)},{pY(\x,#1,0)});
+  \draw[fg!70!bg,densely dotted,thick] plot[domain=30:210,samples=90,smooth] ({lx(\x,#1,0)},{pY(\x,#1,0)});
+  \node[lab,rot!70!fg,anchor=north] at ({lx(150,#1,po(150,-1))},{pY(150,#1,po(150,-1))-0.15}) {$\mathcal{O}_-$: $J$};
+  \node[lab,anchor=east,mask] at ({lx(45,#1,0)-0.3},{pY(40,#1,0)-0.1}) {$\nu$};}
+% \hatchA{A}: the front of the annulus A between O_- and O_+
+\newcommand{\hatchA}[1]{%
+  \fill[hatchA]
+    plot[domain=30:210,samples=90,smooth] ({lx(\x,#1,po(\x,-1))},{pY(\x,#1,po(\x,-1))})
+    -- plot[domain=210:30,samples=90,smooth] ({lx(\x,#1,po(\x,1))},{pY(\x,#1,po(\x,1))}) -- cycle;}
+% \latent{fill inside tau_+}: the latent picture of (b) and (d)
+\newcommand{\latent}[1]{%
+  \fill[hatchA,even odd rule]
+    plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,-1))},{ly(\x,\a,po(\x,-1))}) -- cycle
+    plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,1))},{ly(\x,\a,po(\x,1))}) -- cycle;
+  \fill[#1] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,1))},{ly(\x,\a,po(\x,1))}) -- cycle;
+  \draw[fg!70!bg,densely dotted,thick] (0,0) circle ({\Rc});
+  \draw[rot,thick] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,-1))},{ly(\x,\a,po(\x,-1))});
+  \draw[rot,thick,densely dashed] plot[domain=0:360,samples=181,smooth] ({lx(\x,\a,po(\x,1))},{ly(\x,\a,po(\x,1))});
+  \foreach \s in {-1,1}
+    \draw[rot,thick,tip] ({lx(120-2*\s,\a,po(120-2*\s,\s))},{ly(120-2*\s,\a,po(120-2*\s,\s))}) -- ({lx(120+2*\s,\a,po(120+2*\s,\s))},{ly(120+2*\s,\a,po(120+2*\s,\s))});
+  \node[lab,rot!70!fg,anchor=south east] at ({lx(345,\a,po(345,-1))},{ly(345,\a,po(345,-1))}) {$\tau_-$};
+  \node[lab,rot!70!fg,mask] at ({lx(240,\a,po(240,1)+0.45)},{ly(240,\a,po(240,1)+0.45)}) {$\tau_+$};
+  \node[lab,mask] at ({lx(150,\a,-0.2)},{ly(150,\a,-0.2)}) {$2J$};}
+
+% ================================================================ (a) case (iii): the paraboloid
+\fill[fg!4!bg]
+  plot[domain=-\pc:\pap,samples=60,smooth] ({sil(1,\x)},{\hc*\x+\se*\thr})
+  -- plot[domain=\pap:-\pc,samples=60,smooth] ({sil(-1,\x)},{\hc*\x+\se*\thr})
+  -- plot[domain={180+asin(\thr/\Rb)-\bet}:{-asin(\thr/\Rb)-\bet},samples=60,smooth]
+       ({lx(\x,\a,-\pc)},{pY(\x,\a,-\pc)}) -- cycle;
+% M_a cap M_> for O_+: from the front of O_+ up the silhouette to the top and down again
+\pgfmathsetmacro{\pr}{po(210,1)}
+\pgfmathsetmacro{\pl}{po(30,1)}
+\fill[fg!16!bg]
+  plot[domain=30:210,samples=90,smooth] ({lx(\x,\a,po(\x,1))},{pY(\x,\a,po(\x,1))})
+  -- plot[domain=\pr:\pap,samples=40,smooth] ({sil(1,\x)},{\hc*\x+\se*\thr})
+  -- plot[domain=\pap:\pl,samples=40,smooth] ({sil(-1,\x)},{\hc*\x+\se*\thr}) -- cycle;
+\hatchA{\a}
+\draw[fg!25!bg]
+  plot[domain=-\pc:\pap,samples=60,smooth] ({sil(1,\x)},{\hc*\x+\se*\thr})
+  -- plot[domain=\pap:-\pc,samples=60,smooth] ({sil(-1,\x)},{\hc*\x+\se*\thr});
+\draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({lx(\x,\a,-\pc)},{pY(\x,\a,-\pc)});
+\orbits{\a}
+\node[lab,rot!70!fg,anchor=south,mask] at ({lx(100,\a,po(100,1))},{pY(100,\a,po(100,1))+0.15}) {$\mathcal{O}_+$: $J$};
+\draw[fg,fill=bg,line width=0.5pt] (0,{\hc*\a}) circle (2.2pt);
+\draw[fg!50!bg] (0.12,{\hc*\a-0.06}) -- (2.2,{\hc*\a-0.4})
+  node[lab,fg,anchor=west] {$\nu_a$: $2\pi a$};
+\node[lab,mask] at ({lx(165,\a,0)},{pY(165,\a,0)}) {$A$};
+
+% ================================================================ (b) case (iii): the punctured plane
+\begin{scope}[shift={(-12.4,-5.25)}]
+  \latent{fg!16!bg}
+  \draw[fg,fill=bg,line width=0.5pt] (0,0) circle (2.2pt);
+  \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=J\mp2\pi a$};
+\end{scope}
+\draw[->,thick,fg!60!bg] (-4.4,-1.6) -- (-8.2,-3.4) node[midway,above,sloped,lab,fg] {$\varphi$};
+
+% ================================================================ (c) case (iv): A and a cap over O_+
+\begin{scope}[shift={(0,-10.5)}]
+  \pgfmathsetmacro{\yl}{pY(30,-1,po(30,1))}
+  \pgfmathsetmacro{\yr}{pY(210,-1,po(210,1))}
+  \fill[fg!4!bg]
+    plot[domain=30:210,samples=60,smooth] ({lx(\x,-1,-\pc)},{pY(\x,-1,-\pc)})
+    -- plot[domain=210:30,samples=90,smooth] ({lx(\x,-1,po(\x,1))},{pY(\x,-1,po(\x,1))}) -- cycle;
+  % the cap over O_+: a dome from the left end of the front of O_+ over the top to its right end
+  \fill[net!35!bg] ({-\Rc},\yl) .. controls ({-\Rc},{\yr+2.6}) and ({\Rc},{\yr+2.6}) .. ({\Rc},\yr)
+    -- plot[domain=210:30,samples=90,smooth] ({lx(\x,-1,po(\x,1))},{pY(\x,-1,po(\x,1))}) -- cycle;
+  \draw[net!80!fg] ({-\Rc},\yl) .. controls ({-\Rc},{\yr+2.6}) and ({\Rc},{\yr+2.6}) .. ({\Rc},\yr);
+  \hatchA{-1}
+  \draw[fg!25!bg] ({-\Rc},{-\hc*\pc}) -- ({-\Rc},\yl);
+  \draw[fg!25!bg] ({\Rc},{-\hc*\pc}) -- ({\Rc},\yr);
+  \draw[fg!30!bg,densely dotted] plot[domain=0:360,samples=120,smooth] ({lx(\x,-1,-\pc)},{pY(\x,-1,-\pc)});
+  \orbits{-1}
+  \node[lab,rot!70!fg,anchor=north,mask] at ({lx(100,-1,po(100,1))},{pY(100,-1,po(100,1))-0.2}) {$\mathcal{O}_+$: $J$};
+  \node[lab] at (0,{\yr+1.2}) {$C$};
+  \node[lab,mask] at ({lx(165,-1,0)},{pY(165,-1,0)}) {$A$};
+\end{scope}
+
+% ================================================================ (d) case (iv): the latent plane R^2
+\begin{scope}[shift={(12.4,-5.25)}]
+  \latent{net!35!bg}
+  \node[lab,anchor=north] at (0,-3.6) {$\mathrm{area}(\tau_\pm)=J$ required};
+\end{scope}
+\draw[<-,thick,fg!60!bg] (4.4,-9.0) -- (8.2,-7.2) node[pos=0.82,above,sloped,lab,fg] {$\Psi^\mathrm{dec}$};
+% no symplectic decoder of the whole plane maps (d) onto (c), so the arrow is crossed out
+\draw[sep,very thick] ($(5.9,-8.29)+(-0.35,-0.35)$) -- ++(0.7,0.7) ($(5.9,-8.29)+(-0.35,0.35)$) -- ++(0.7,-0.7);
+
+% ================================================================ (e) A on the strip [0, 2 pi] x R
+% The cylinder cut along theta = 0 (grey edges, identified): nu = {p = 0} splits A into the part
+% between nu and O_+ and the part between O_- and nu, of areas oint_{O_+} p dtheta and
+% oint_{O_-} p dtheta along the flow, both J.
+\begin{scope}[shift={(-12.4,-13.3)}]
+  \pgfmathsetmacro{\sx}{8/360}
+  \pgfmathsetmacro{\sy}{0.75}
+  \fill[hatchA]
+    plot[domain=0:360,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,-1)})
+    -- plot[domain=360:0,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,1)}) -- cycle;
+  \draw[fg!40!bg] (-4,{-\sy*2.3}) -- (-4,{\sy*2.3}) (4,{-\sy*2.3}) -- (4,{\sy*2.3});
+  \draw[fg!70!bg,densely dotted,thick] (-4,0) -- (4,0);
+  \draw[rot,thick] plot[domain=0:360,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,-1)});
+  \draw[rot,thick,densely dashed] plot[domain=0:360,samples=91,smooth] ({\sx*\x-4},{\sy*po(\x,1)});
+  \foreach \s in {-1,1}
+    \draw[rot,thick,tip] ({\sx*(270-6*\s)-4},{\sy*po(270-6*\s,\s)}) -- ({\sx*(270+6*\s)-4},{\sy*po(270+6*\s,\s)});
+  \node[lab,rot!70!fg,anchor=west] at (4.1,{\sy*po(0,1)}) {$\mathcal{O}_+$};
+  \node[lab,rot!70!fg,anchor=west] at (4.1,{\sy*po(0,-1)}) {$\mathcal{O}_-$};
+  \node[lab,anchor=west] at (4.1,0) {$\nu$};
+  \node[lab,mask] at (-0.3,0.6) {$\oint_{\mathcal{O}_+}p_\theta\,d\theta=J$};
+  \node[lab,mask] at (-0.3,-0.6) {$\oint_{\mathcal{O}_-}p_\theta\,d\theta=J$};
+\end{scope}
+
+\node[font=\footnotesize,anchor=north] at (0,-4.6) {\textbf{(a)}};
+\node[font=\footnotesize,anchor=north] at (-12.4,-10.1) {\textbf{(b)}};
+\node[font=\footnotesize,anchor=north] at (0,-15.15) {\textbf{(c)}};
+\node[font=\footnotesize,anchor=north] at (12.4,-10.1) {\textbf{(d)}};
+\node[font=\footnotesize,anchor=north] at (-12.4,-15.15) {\textbf{(e)}};
+\end{tikzpicture}
+\end{document}
