@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="456.378" height="107.515" viewBox="0 0 456.378 107.515">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="456.378pt" height="107.515pt" viewBox="0 0 456.378 107.515">
 <defs>
 <g>
 <g id="glyph-0-0">
@@ -733,10 +733,10 @@
 <use xlink:href="#glyph-3-1" x="195.615937" y="46.769025"/>
 </g>
 <g fill="rgb(46.195984%, 62.115479%, 78.036499%)" fill-opacity="1">
-<use xlink:href="#glyph-2-0" x="199.183842" y="46.769025"/>
+<use xlink:href="#glyph-2-0" x="199.183713" y="46.769025"/>
 </g>
 <g fill="rgb(46.195984%, 62.115479%, 78.036499%)" fill-opacity="1">
-<use xlink:href="#glyph-3-2" x="207.003567" y="46.769025"/>
+<use xlink:href="#glyph-3-2" x="207.00747" y="46.769025"/>
 </g>
 <g fill="rgb(23.136902%, 45.881653%, 68.624878%)" fill-opacity="1">
 <use xlink:href="#glyph-3-0" x="215.455441" y="22.158045"/>
@@ -750,7 +750,7 @@
 <use xlink:href="#glyph-4-0" x="235.649346" y="22.158045"/>
 </g>
 <g fill="rgb(23.136902%, 45.881653%, 68.624878%)" fill-opacity="1">
-<use xlink:href="#glyph-2-1" x="242.275456" y="22.158045"/>
+<use xlink:href="#glyph-2-1" x="242.271645" y="22.158045"/>
 </g>
 <path fill-rule="nonzero" fill="rgb(15.670776%, 17.553711%, 17.553711%)" fill-opacity="1" d="M 253.277344 86.25 L 253.277344 1.59375 L 349.226562 1.59375 L 349.226562 86.25 Z M 253.277344 86.25 "/>
 <g fill="rgb(100%, 100%, 100%)" fill-opacity="1">
@@ -789,10 +789,10 @@
 <use xlink:href="#glyph-2-5" x="293.684159" y="47.021884"/>
 </g>
 <g fill="rgb(58.352661%, 76.235962%, 58.352661%)" fill-opacity="1">
-<use xlink:href="#glyph-3-3" x="302.118504" y="47.021884"/>
+<use xlink:href="#glyph-3-3" x="302.116678" y="47.021884"/>
 </g>
 <g fill="rgb(58.352661%, 76.235962%, 58.352661%)" fill-opacity="1">
-<use xlink:href="#glyph-3-4" x="311.798004" y="47.021884"/>
+<use xlink:href="#glyph-3-4" x="311.805105" y="47.021884"/>
 </g>
 <g clip-path="url(#clip-1)">
 <path fill-rule="nonzero" fill="rgb(15.670776%, 17.553711%, 17.553711%)" fill-opacity="1" d="M 455.050781 43.921875 C 455.050781 19.765625 435.464844 0.179688 411.308594 0.179688 C 387.152344 0.179688 367.566406 19.765625 367.566406 43.921875 C 367.566406 68.078125 387.152344 87.664062 411.308594 87.664062 C 435.464844 87.664062 455.050781 68.078125 455.050781 43.921875 Z M 455.050781 43.921875 "/>
