@@ -44,6 +44,8 @@ jobs:
             GKSwstype: "100"
         steps:
             - uses: actions/checkout@v7
+              with:
+                  persist-credentials: false
             # The engines (xelatex, pdflatex), the TikZ and science packages the sources load, and
             # pdftocairo. No step runs a TeX engine with shell escape.
             - name: Install the TeX toolchain the figures need
