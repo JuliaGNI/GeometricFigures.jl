@@ -10,6 +10,12 @@ package's site.
 
 ### Changed
 
+* **The header of the `Documenter.yml` workflow is correct again.** It named an installer script
+  that does not exist, a `DOCS_EXCEPTIONS` list that does not hold this repository, and the
+  directories of a local checkout. It now says that the repository is in the `docs_additions` of
+  the harness profile, which `harness workflows --apply` and `verify-workflows.jl` both read, and
+  it names the template in the ResearchHarness. Comments only; the workflow does not change.
+
 * **Julia 1.12 is the floor** (`[compat] julia = "1.12"`). This version does not install on
   Julia 1.11 or earlier. The package's code has no version-conditional branch and no workaround
   for an older Julia, so nothing is deleted.
