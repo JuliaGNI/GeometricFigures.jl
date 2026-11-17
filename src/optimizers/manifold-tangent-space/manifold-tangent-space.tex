@@ -1,7 +1,8 @@
-% A manifold, its tangent space at a point, a curve through the point and its velocity there: the
-% picture of manifold-optimization-motivation (Figure 1 of arXiv:2305.16901) without its two
-% boxes "Physical Constraints" and "Orthogonality Constraints" and their arrows, for a document
-% that shows only the geometry of an optimization step.
+% One geodesic gradient step: a manifold N, its tangent space at the iterate Y^k, the geodesic
+% gamma_N(s;W) and its velocity W at Y^k. The picture of manifold-optimization-motivation (Figure 1
+% of arXiv:2305.16901) without its two boxes "Physical Constraints" and "Orthogonality
+% Constraints" and their arrows, labelled in the notation of the geodesic gradient step in the
+% revision of arXiv:2312.10004 (Brantner and Kraus), which uses it.
 \documentclass{standalone}
 \usepackage{geometricfigures}
 \usepackage{amsmath}
@@ -51,11 +52,11 @@
 \draw[fill=mred] (90.0057,195.0148) -- (114.6429,176.4663) .. controls (121.6724,174.7110)
   and (124.9604,185.0928) .. (123.5543,191.1013) -- (90.0057,195.0148) -- cycle;
 
-\draw[fill=fg] (6.0000,321.0000)   node[above right] () {$c (t)$};
-\draw[fill=fg] (69.0000,186.0000)  node[above right] () {$v$};
-\draw[fill=fg] (272.0000,167.0000) node[above right] () {$q$};
-\draw[fill=fg] (316.0000,49.0000)  node[above right, yshift=-.5cm] () {${T}_{q} \mathcal{M}$};
-\draw[fill=fg] (419.0000,318.0000) node[above right] () {$\mathcal{M}$};
+\draw[fill=fg] (50.0000,306.0000)  node[below left] () {$\gamma_\mathcal{N}(s;W)$};
+\draw[fill=fg] (69.0000,186.0000)  node[above right] () {$W$};
+\draw[fill=fg] (272.0000,167.0000) node[above right] () {$Y^k$};
+\draw[fill=fg] (316.0000,49.0000)  node[above right, yshift=-.5cm] () {$T_{Y^k}\mathcal{N}$};
+\draw[fill=fg] (419.0000,318.0000) node[above right] () {$\mathcal{N}$};
 
 \end{tikzpicture}
 \end{document}

@@ -10,11 +10,14 @@ package's site.
 
 ### Added
 
-* **`manifold-tangent-space` (topic `optimizers`): a manifold, its tangent space at a point, and a
-  curve through the point with its velocity there.** It is `manifold-optimization-motivation`
-  (Figure 1 of arXiv:2305.16901) without its two boxes "Physical Constraints" and "Orthogonality
-  Constraints" and their arrows, for a document that shows only the geometry of an optimization
-  step, such as the geodesic gradient step in a revision of arXiv:2312.10004 (Brantner and Kraus).
+* **`manifold-tangent-space` (topic `optimizers`): one geodesic gradient step, a manifold
+  $\mathcal{N}$, its tangent space at the iterate $Y^k$, and the geodesic $\gamma_\mathcal{N}(s;W)$
+  with its velocity $W$ at $Y^k$.** It is `manifold-optimization-motivation` (Figure 1 of
+  arXiv:2305.16901) without its two boxes "Physical Constraints" and "Orthogonality Constraints"
+  and their arrows, labelled in the notation of the geodesic gradient step in the revision of
+  arXiv:2312.10004 (Brantner and Kraus), which uses it, in place of the $\mathcal{M}$, $q$,
+  $T_q\mathcal{M}$, $v$ and $c(t)$ of the motivation figure. The curve's label sits below-left of
+  its end, clear of the surface.
   The drawing is copied, not shared: a figure must compile from its own directory, so the two
   sources repeat the manifold, the plane, the curve and the vector, and a change to one has to be
   made in the other.

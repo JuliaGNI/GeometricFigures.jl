@@ -171,7 +171,7 @@ caption = "Physical constraints and orthogonality constraints, two independent r
 [[figure]]
 name = "manifold-tangent-space"
 topic = "optimizers"
-caption = "A manifold M, its tangent space T_qM at a point q, and a curve c(t) through q with its velocity v there."
+caption = "One geodesic gradient step: a manifold N, its tangent space at the iterate Yᵏ, and the geodesic γ_N(s; W) with its velocity W at Yᵏ."
 
 [[figure]]
 name = "grassmann-sampling"
