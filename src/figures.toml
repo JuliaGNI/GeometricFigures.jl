@@ -169,6 +169,11 @@ topic = "optimizers"
 caption = "Physical constraints and orthogonality constraints, two independent reasons to put the weights of a neural network on a manifold."
 
 [[figure]]
+name = "manifold-tangent-space"
+topic = "optimizers"
+caption = "One geodesic gradient step: a manifold N, its tangent space at the iterate Yᵏ, and the geodesic γ_N(s; W) with its velocity W at Yᵏ."
+
+[[figure]]
 name = "grassmann-sampling"
 topic = "manifolds"
 caption = "We can build a neural network that creates new samples from an unknown distribution."
