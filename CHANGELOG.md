@@ -8,6 +8,17 @@ package's site.
 
 ## [Unreleased] — targeting 0.1.0
 
+### Added
+
+* **`manifold-tangent-space` (topic `optimizers`): a manifold, its tangent space at a point, and a
+  curve through the point with its velocity there.** It is `manifold-optimization-motivation`
+  (Figure 1 of arXiv:2305.16901) without its two boxes "Physical Constraints" and "Orthogonality
+  Constraints" and their arrows, for a document that shows only the geometry of an optimization
+  step, such as the geodesic gradient step in a revision of arXiv:2312.10004 (Brantner and Kraus).
+  The drawing is copied, not shared: a figure must compile from its own directory, so the two
+  sources repeat the manifold, the plane, the curve and the vector, and a change to one has to be
+  made in the other.
+
 ### Changed
 
 * **The header of the `Documenter.yml` workflow is correct again.** It named an installer script
